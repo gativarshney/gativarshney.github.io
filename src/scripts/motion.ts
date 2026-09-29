@@ -189,6 +189,26 @@ async function initPage() {
       }
       if (strip.length) { show(strip); tl.from(strip, { y: 16, autoAlpha: 0, duration: 0.9, stagger: 0.07 }, 1.1); }
 
+      // cursor parallax on the portrait stage
+      const stage = hero.querySelector<HTMLElement>('[data-hero-stage]');
+      if (stage && finePointer) {
+        const layers = Array.from(stage.querySelectorAll<HTMLElement>('[data-depth]')).map((el) => ({
+          el, d: Number(el.dataset.depth || 0),
+          x: gsap.quickTo(el, 'x', { duration: 0.9, ease: 'power3.out' }),
+          y: gsap.quickTo(el, 'y', { duration: 0.9, ease: 'power3.out' }),
+        }));
+        const rx = gsap.quickTo(stage, 'rotationX', { duration: 1.1, ease: 'power3.out' });
+        const ry = gsap.quickTo(stage, 'rotationY', { duration: 1.1, ease: 'power3.out' });
+        hero.addEventListener('mousemove', (e) => {
+          const r = hero.getBoundingClientRect();
+          const nx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+          const ny = ((e.clientY - r.top) / r.height - 0.5) * 2;
+          layers.forEach((l) => { l.x(nx * l.d); l.y(ny * l.d); });
+          ry(nx * 4); rx(-ny * 4);
+        });
+        hero.addEventListener('mouseleave', () => { layers.forEach((l) => { l.x(0); l.y(0); }); rx(0); ry(0); });
+      }
+
       // subtle exit of headline as you scroll away
       if (title) {
         gsap.to(title, { yPercent: -10, autoAlpha: 0.15, ease: 'none',
@@ -343,6 +363,7 @@ async function initPage() {
   });
 
   ScrollTrigger.refresh();
+  if (location.hash) setTimeout(() => scrollToHash(location.hash), 150);
 }
 
 /* ------------------------------------------------------------------ */
@@ -454,7 +475,34 @@ function initFrames() {
 /* ------------------------------------------------------------------ */
 /* Boot                                                                */
 /* ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------ */
+/* Same-page anchors: route through Lenis so hash links always scroll  */
+/* ------------------------------------------------------------------ */
+function scrollToHash(hash: string, immediate = false) {
+  const id = decodeURIComponent(hash.replace(/^#/, ''));
+  if (!id) return false;
+  const el = document.getElementById(id);
+  if (!el) return false;
+  const offset = -72;
+  if (lenis && !reduced) lenis.scrollTo(el, { offset, immediate, duration: 1.2 });
+  else window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + offset, behavior: reduced ? 'auto' : 'smooth' });
+  return true;
+}
+let anchorsBound = false;
+function initAnchors() {
+  if (anchorsBound) return;
+  anchorsBound = true;
+  document.addEventListener('click', (e) => {
+    const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href*="#"]');
+    if (!a || a.target === '_blank' || e.defaultPrevented) return;
+    const url = new URL(a.href, location.href);
+    if (url.pathname !== location.pathname || !url.hash) return;
+    if (scrollToHash(url.hash)) { e.preventDefault(); history.pushState(null, '', url.hash); }
+  }, true);
+}
+
 function boot() {
+  initAnchors();
   initLenis();
   initCursor();
   initTheme();
@@ -466,4 +514,4 @@ function boot() {
 
 document.addEventListener('astro:page-load', boot);
 document.addEventListener('astro:before-swap', () => { ctx?.revert(); ScrollTrigger.getAll().forEach((t) => t.kill()); });
-document.addEventListener('astro:after-swap', () => { lenis?.scrollTo(0, { immediate: true }); });
+document.addEventListener('astro:after-swap', () => { if (!scrollToHash(location.hash, true)) lenis?.scrollTo(0, { immediate: true }); });
