@@ -1,0 +1,12 @@
+---
+import Preview from '@/components/Preview.astro';
+import { site } from '@/data/site';
+---
+<div class="hof" data-reveal>
+  <Preview url={site.links.hallOfFame} title="OpenPrinting Hall of Fame, live" live base={1280} ratio="16 / 11" />
+</div>
+
+<style>
+  .hof :global(.pbody) { min-height: 420px; }
+  @media (max-width: 860px) { .hof :global(.pbody) { aspect-ratio: 3 / 4 !important; } }
+</style>

@@ -1,0 +1,57 @@
+---
+import Base from '@/layouts/Base.astro';
+import Visual from '@/components/Visual.astro';
+import { work } from '@/data/site';
+
+export function getStaticPaths() {
+  return work.map((w) => ({ params: { slug: w.slug }, props: { w } }));
+}
+const { w } = Astro.props;
+const idx = work.findIndex((x) => x.slug === w.slug);
+const prev = work[(idx + work.length - 1) % work.length];
+const next = work[(idx + 1) % work.length];
+---
+<Base title={w.title} description={w.summary} type="article">
+  <article class="wrap cs">
+    <p class="eyebrow" data-reveal><a class="u" href="/work/">Work</a> · Case study · 0{idx + 1}</p>
+    <h1 class="display" data-split-words data-anim>{w.title}</h1>
+    <p class="lede" data-reveal="0.1">{w.summary}</p>
+    <div class="tags" data-reveal="0.15"><span class:list={['tag', w.status.tone]}>{w.status.label}</span>{w.tags.map((t) => <span class="tag">{t}</span>)}</div>
+    <p class="links" data-reveal="0.2">
+      {w.links.slice(1).map((l) => <a class="btn" href={l.href} target="_blank" rel="noopener" data-magnetic="0.25">{l.label} <span class="arr">↗</span></a>)}
+    </p>
+
+    <div class="grid">
+      <div class="ev" data-reveal-group="0.1">
+        {w.evidence.map((e) => (<div><span class="stat">{e.value}</span><span class="lab">{e.label}</span></div>))}
+      </div>
+      <div data-reveal="0.1"><Visual kind={w.visual} /></div>
+    </div>
+
+    <div class="wip" data-reveal>
+      <p class="eyebrow">In progress</p>
+      <p>The full write-up (problem, how it works, decisions, what went wrong, limitations) is being drafted from the project’s own documents. Until then, the repository, its decision records and verification notes are the primary sources.</p>
+    </div>
+
+    <nav class="pn" aria-label="Other case studies" data-reveal>
+      <a href={`/work/${prev.slug}/`} class="u">← {prev.title}</a>
+      <a href={`/work/${next.slug}/`} class="u">{next.title} →</a>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .cs { padding-top: clamp(130px, 18vh, 200px); }
+  h1 { font-size: clamp(48px, 7.5vw, 112px); margin: 20px 0 28px; }
+  .lede { max-width: 720px; margin-bottom: 24px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: center; margin-top: clamp(56px, 7vw, 96px); }
+  .ev { display: grid; gap: 28px; }
+  .ev .stat { font-size: clamp(40px, 4.4vw, 64px); }
+  .ev .lab { display: block; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+  .wip { margin-top: clamp(56px, 7vw, 96px); padding: 28px; border: 1px dashed var(--hair-strong); border-radius: var(--radius-lg); max-width: 760px; }
+  .wip p:last-child { margin-top: 10px; color: var(--ink-2); }
+  .pn { display: flex; justify-content: space-between; gap: 24px; margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--hair); font-size: 15px; color: var(--ink-2); }
+  @media (max-width: 860px) { .grid { grid-template-columns: 1fr; } }
+</style>

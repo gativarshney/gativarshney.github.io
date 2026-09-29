@@ -1,0 +1,205 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import HallOfFame from '@/components/HallOfFame.astro';
+import Preview from '@/components/Preview.astro';
+import Certificate from '@/components/Certificate.astro';
+import { site, prGroups } from '@/data/site';
+import opLogo from '@/assets/logos/openprinting.png';
+import wocCert from '@/assets/certs/woc-5.jpg';
+import gsocCert from '@/assets/certs/gsoc-2026.jpg';
+
+const timeline = [
+  { when: 'Nov 2025', title: 'Author system', body: 'A reusable AuthorCard component and its integration into the post layout.', tone: 'ok', stamp: 'merged' },
+  { when: 'Dec 2025', title: 'Migration of 200+ posts from Jekyll', body: 'A Node script handling frontmatter, media assets and redirects that preserve legacy URLs.', tone: 'ok', stamp: 'merged' },
+  { when: 'Mar 2026', title: 'Build-time indexed search, live in production', body: 'A unified/remark AST pipeline compiles every post into a static JSON index, queried in-browser by MiniSearch. No search server.', tone: 'ok', stamp: 'merged' },
+  { when: 'May – Aug 2026', title: 'GSoC 2026: printer recommendations and a natural-language assistant', body: 'Explainable similarity over 6,657 printers; a deterministic assistant that reports data gaps instead of guessing.', tone: 'warn', stamp: 'under review', link: { l: 'Case study →', h: '/work/printer-recommendations/' } },
+  { when: 'Aug 2026', title: 'Trailing-slash root cause and a CI URL check', body: 'Production 404s, including RSS links consumed by LWN, traced to a deploy-time action generating a config that overrode the repository’s.', tone: 'ok', stamp: 'merged', link: { l: 'Writing →', h: '/writing/tracing-production-404s/' } },
+];
+
+const ledger = [
+  ['2026-08-13', 'Fix #207: Support trailing-slash URLs (#231)'],
+  ['2026-03-20', 'feat(gsod): complete and finalize GSoD page with content, layout, and routing (#58)'],
+  ['2026-03-12', 'Improve hero banner appearance in light theme (#53)'],
+  ['2026-03-12', 'feat(news): add author avatars to front page news boxes (#52)'],
+  ['2026-03-12', 'fix(blog): update author avatars in blog post author boxes (#51)'],
+  ['2026-03-08', 'Make homepage fully functional and align with current OpenPrinting site (#13)'],
+  ['2026-03-06', 'fix(search): include generated search index for GitHub Pages deployment (#22)'],
+  ['2026-03-06', 'feat(search): implement build-time indexed client-side search system (#18)'],
+  ['2026-03-05', 'feat(posts): add automatic redirect support for previous slugs (#20)'],
+  ['2026-03-05', 'feat(posts): display post publication date on article pages (#21)'],
+  ['2025-12-14', 'feat(news): migrate all posts from old Jekyll site into Next.js setup (#11)'],
+  ['2025-11-27', 'feat(news): integrate AuthorCard into news post layout (#9)'],
+  ['2025-11-16', 'feat(authors): add reusable AuthorCard component and fix linting issues (#8)'],
+  ['2025-11-15', 'feat(authors): introduce reusable AuthorCard component (#5)'],
+];
+---
+<Base title="Open Source" description="Gati Varshney’s open-source work at OpenPrinting (The Linux Foundation): the live site, the Hall of Fame, merged pull requests, GSoC 2026, and certificates.">
+  <section class="wrap head">
+    <div>
+      <p class="eyebrow" data-reveal>Index · Open Source</p>
+      <h1 class="display" data-split-words data-anim>Ten months inside<br /><em>one production codebase.</em></h1>
+      <p class="lede" data-reveal="0.1">OpenPrinting maintains the printing stack used by every Linux desktop. Its website was being rebuilt from Jekyll into a statically exported Next.js site on GitHub Pages. I joined the rebuild as a contributor in November 2025 and stayed through Google Summer of Code 2026.</p>
+      <blockquote data-reveal="0.15">
+        <p class="display q">“Author system, content migration, site search, and the homepage.”</p>
+        <cite class="mono">— <a class="u" href={site.links.hallOfFame} target="_blank" rel="noopener">OpenPrinting Hall of Fame</a></cite>
+      </blockquote>
+    </div>
+    <div class="logo-card" data-reveal="0.2" data-tilt="3">
+      <Image src={opLogo} alt="OpenPrinting" width={200} height={200} />
+      <p class="mono">The Linux Foundation · openprinting.github.io</p>
+    </div>
+  </section>
+
+  <!-- HALL OF FAME (live embed) --------------------------------------- -->
+  <section class="wrap section">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-reveal>01 — Hall of Fame</p>
+        <h2 class="display" data-split-words data-anim>Credited on the<br /><em>site itself.</em></h2>
+      </div>
+      <p data-reveal="0.15">This is the real OpenPrinting Hall of Fame page, embedded live. Scroll inside it to find the entry, or open it in a new tab.</p>
+    </div>
+    <HallOfFame />
+  </section>
+
+  <!-- LIVE SITE ------------------------------------------------------- -->
+  <section class="wrap section two">
+    <div>
+      <p class="eyebrow" data-reveal>02 — Live in production</p>
+      <h2 class="display" data-split-words data-anim>The search, the homepage,<br /><em>the posts.</em></h2>
+      <p class="lede" data-reveal="0.1">The live OpenPrinting website. Use the search in its header: it runs a build-time index in the browser with no search server. The homepage layout and the author cards on every post are also mine.</p>
+      <p class="links" data-reveal="0.15"><a class="u" href={site.links.openprintingSite} target="_blank" rel="noopener">openprinting.github.io ↗</a><a class="u" href={site.links.openprintingRepo} target="_blank" rel="noopener">repository ↗</a><a class="u" href={site.links.commits} target="_blank" rel="noopener">my commits ↗</a></p>
+    </div>
+    <div data-reveal="0.1"><Preview url={site.links.openprintingSite} title="OpenPrinting website, live" live base={1280} ratio="16 / 11" /></div>
+  </section>
+
+  <!-- PULL REQUESTS --------------------------------------------------- -->
+  <section class="wrap section">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-reveal>03 — Pull requests</p>
+        <h2 class="display" data-split-words data-anim>Reviewed, merged,<br /><em>and still open.</em></h2>
+      </div>
+      <p data-reveal="0.15">The site was rebuilt in a staging repository and promoted to production; each staging PR below landed in the production repository as a commit under my name. The trailing-slash fix and the GSoC work went straight to production.</p>
+    </div>
+    <div class="prgroups">
+      {prGroups.map((g) => (
+        <div class="prg" data-reveal>
+          <div class="prg-head">
+            <h3>{g.area}</h3>
+            <p class="muted">{g.note}</p>
+          </div>
+          <ul class="prs">
+            {g.prs.map((p) => (
+              <li>
+                <a href={p.href} target="_blank" rel="noopener" class="pr" data-cursor="Open">
+                  <span class:list={['pill', 'mono', p.state]}>{p.state}</span>
+                  <span class="mono num">#{p.n}</span>
+                  <span class="pt">{p.title}</span>
+                  <span class="mono repo">{p.repo === 'production' ? 'OpenPrinting/openprinting.github.io' : 'staging → production'}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- TIMELINE -------------------------------------------------------- -->
+  <section class="wrap section">
+    <p class="eyebrow" data-reveal>04 — Timeline</p>
+    <ol class="tl">
+      {timeline.map((t) => (
+        <li data-reveal>
+          <span class="mono when">{t.when}</span>
+          <div>
+            <h2>{t.title} <span class:list={['tag', t.tone]}>{t.stamp}</span></h2>
+            <p class="muted">{t.body} {t.link && <a class="u" href={t.link.h}>{t.link.l}</a>}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- LEDGER ---------------------------------------------------------- -->
+  <section class="wrap section">
+    <p class="eyebrow" data-reveal>05 — Contribution ledger · OpenPrinting/openprinting.github.io</p>
+    <table class="ledger" data-reveal>
+      <thead><tr><th>Date</th><th>Commit</th></tr></thead>
+      <tbody>
+        {ledger.map(([d, t]) => <tr><td class="mono">{d}</td><td>{t}</td></tr>)}
+      </tbody>
+    </table>
+    <p class="more"><a class="btn" href={site.links.commits} target="_blank" rel="noopener" data-magnetic="0.3">All 14 commits on GitHub <span class="arr">↗</span></a></p>
+  </section>
+
+  <!-- CERTIFICATES ---------------------------------------------------- -->
+  <section class="wrap section">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-reveal>06 — Certificates</p>
+        <h2 class="display" data-split-words data-anim>On paper,<br /><em>too.</em></h2>
+      </div>
+      <p data-reveal="0.15">Click either certificate to view it at full size.</p>
+    </div>
+    <div class="certs">
+      <Certificate src={wocCert} alt="Winter of Code 5.0 certificate: Gati Varshney, Top 20 Contributor, Google Developer Groups on Campus IIIT Kalyani" title="Winter of Code 5.0 · Top 20 Contributor" meta="GDG on Campus · IIIT Kalyani" verify={site.links.wocVerify} />
+      <Certificate src={gsocCert} alt="Google Summer of Code 2026 completion certificate for Gati Varshney, The Linux Foundation, May 25 to August 24, 2026" title="Google Summer of Code 2026" meta="The Linux Foundation · May 25 – Aug 24, 2026" />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .head { padding-top: clamp(130px, 18vh, 200px); display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 48px; align-items: start; }
+  .head h1 { font-size: clamp(48px, 7.4vw, 112px); margin: 20px 0 28px; }
+  .head .lede { max-width: 760px; }
+  blockquote { margin: 40px 0 0; padding-left: 24px; border-left: 2px solid var(--accent); max-width: 760px; }
+  .q { font-size: clamp(22px, 2.4vw, 32px); font-weight: 300; font-style: italic; line-height: 1.25; }
+  cite { display: block; margin-top: 12px; font-style: normal; font-size: 12px; color: var(--ink-2); letter-spacing: 0.06em; }
+  .logo-card { margin-top: 60px; border: 1px solid var(--hair); border-radius: 16px; background: #fff; padding: 28px; display: grid; gap: 14px; justify-items: center; transform: perspective(1000px); }
+  .logo-card :global(img) { width: 170px; height: auto; }
+  .logo-card p { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #5C5F66; text-align: center; }
+
+  .two { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; }
+  .two h2 { font-size: clamp(36px, 4.4vw, 64px); margin: 18px 0 20px; }
+  .two .lede { max-width: 520px; margin-bottom: 20px; }
+  .links { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14.5px; color: var(--ink-2); }
+
+  .prgroups { display: grid; gap: 0; border-top: 1px solid var(--hair); }
+  .prg { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 32px 0; border-bottom: 1px solid var(--hair); }
+  .prg h3 { font-size: 20px; font-weight: 500; margin-bottom: 8px; }
+  .prg .muted { font-size: 15px; max-width: 420px; }
+  .prs { display: grid; gap: 8px; }
+  .pr { display: grid; grid-template-columns: auto auto 1fr; gap: 6px 14px; align-items: center; padding: 12px 14px; border: 1px solid var(--hair); border-radius: 10px; background: var(--bg); transition: border-color 0.4s, background-color 0.4s, transform 0.5s var(--ease-out); }
+  .pr:hover { border-color: var(--hair-strong); background: var(--bg-2); transform: translateX(4px); }
+  .pill { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--hair); color: var(--ink-2); }
+  .pill.merged { color: var(--ok); border-color: color-mix(in oklch, var(--ok) 55%, transparent); }
+  .pill.open { color: var(--warn); border-color: color-mix(in oklch, var(--warn) 55%, transparent); }
+  .num { font-size: 12px; color: var(--ink-2); }
+  .pt { font-size: 15px; }
+  .repo { grid-column: 3; font-size: 10.5px; letter-spacing: 0.06em; color: var(--ink-3); text-transform: uppercase; }
+
+  .tl { border-top: 1px solid var(--hair); margin-top: 20px; }
+  .tl li { display: grid; grid-template-columns: 150px 1fr; gap: 32px; padding: 26px 0; border-bottom: 1px solid var(--hair); }
+  .when { font-size: 12.5px; color: var(--ink-2); padding-top: 5px; }
+  .tl h2 { font-size: 20px; font-weight: 500; margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .tl .muted { font-size: 15.5px; max-width: 680px; }
+  .ledger { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 15px; }
+  .ledger th { text-align: left; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; padding: 10px 16px 10px 0; border-bottom: 1px solid var(--ink); }
+  .ledger td { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--hair); vertical-align: top; }
+  .ledger td.mono { font-size: 13px; color: var(--ink-2); white-space: nowrap; width: 130px; }
+  .more { margin-top: 28px; }
+  .certs { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  @media (max-width: 1024px) { .head { grid-template-columns: 1fr; } .logo-card { margin-top: 0; width: 240px; } }
+  @media (max-width: 860px) {
+    .two { grid-template-columns: 1fr; gap: 28px; }
+    .prg { grid-template-columns: 1fr; gap: 16px; }
+    .pr { grid-template-columns: auto 1fr; }
+    .pr .pt { grid-column: 1 / -1; }
+    .pr .repo { grid-column: 1 / -1; }
+    .tl li { grid-template-columns: 1fr; gap: 6px; }
+    .certs { grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>

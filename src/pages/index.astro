@@ -1,0 +1,261 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import Milestone from '@/components/Milestone.astro';
+import FeaturedArticle from '@/components/FeaturedArticle.astro';
+import { site, milestones, work, journey, writing, record } from '@/data/site';
+import portrait from '@/assets/gati-cutout.png';
+
+const cidx = work.find((w) => w.slug === 'cidx')!;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person',
+    '@id': `${site.url}/#person`,
+    name: site.name,
+    url: site.url,
+    email: `mailto:${site.email}`,
+    jobTitle: 'Software engineering student',
+    alumniOf: { '@type': 'CollegeOrUniversity', name: 'JSS Academy of Technical Education, Noida' },
+    sameAs: [site.links.github, site.links.linkedin, site.links.leetcode, site.links.medium],
+    knowsAbout: ['Developer tools', 'Code indexing', 'Model Context Protocol', 'Recommendation systems', 'Python', 'TypeScript'],
+  },
+};
+---
+<Base>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <!-- HERO ----------------------------------------------------------- -->
+  <section class="hero" data-hero>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow" data-hero-eyebrow data-anim><span class="dot"></span>Portfolio · 2026 · Open to internships &amp; new-grad roles · Open to relocation</p>
+        <h1 class="display" data-hero-title data-anim>Software that<br /><em>shows its working.</em></h1>
+        <p class="lede" data-hero-lede data-anim>I’m Gati Varshney, a final-year CS student and <b>Google Summer of Code 2026</b> contributor at <b>OpenPrinting, The Linux Foundation</b>. I build developer tools and data systems, measure them honestly, and publish what they get wrong.</p>
+        <div class="ctas" data-hero-cta>
+          <a class="btn fill" href="#journey" data-magnetic="0.3" data-anim>The journey <span class="arr">↓</span></a>
+          <a class="btn" href="/open-source/" data-magnetic="0.3" data-anim>Open source</a>
+          <a class="btn ghost" href={site.links.github} target="_blank" rel="noopener" data-magnetic="0.3" data-anim>GitHub <span class="arr">↗</span></a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="orb" data-hero-orb data-anim></div>
+        <figure class="portrait" data-hero-portrait data-anim>
+          <Image src={portrait} alt="Gati Varshney" widths={[420, 640, 900]} sizes="(max-width: 860px) 70vw, 34vw" loading="eager" fetchpriority="high" />
+        </figure>
+        <div class="badge mono" data-anim data-reveal="1.2">GSoC ’26 · Linux Foundation</div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <ul class="strip" data-hero-strip>
+        {record.map((r) => (
+          <li data-anim>
+            <span class="k">{r.k}</span>
+            <span class="v">{r.v}</span>
+            <span class="m">{r.m}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- PRINCIPLE ------------------------------------------------------ -->
+  <section class="section wrap">
+    <p class="eyebrow" data-reveal>01 — Principle</p>
+    <p class="manifesto display" data-split-words data-anim>Most software is trusted because it <em>looks</em> right. I’d rather build things that can be <em>checked</em>: measured numbers with the commands that produced them, decision records, evaluation harnesses that fail when a claim drifts, and limitation sections nobody asked for.</p>
+  </section>
+
+  <!-- JOURNEY -------------------------------------------------------- -->
+  <section class="section wrap" id="journey">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-reveal>02 — Professional journey</p>
+        <h2 class="display" data-split-words data-anim>From first commit<br /><em>to production.</em></h2>
+      </div>
+      <p data-reveal="0.15">Open source first, then Google Summer of Code, then industry. Each stop with its evidence and the pages where you can check it.</p>
+    </div>
+
+    <div class="entries">
+      {milestones.map((m, i) => <Milestone entry={m} num={`0${i + 1}`} />)}
+      <hr class="hr" data-line />
+    </div>
+  </section>
+
+  <!-- PROJECT -------------------------------------------------------- -->
+  <section class="section wrap" id="project">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-reveal>03 — Building now</p>
+        <h2 class="display" data-split-words data-anim>Built, measured,<br /><em>documented.</em></h2>
+      </div>
+      <p data-reveal="0.15">A tool for AI coding agents, published on PyPI, with every number tied to the command that produced it.</p>
+    </div>
+    <div class="entries">
+      <Milestone entry={cidx} num="04" />
+      <hr class="hr" data-line />
+    </div>
+    <p class="all"><a class="btn" href="/work/" data-magnetic="0.3" data-reveal>All work <span class="arr">→</span></a></p>
+  </section>
+
+  <!-- TRAJECTORY ----------------------------------------------------- -->
+  <section class="section wrap">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-reveal>04 — Trajectory</p>
+        <h2 class="display" data-split-words data-anim>Compounding,<br /><em>not collecting.</em></h2>
+      </div>
+      <p data-reveal="0.15">From a first merged component to a Linux Foundation summer and a first industry role, in four steps.</p>
+    </div>
+    <ol class="journey" data-reveal-group="0.12">
+      {journey.map((j) => (
+        <li class="step">
+          <span class="yr display">{j.year}</span>
+          <h3>{j.title}</h3>
+          <p>{j.body}</p>
+          <span class="lesson mono">{j.lesson}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- WRITING -------------------------------------------------------- -->
+  <section class="section wrap">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-reveal>05 — Writing</p>
+        <h2 class="display" data-split-words data-anim>Notes from<br /><em>the debugging.</em></h2>
+      </div>
+      <p data-reveal="0.15">Root causes, before-and-after numbers, and what I’d do differently.</p>
+    </div>
+    <FeaturedArticle />
+    <ul class="wlist" data-reveal-group="0.1">
+      {writing.map((p) => (
+        <li>
+          <a class="wrow" href={`/writing/${p.slug}/`} data-cursor="Read">
+            <span class="d mono">{p.date}</span>
+            <span class="t">
+              <span class="display title">{p.title}</span>
+              <span class="sub">{p.subtitle}</span>
+            </span>
+            <span class="r mono">{p.tag} · {p.minutes} min</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- CONTACT -------------------------------------------------------- -->
+  <section class="section wrap contact">
+    <div>
+      <p class="eyebrow" data-reveal>06 — Say hello</p>
+      <h2 class="display" data-split-words data-anim>Send me the bug<br /><em>nobody can reproduce.</em></h2>
+      <p class="lede" data-reveal="0.1">I like problems that need patience: indexing, evaluation, data pipelines, and the small decisions that make a system trustworthy.</p>
+      <p data-reveal="0.15">
+        <a class="email display" href={`mailto:${site.email}`} data-copy={site.email} data-cursor="Copy" data-magnetic="0.15">{site.email}</a>
+        <span class="note mono" data-copy-note>click to copy</span>
+      </p>
+    </div>
+    <dl class="meta" data-reveal-group="0.08">
+      <div><dt class="eyebrow">Based</dt><dd>India (IST) · open to relocation, anywhere</dd></div>
+      <div><dt class="eyebrow">Status</dt><dd>Graduating 2027 · open to internships &amp; new-grad roles</dd></div>
+      <div><dt class="eyebrow">Elsewhere</dt><dd><a class="u" href={site.links.github} target="_blank" rel="noopener">GitHub</a> · <a class="u" href={site.links.linkedin} target="_blank" rel="noopener">LinkedIn</a> · <a class="u" href={site.links.leetcode} target="_blank" rel="noopener">LeetCode</a></dd></div>
+      <div><dt class="eyebrow">Currently reading</dt><dd>SQLite’s query planner, more than is reasonable</dd></div>
+    </dl>
+  </section>
+</Base>
+
+<style>
+  /* hero */
+  .hero { padding-top: clamp(120px, 16vh, 180px); position: relative; }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(32px, 5vw, 80px); align-items: center; min-height: calc(100svh - 180px); }
+  .hero-copy h1 { font-size: clamp(56px, 8.6vw, 132px); margin: 28px 0 36px; }
+  .hero-copy .lede { max-width: 620px; margin-bottom: 40px; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+
+  .hero-visual { position: relative; justify-self: end; width: min(100%, 440px); aspect-ratio: 4 / 5; }
+  .orb {
+    position: absolute; inset: -18% -30% -10% -30%; border-radius: 50%; filter: blur(48px); opacity: 0.9; z-index: 0;
+    background:
+      radial-gradient(closest-side at 60% 45%, var(--accent-glow), transparent 70%),
+      radial-gradient(closest-side at 30% 70%, oklch(80% 0.08 300 / 0.35), transparent 65%);
+    animation: orb 22s var(--ease-in-out) infinite alternate;
+  }
+  @keyframes orb { from { transform: rotate(0deg) scale(1); } to { transform: rotate(30deg) scale(1.08); } }
+  .portrait {
+    position: relative; z-index: 1; width: 100%; height: 100%; border-radius: 999px 999px 18px 18px; overflow: hidden;
+    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg-2) 70%);
+    border: 1px solid var(--hair);
+    will-change: clip-path, transform;
+  }
+  .portrait :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; transform: scale(1.06) translateY(3%); filter: saturate(0.94) contrast(1.02); }
+  .badge {
+    position: absolute; z-index: 2; left: -12px; bottom: 34px; padding: 10px 14px; border-radius: 999px;
+    background: var(--ink); color: var(--bg); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    box-shadow: 0 10px 30px -10px oklch(0% 0 0 / 0.4);
+  }
+  .strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: clamp(56px, 8vh, 96px); border-top: 1px solid var(--hair); }
+  .strip li { padding: 22px 24px 22px 0; border-right: 1px solid var(--hair); display: grid; gap: 4px; }
+  .strip li:not(:first-child) { padding-left: 24px; }
+  .strip li:last-child { border-right: 0; }
+  .strip .k { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .strip .v { font-weight: 500; font-size: 15.5px; line-height: 1.35; margin-top: 4px; }
+  .strip .m { font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); line-height: 1.5; }
+
+  /* principle */
+  .manifesto { font-size: clamp(26px, 3.3vw, 46px); line-height: 1.22; font-weight: 300; letter-spacing: -0.015em; max-width: 1080px; margin-top: 28px; }
+
+  .entries { margin-top: 8px; }
+  .all { margin-top: 40px; }
+
+  /* trajectory */
+  .journey { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--hair); border-radius: var(--radius-lg); overflow: hidden; }
+  .step { padding: 30px 26px 30px; border-right: 1px solid var(--hair); display: flex; flex-direction: column; min-height: 300px; background: var(--bg); transition: background-color 0.5s var(--ease-out); }
+  .step:hover { background: var(--bg-2); }
+  .step:last-child { border-right: 0; }
+  .yr { font-size: clamp(44px, 4.2vw, 60px); font-weight: 300; margin-bottom: 18px; }
+  .step h3 { font-size: 17px; font-weight: 500; margin-bottom: 8px; }
+  .step p { font-size: 15px; color: var(--ink-2); margin-bottom: auto; }
+  .lesson { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-top: 24px; }
+
+  /* writing */
+  .wlist { border-top: 1px solid var(--hair); }
+  .wrow { display: grid; grid-template-columns: 110px 1fr 180px; gap: 32px; padding: 28px 0; border-bottom: 1px solid var(--hair); align-items: baseline; transition: padding-left 0.5s var(--ease-out); }
+  .wrow:hover { padding-left: 12px; }
+  .wrow .d { font-size: 12.5px; color: var(--ink-2); }
+  .wrow .title { display: block; font-size: clamp(22px, 2.2vw, 30px); letter-spacing: -0.015em; line-height: 1.15; margin-bottom: 6px; }
+  .wrow .sub { display: block; color: var(--ink-2); font-size: 15.5px; }
+  .wrow .r { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); text-align: right; }
+
+  /* contact */
+  .contact { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 64px; align-items: end; }
+  .contact h2 { font-size: clamp(48px, 7vw, 104px); margin: 20px 0 28px; font-weight: 300; }
+  .contact .lede { max-width: 560px; margin-bottom: 36px; }
+  .email { font-size: clamp(22px, 2.4vw, 32px); border-bottom: 1px solid var(--hair-strong); padding-bottom: 4px; display: inline-block; transition: border-color 0.3s, color 0.3s; }
+  .email:hover { color: var(--accent); border-color: var(--accent); }
+  .note { display: block; margin-top: 12px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); transition: color 0.3s; }
+  .note.is-on { color: var(--accent); }
+  .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 32px; }
+  .meta dt { margin-bottom: 8px; }
+  .meta dd { font-size: 16px; }
+
+  @media (max-width: 860px) {
+    .hero { padding-top: 104px; }
+    .hero-grid { grid-template-columns: 1fr; min-height: 0; gap: 40px; }
+    .hero-copy h1 { font-size: clamp(48px, 13vw, 72px); }
+    .hero-visual { justify-self: start; width: min(100%, 360px); }
+    .strip { grid-template-columns: 1fr 1fr; }
+    .strip li { border-right: 0; border-bottom: 1px solid var(--hair); padding-left: 0 !important; }
+    .journey { grid-template-columns: 1fr; }
+    .step { border-right: 0; border-bottom: 1px solid var(--hair); min-height: 0; }
+    .step:last-child { border-bottom: 0; }
+    .wrow { grid-template-columns: 1fr; gap: 8px; }
+    .wrow .r { text-align: left; }
+    .contact { grid-template-columns: 1fr; gap: 40px; }
+  }
+</style>

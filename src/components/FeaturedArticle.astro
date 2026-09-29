@@ -1,0 +1,23 @@
+---
+import Preview from '@/components/Preview.astro';
+import { featuredArticle as a } from '@/data/site';
+import snap from '@/assets/writing/gsoc-report-cover.png';
+---
+<article class="feat" data-reveal>
+  <div class="fcopy">
+    <p class="eyebrow"><span class="dot"></span>Featured · {a.source} · <time datetime={a.date}>{a.dateLabel}</time></p>
+    <h3 class="display"><a href={a.href} target="_blank" rel="noopener" data-cursor="Read">{a.title}</a></h3>
+    <p class="fdesc">{a.description}</p>
+    <p><a class="btn" href={a.href} target="_blank" rel="noopener" data-magnetic="0.25">Read on Medium <span class="arr">↗</span></a></p>
+  </div>
+  <Preview url={a.href} title={a.title} image={snap} alt="The GSoC 2026 final report as published on Medium" ratio="16 / 10" label="medium.com/@gativarshney" />
+</article>
+
+<style>
+  .feat { display: grid; grid-template-columns: 1fr 1.05fr; gap: 48px; align-items: center; padding: 8px 0 40px; }
+  h3 { font-size: clamp(28px, 3vw, 44px); line-height: 1.05; margin: 18px 0 18px; letter-spacing: -0.02em; }
+  h3 a { background-image: linear-gradient(currentColor, currentColor); background-size: 0% 2px; background-repeat: no-repeat; background-position: 0 96%; transition: background-size 0.6s var(--ease-out); }
+  h3 a:hover { background-size: 100% 2px; }
+  .fdesc { color: var(--ink-2); max-width: 560px; margin-bottom: 26px; font-size: 16px; }
+  @media (max-width: 860px) { .feat { grid-template-columns: 1fr; gap: 24px; } }
+</style>

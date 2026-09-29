@@ -1,0 +1,40 @@
+---
+import Base from '@/layouts/Base.astro';
+import FeaturedArticle from '@/components/FeaturedArticle.astro';
+import { writing } from '@/data/site';
+---
+<Base title="Writing" description="Technical writing by Gati Varshney: the GSoC 2026 final report on Medium, debugging narratives, evaluation methodology, and before-and-after numbers.">
+  <section class="wrap head">
+    <p class="eyebrow" data-reveal>Index · Writing</p>
+    <h1 class="display" data-split-words data-anim>Notes from<br /><em>the debugging.</em></h1>
+    <p class="lede" data-reveal="0.1">Root causes, before-and-after numbers, and what I’d do differently.</p>
+  </section>
+  <section class="wrap">
+    <FeaturedArticle />
+    <p class="eyebrow" data-reveal>Notes in progress</p>
+    <ul class="wlist" data-reveal-group="0.1">
+      {writing.map((p) => (
+        <li>
+          <a class="wrow" href={`/writing/${p.slug}/`} data-cursor="Read">
+            <span class="d mono">{p.date}</span>
+            <span class="t"><span class="display title">{p.title}</span><span class="sub">{p.subtitle}</span></span>
+            <span class="r mono">{p.tag} · {p.minutes} min</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Base>
+<style>
+  .head { padding-top: clamp(130px, 18vh, 200px); padding-bottom: clamp(40px, 6vw, 72px); }
+  .head h1 { font-size: clamp(52px, 8vw, 120px); margin: 20px 0 28px; }
+  .head .lede { max-width: 640px; }
+  .wlist { border-top: 1px solid var(--hair); margin-top: 16px; }
+  .wrow { display: grid; grid-template-columns: 110px 1fr 180px; gap: 32px; padding: 30px 0; border-bottom: 1px solid var(--hair); align-items: baseline; transition: padding-left 0.5s var(--ease-out); }
+  .wrow:hover { padding-left: 12px; }
+  .d { font-size: 12.5px; color: var(--ink-2); }
+  .title { display: block; font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -0.015em; line-height: 1.15; margin-bottom: 8px; }
+  .sub { display: block; color: var(--ink-2); font-size: 15.5px; }
+  .r { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); text-align: right; }
+  @media (max-width: 860px) { .wrow { grid-template-columns: 1fr; gap: 8px; } .r { text-align: left; } }
+</style>

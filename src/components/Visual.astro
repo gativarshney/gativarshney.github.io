@@ -1,0 +1,67 @@
+---
+import { Image } from 'astro:assets';
+import Preview from '@/components/Preview.astro';
+import Certificate from '@/components/Certificate.astro';
+import { site } from '@/data/site';
+import opLogo from '@/assets/logos/openprinting.png';
+import gsocLogo from '@/assets/logos/gsoc.svg';
+import qqLogo from '@/assets/logos/quinque.png';
+import gsocCert from '@/assets/certs/gsoc-2026.jpg';
+import cidxSnap from '@/assets/previews/github-cidx.png';
+import mediumSnap from '@/assets/writing/gsoc-report-cover.png';
+import gsocSnap from '@/assets/previews/gsoc-project.png';
+
+interface Props { kind: 'cidx' | 'printers' | 'openprinting' | 'gsoc' | 'quinque' }
+const { kind } = Astro.props;
+---
+{kind === 'openprinting' && (
+  <>
+    <div class="logo-row">
+      <Image src={opLogo} alt="OpenPrinting" width={72} height={72} class="logo" />
+      <div><p class="lname">OpenPrinting · The Linux Foundation</p><p class="lsub mono">the live site, with the search and homepage I built</p></div>
+    </div>
+    <Preview url={site.links.openprintingSite} title="OpenPrinting website, live" live base={1280} ratio="16 / 10" />
+  </>
+)}
+{kind === 'gsoc' && (
+  <>
+    <div class="logo-row">
+      <img src={gsocLogo.src} alt="Google Summer of Code" width="220" height="28" class="gsoc" />
+    </div>
+    <Preview url={site.links.gsocProject} title="Project page on summerofcode.withgoogle.com" image={gsocSnap} alt="Google Summer of Code project page: AI-Driven Printer Compatibility & Recommendation Portal" ratio="16 / 9" />
+    <Certificate src={gsocCert} alt="Google Summer of Code 2026 completion certificate for Gati Varshney, The Linux Foundation, May 25 to August 24, 2026" title="GSoC 2026 certificate" meta="Signed by the program manager, Google" compact />
+  </>
+)}
+{kind === 'quinque' && (
+  <>
+    <div class="logo-row">
+      <Image src={qqLogo} alt="Quin Que" width={72} height={72} class="logo" />
+      <div><p class="lname">Quin Que · Japan</p><p class="lsub mono">software engineer intern · Rapilogi</p></div>
+    </div>
+    <div class="panel qq" data-tilt="3">
+      <p class="eyebrow">Rapilogi</p>
+      <p class="qq-mark display">Warehouse reception,<br /><em>renewed.</em></p>
+      <p class="qq-sub mono">warehouse reception management · system renewal</p>
+      <p class="foot">Private company work. Public outline only.</p>
+    </div>
+  </>
+)}
+{kind === 'cidx' && (
+  <Preview url={site.links.cidxRepo} title="cidx on GitHub" image={cidxSnap} alt="The cidx repository on GitHub" ratio="16 / 10" />
+)}
+{kind === 'printers' && (
+  <Preview url={site.links.gsocReport} title="GSoC 2026 final report on Medium" image={mediumSnap} alt="Medium article: GSoC 2026 Final Report" ratio="16 / 10" />
+)}
+
+<style>
+  .logo-row { display: flex; align-items: center; gap: 16px; }
+  .logo { width: 56px; height: 56px; border-radius: 12px; border: 1px solid var(--hair); background: #fff; padding: 4px; object-fit: contain; }
+  .gsoc { height: 26px; width: auto; }
+  :global(:root[data-theme='dark']) .gsoc { filter: invert(1) hue-rotate(180deg) saturate(1.2); }
+  .lname { font-weight: 500; font-size: 15px; }
+  .lsub { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-top: 2px; }
+  .qq { min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; }
+  .qq-mark { font-size: clamp(34px, 3.4vw, 48px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.02; margin: 18px 0 12px; }
+  .qq { min-height: 240px; }
+  .qq-sub { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+</style>

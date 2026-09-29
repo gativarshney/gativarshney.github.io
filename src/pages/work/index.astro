@@ -1,0 +1,48 @@
+---
+import Base from '@/layouts/Base.astro';
+import Milestone from '@/components/Milestone.astro';
+import Certificate from '@/components/Certificate.astro';
+import { milestones, work, site } from '@/data/site';
+import wocCert from '@/assets/certs/woc-5.jpg';
+import gsocCert from '@/assets/certs/gsoc-2026.jpg';
+---
+<Base title="Work" description="Gati Varshney’s professional journey: OpenPrinting contributor (The Linux Foundation), Google Summer of Code 2026, Software Engineer Intern at Quin Que (Japan), and the cidx project.">
+  <section class="wrap head">
+    <p class="eyebrow" data-reveal>Index · Work</p>
+    <h1 class="display" data-split-words data-anim>Open source first,<br /><em>then everything else.</em></h1>
+    <p class="lede" data-reveal="0.1">A professional journey in three stops, then the project I’m building now. Every entry says what it proves and where you can verify it.</p>
+  </section>
+
+  <section class="wrap">
+    <p class="eyebrow" data-reveal>Journey</p>
+    <div class="entries">
+      {milestones.map((m, i) => <Milestone entry={m} num={`0${i + 1}`} />)}
+      <hr class="hr" data-line />
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <p class="eyebrow" data-reveal>Certificates</p>
+    <div class="certs">
+      <Certificate src={wocCert} alt="Winter of Code 5.0 certificate: Gati Varshney, Top 20 Contributor, Google Developer Groups on Campus IIIT Kalyani" title="Winter of Code 5.0 · Top 20 Contributor" meta="GDG on Campus · IIIT Kalyani" verify={site.links.wocVerify} />
+      <Certificate src={gsocCert} alt="Google Summer of Code 2026 completion certificate for Gati Varshney, The Linux Foundation, May 25 to August 24, 2026" title="Google Summer of Code 2026" meta="The Linux Foundation · May 25 – Aug 24, 2026" />
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <p class="eyebrow" data-reveal>Project</p>
+    <div class="entries">
+      {work.filter((w) => w.slug === 'cidx').map((w) => <Milestone entry={w} num="04" />)}
+      <hr class="hr" data-line />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .head { padding-top: clamp(130px, 18vh, 200px); padding-bottom: clamp(40px, 6vw, 72px); }
+  .head h1 { font-size: clamp(48px, 7.6vw, 112px); margin: 20px 0 28px; }
+  .head .lede { max-width: 680px; }
+  .entries { margin-top: 8px; }
+  .certs { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 24px; }
+  @media (max-width: 860px) { .certs { grid-template-columns: 1fr; gap: 28px; } }
+</style>

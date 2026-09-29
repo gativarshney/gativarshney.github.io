@@ -1,0 +1,14 @@
+// @ts-check
+import { defineConfig } from 'astro/config';
+import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+
+// User site on GitHub Pages: served from the domain root, so no `base`.
+export default defineConfig({
+  site: 'https://gativarshney.github.io',
+  trailingSlash: 'always',
+  build: { format: 'directory' },
+  integrations: [mdx(), sitemap()],
+  image: { responsiveStyles: true },
+  prefetch: { prefetchAll: true, defaultStrategy: 'viewport' },
+});
