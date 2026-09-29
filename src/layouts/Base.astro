@@ -48,14 +48,20 @@ const ogImage = new URL(image ?? '/og-default.png', Astro.site).href;
     <meta name="twitter:image" content={ogImage} />
     <script is:inline>
       (function () {
-        var d = document.documentElement;
-        d.classList.add('js');
-        try {
-          var q = new URLSearchParams(location.search).get('theme');
-          var t = (q === 'light' || q === 'dark') ? q : localStorage.getItem('theme');
-          if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-          d.dataset.theme = t;
-        } catch (e) { d.dataset.theme = 'light'; }
+        var apply = function () {
+          var d = document.documentElement;
+          d.classList.add('js');
+          try {
+            var q = new URLSearchParams(location.search).get('theme');
+            var t = (q === 'light' || q === 'dark') ? q : localStorage.getItem('theme');
+            if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            d.dataset.theme = t;
+            document.querySelectorAll('[data-theme-toggle]').forEach(function (b) { b.setAttribute('aria-pressed', String(t === 'dark')); });
+          } catch (e) { d.dataset.theme = 'light'; }
+        };
+        apply();
+        // Client-side navigations replace <html> attributes; re-apply the stored theme before the new page paints.
+        document.addEventListener('astro:after-swap', apply);
       })();
     </script>
     <ClientRouter />
