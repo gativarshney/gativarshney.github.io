@@ -4,7 +4,7 @@ import Base from '@/layouts/Base.astro';
 import Milestone from '@/components/Milestone.astro';
 import FeaturedArticle from '@/components/FeaturedArticle.astro';
 import Timeline from '@/components/Timeline.astro';
-import { site, milestones, work, journey, writing, record } from '@/data/site';
+import { site, milestones, work, journey, record } from '@/data/site';
 import portrait from '@/assets/gati-cutout.png';
 
 const cidx = work.find((w) => w.slug === 'cidx')!;
@@ -132,23 +132,9 @@ const jsonLd = {
         <p class="eyebrow" data-reveal>05 — Writing</p>
         <h2 class="display" data-split-words data-anim>Notes from<br /><em>the debugging.</em></h2>
       </div>
-      <p data-reveal="0.15">Root causes, before-and-after numbers, and what I’d do differently.</p>
+      <p data-reveal="0.15">Long-form write-ups of the work, starting with the GSoC 2026 final report.</p>
     </div>
     <FeaturedArticle />
-    <ul class="wlist" data-reveal-group="0.1">
-      {writing.map((p) => (
-        <li>
-          <a class="wrow" href={`/writing/${p.slug}/`} data-cursor="Read">
-            <span class="d mono">{p.date}</span>
-            <span class="t">
-              <span class="display title">{p.title}</span>
-              <span class="sub">{p.subtitle}</span>
-            </span>
-            <span class="r mono">{p.tag} · {p.minutes} min</span>
-          </a>
-        </li>
-      ))}
-    </ul>
   </section>
 
   <!-- CONTACT -------------------------------------------------------- -->

@@ -273,32 +273,7 @@ export const featuredArticle = {
     'How the recommendation pipeline over OpenPrinting’s Foomatic database was built at build time for a static site, why the first scoring model was wrong (86.8% of scores saturating at 1.0) and what replaced it, and the deterministic assistant that answers “unknown” instead of guessing.',
 };
 
-export const writing = [
-  {
-    slug: 'when-the-first-scoring-model-was-wrong',
-    title: 'When the first scoring model was wrong',
-    subtitle: 'Why 86.8% of printer recommendations scored a perfect 1.0, and what replaced cosine similarity.',
-    date: '2026-09',
-    tag: 'GSoC',
-    minutes: 9,
-  },
-  {
-    slug: 'tracing-production-404s',
-    title: 'Tracing production 404s to a config generated at deploy time',
-    subtitle: 'A bug that could not reproduce outside production, because only production had it.',
-    date: '2026-08',
-    tag: 'OpenPrinting',
-    minutes: 7,
-  },
-  {
-    slug: 'proving-an-incremental-index-equals-a-cold-rebuild',
-    title: 'Proving an incremental index equals a cold rebuild',
-    subtitle: 'A convergence invariant, a property suite, and the two fixes Django forced.',
-    date: '2026-07',
-    tag: 'cidx',
-    minutes: 11,
-  },
-];
+export const writing: { slug: string; title: string; subtitle: string; date: string; tag: string; minutes: number }[] = [];
 
 /* ------------------------------------------------------------------ */
 /* Hero strip                                                          */
