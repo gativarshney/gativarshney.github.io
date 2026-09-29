@@ -8,7 +8,7 @@ export default defineConfig({
   site: 'https://gativarshney.github.io',
   trailingSlash: 'always',
   build: { format: 'directory' },
-  integrations: [mdx(), sitemap()],
+  integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/og/') })],
   image: { responsiveStyles: true },
   prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
 });

@@ -1,0 +1,18 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '@/assets/gati-cutout.png';
+interface Props { badge?: string; alt?: string }
+const { badge = 'GSoC ’26 · Linux Foundation', alt = 'Gati Varshney' } = Astro.props;
+---
+<div class="hero-visual" data-hero-stage>
+  <div class="orb" data-hero-orb data-anim data-depth="22"></div>
+  <div class="halo" aria-hidden="true" data-depth="14"></div>
+  <svg class="ring" viewBox="0 0 100 100" aria-hidden="true" data-depth="8"><circle cx="50" cy="50" r="48.5" fill="none" stroke="currentColor" stroke-width="0.35" stroke-dasharray="0.6 3.2" stroke-linecap="round" /></svg>
+  <figure class="portrait" data-hero-portrait data-anim>
+    <div class="float" data-depth="-8">
+      <Image src={portrait} alt={alt} widths={[420, 640, 900]} sizes="(max-width: 860px) 70vw, 34vw" loading="eager" fetchpriority="high" />
+    </div>
+    <span class="sheen" aria-hidden="true"></span>
+  </figure>
+  <div class="badge mono" data-anim data-reveal="1.2" data-depth="-16">{badge}</div>
+</div>

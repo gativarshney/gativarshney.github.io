@@ -1,11 +1,10 @@
 ---
-import { Image } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import Milestone from '@/components/Milestone.astro';
 import FeaturedArticle from '@/components/FeaturedArticle.astro';
 import Timeline from '@/components/Timeline.astro';
+import Portrait from '@/components/Portrait.astro';
 import { site, milestones, work, journey, record } from '@/data/site';
-import portrait from '@/assets/gati-cutout.png';
 
 const cidx = work.find((w) => w.slug === 'cidx')!;
 
@@ -45,18 +44,7 @@ const jsonLd = {
         </div>
       </div>
 
-      <div class="hero-visual" data-hero-stage>
-        <div class="orb" data-hero-orb data-anim data-depth="22"></div>
-        <div class="halo" aria-hidden="true" data-depth="14"></div>
-        <svg class="ring" viewBox="0 0 100 100" aria-hidden="true" data-depth="8"><circle cx="50" cy="50" r="48.5" fill="none" stroke="currentColor" stroke-width="0.35" stroke-dasharray="0.6 3.2" stroke-linecap="round" /></svg>
-        <figure class="portrait" data-hero-portrait data-anim>
-          <div class="float" data-depth="-8">
-            <Image src={portrait} alt="Gati Varshney" widths={[420, 640, 900]} sizes="(max-width: 860px) 70vw, 34vw" loading="eager" fetchpriority="high" />
-          </div>
-          <span class="sheen" aria-hidden="true"></span>
-        </figure>
-        <div class="badge mono" data-anim data-reveal="1.2" data-depth="-16">GSoC ’26 · Linux Foundation</div>
-      </div>
+      <Portrait badge="GSoC ’26 · Linux Foundation" />
     </div>
 
     <div class="wrap">
@@ -92,6 +80,7 @@ const jsonLd = {
       {milestones.map((m, i) => <Milestone entry={m} num={`0${i + 1}`} />)}
       <hr class="hr" data-line />
     </Timeline>
+    <p class="all more" data-reveal><a class="btn fill" href="/open-source/" data-magnetic="0.3">The open-source story <span class="arr">→</span></a><a class="btn" href="/work/" data-magnetic="0.3">Full journey &amp; certificates <span class="arr">→</span></a></p>
   </section>
 
   <!-- PROJECT -------------------------------------------------------- -->
@@ -141,12 +130,30 @@ const jsonLd = {
       <p data-reveal="0.15">Long-form write-ups of the work, starting with the GSoC 2026 final report.</p>
     </div>
     <FeaturedArticle />
+    <p class="all" data-reveal><a class="btn" href="/writing/" data-magnetic="0.3">All writing <span class="arr">→</span></a></p>
+  </section>
+
+  <!-- EXPLORE -------------------------------------------------------- -->
+  <section class="section wrap" id="explore">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-reveal>06 — Explore</p>
+        <h2 class="display" data-split-words data-anim>The rest<br /><em>of the site.</em></h2>
+      </div>
+      <p data-reveal="0.15">Four pages, each with the evidence behind what this one summarises.</p>
+    </div>
+    <ul class="explore" data-reveal-group="0.08">
+      <li><a href="/work/" data-cursor="Open"><span class="mono n">01</span><span class="t display">Work</span><span class="d">The professional journey with certificates, plus the cidx case study: claims, decisions, and what went wrong.</span><span class="arr display">→</span></a></li>
+      <li><a href="/open-source/" data-cursor="Open"><span class="mono n">02</span><span class="t display">Open Source</span><span class="d">The live OpenPrinting Hall of Fame, every pull request grouped by what it built, the commit ledger, and both certificates.</span><span class="arr display">→</span></a></li>
+      <li><a href="/writing/" data-cursor="Open"><span class="mono n">03</span><span class="t display">Writing</span><span class="d">Long-form write-ups, starting with the GSoC 2026 final report.</span><span class="arr display">→</span></a></li>
+      <li><a href="/about/" data-cursor="Open"><span class="mono n">04</span><span class="t display">About</span><span class="d">Education, experience, competitive programming, and the résumé.</span><span class="arr display">→</span></a></li>
+    </ul>
   </section>
 
   <!-- CONTACT -------------------------------------------------------- -->
   <section class="section wrap contact" id="contact">
     <div>
-      <p class="eyebrow" data-reveal>06 — Start a conversation</p>
+      <p class="eyebrow" data-reveal>07 — Start a conversation</p>
       <h2 class="display" data-split-words data-anim>Start a<br /><em>conversation.</em></h2>
       <p class="lede" data-reveal="0.1">Have an opportunity, an interesting idea, or want to talk about engineering? I’d love to hear from you.</p>
       <p class="ctas contact-ctas" data-reveal="0.15">
@@ -167,65 +174,22 @@ const jsonLd = {
 </Base>
 
 <style>
-  /* hero */
-  .hero { padding-top: clamp(96px, 13vh, 150px); position: relative; }
-  .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
-  .hero-copy { container-type: inline-size; }
-  .hero-copy h1 { font-size: clamp(52px, min(12.6cqw, 14.5vh), 112px); margin: 22px 0 28px; }
-  .hero-copy h1 em { white-space: nowrap; text-wrap: nowrap; }
-  .hero-copy .lede { max-width: 620px; margin-bottom: 32px; }
-  .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
-
-  .hero-visual { position: relative; justify-self: end; width: min(100%, 440px, calc((100svh - 190px) * 0.72)); aspect-ratio: 4 / 5; transform-style: preserve-3d; perspective: 1200px; }
-  .hero-visual > * { will-change: transform; }
-  .orb {
-    position: absolute; inset: -18% -30% -10% -30%; border-radius: 50%; filter: blur(48px); opacity: 0.9; z-index: 0;
-    background:
-      radial-gradient(closest-side at 60% 45%, var(--accent-glow), transparent 70%),
-      radial-gradient(closest-side at 30% 70%, oklch(80% 0.08 300 / 0.35), transparent 65%);
-    animation: orb 22s var(--ease-in-out) infinite alternate;
-  }
-  @keyframes orb { from { transform: rotate(0deg) scale(1); } to { transform: rotate(30deg) scale(1.08); } }
-  .portrait {
-    position: relative; z-index: 1; width: 100%; height: 100%; border-radius: 999px 999px 18px 18px; overflow: hidden;
-    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg-2) 70%);
-    border: 1px solid var(--hair);
-    will-change: clip-path, transform;
-  }
-  .portrait .float { position: absolute; inset: 0; animation: float 9s var(--ease-in-out) infinite; }
-  .portrait :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; transform: scale(1.06) translateY(3%); filter: saturate(0.94) contrast(1.02); }
-  @keyframes float { 0%, 100% { transform: translateY(0) rotate(-0.35deg); } 50% { transform: translateY(-9px) rotate(0.35deg); } }
-  .portrait .sheen { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(112deg, transparent 38%, oklch(100% 0 0 / 0.22) 50%, transparent 62%); transform: translateX(-130%); }
-  .hero-visual:hover .portrait .sheen { animation: sheen 1.4s var(--ease-out) 1 both; }
-  @keyframes sheen { to { transform: translateX(130%); } }
-  .halo {
-    position: absolute; left: 50%; top: 0; width: 120%; aspect-ratio: 1; transform: translate(-50%, -20%); border-radius: 50%; z-index: 0; pointer-events: none; opacity: 0.55;
-    background: conic-gradient(from 0deg, transparent 0 40%, var(--accent-glow) 52%, oklch(80% 0.1 300 / 0.35) 62%, transparent 74% 100%);
-    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 46px), #000 calc(100% - 44px), #000 calc(100% - 10px), transparent 100%);
-            mask: radial-gradient(farthest-side, transparent calc(100% - 46px), #000 calc(100% - 44px), #000 calc(100% - 10px), transparent 100%);
-    filter: blur(10px); animation: spin 26s linear infinite;
-  }
-  .ring { position: absolute; left: 50%; top: 0; width: 108%; transform: translate(-50%, -16%); z-index: 0; color: var(--ink-3); opacity: 0.45; pointer-events: none; animation: spin 90s linear infinite reverse; }
-  @keyframes spin { to { rotate: 360deg; } }
-  :global(:root[data-theme='dark']) .halo { opacity: 0.75; }
-  .badge {
-    position: absolute; z-index: 2; left: -12px; bottom: 34px; padding: 10px 14px; border-radius: 999px;
-    background: var(--ink); color: var(--bg); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
-    box-shadow: 0 10px 30px -10px oklch(0% 0 0 / 0.4);
-  }
-  .strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: clamp(48px, 7vh, 88px); border-top: 1px solid var(--hair); }
-  .strip li { padding: 22px 24px 22px 0; border-right: 1px solid var(--hair); display: grid; gap: 4px; }
-  .strip li:not(:first-child) { padding-left: 24px; }
-  .strip li:last-child { border-right: 0; }
-  .strip .k { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
-  .strip .v { font-weight: 500; font-size: 15.5px; line-height: 1.35; margin-top: 4px; }
-  .strip .m { font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); line-height: 1.5; }
-
   /* principle */
   .manifesto { font-size: clamp(26px, 3.3vw, 46px); line-height: 1.22; font-weight: 300; letter-spacing: -0.015em; max-width: 1080px; margin-top: 28px; }
 
   .entries { margin-top: 8px; }
-  .all { margin-top: 40px; }
+  .all { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 12px; }
+
+  /* explore index */
+  .explore { border-top: 1px solid var(--hair); }
+  .explore a { display: grid; grid-template-columns: 56px 0.42fr 1fr auto; gap: 24px; align-items: baseline; padding: 30px 0; border-bottom: 1px solid var(--hair); transition: padding-left 0.5s var(--ease-out), background-color 0.4s; }
+  .explore a:hover { padding-left: 14px; }
+  .explore .n { font-size: 12px; color: var(--ink-3); }
+  .explore .t { font-size: clamp(30px, 3.4vw, 48px); letter-spacing: -0.02em; line-height: 1; transition: color 0.3s; }
+  .explore a:hover .t { color: var(--accent); }
+  .explore .d { color: var(--ink-2); font-size: 15.5px; max-width: 520px; }
+  .explore .arr { font-size: 32px; font-weight: 300; color: var(--ink-3); transition: transform 0.5s var(--ease-out), color 0.3s; }
+  .explore a:hover .arr { transform: translateX(8px); color: var(--accent); }
 
   /* trajectory */
   .journey { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--hair); border-radius: var(--radius-lg); overflow: hidden; }
@@ -262,13 +226,6 @@ const jsonLd = {
   .meta dd { font-size: 16px; }
 
   @media (max-width: 860px) {
-    .hero { padding-top: 104px; }
-    .hero-grid { grid-template-columns: 1fr; min-height: 0; gap: 40px; }
-    .hero-copy h1 { font-size: clamp(48px, 13vw, 72px); }
-    .hero-copy h1 em { white-space: normal; }
-    .hero-visual { width: min(100%, 360px); }
-    .hero-visual { justify-self: start; width: min(100%, 360px); }
-    .halo, .ring { display: none; }
     .strip { grid-template-columns: 1fr; }
     .strip li { border-right: 0; border-bottom: 1px solid var(--hair); padding-left: 0 !important; }
     .journey { grid-template-columns: 1fr; }
@@ -276,6 +233,9 @@ const jsonLd = {
     .step:last-child { border-bottom: 0; }
     .wrow { grid-template-columns: 1fr; gap: 8px; }
     .wrow .r { text-align: left; }
+    .explore a { grid-template-columns: 1fr auto; gap: 6px 16px; padding: 22px 0; }
+    .explore .n { display: none; }
+    .explore .d { grid-column: 1 / -1; }
     .contact { grid-template-columns: 1fr; gap: 40px; }
   }
 </style>

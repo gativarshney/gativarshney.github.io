@@ -1,25 +1,25 @@
 ---
-import { Image } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
+import Portrait from '@/components/Portrait.astro';
 import { site } from '@/data/site';
-import photo from '@/assets/gati-square.jpg';
 
 ---
 <Base title="About" description="About Gati Varshney: final-year CS (Data Science) student at JSS Academy of Technical Education, GSoC 2026 contributor at OpenPrinting, LeetCode Knight.">
-  <section class="wrap head">
-    <div>
-      <p class="eyebrow" data-reveal>Index · About</p>
-      <h1 class="display" data-split-words data-anim>A short file<br /><em>on the author.</em></h1>
-      <p class="lede" data-reveal="0.1">I’m a final-year Computer Science (Data Science) student at JSS Academy of Technical Education, Noida, graduating in 2027. I spent this year building for OpenPrinting at The Linux Foundation, first as a contributor and then as a Google Summer of Code 2026 participant, and on cidx, a code index for AI coding agents that I maintain on PyPI.</p>
-      <p class="lede" data-reveal="0.15">What I care about is whether a system can prove its own claims. That shows up as decision records, evaluation harnesses, honest limitation sections, and numbers that travel with the commands that produced them.</p>
-      <p class="ctas" data-reveal="0.2">
-        <a class="btn fill" href={site.links.resume} target="_blank" rel="noopener" data-magnetic="0.3">Résumé (PDF) <span class="arr">↗</span></a>
-        <a class="btn" href={`mailto:${site.email}`} data-magnetic="0.3">Email</a>
-      </p>
+  <section class="hero" data-hero>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow" data-hero-eyebrow data-anim><span class="dot"></span>Index · About · Final-year CS&nbsp;student · Open&nbsp;to&nbsp;relocation</p>
+        <h1 class="display" data-hero-title data-anim>A short file<br /><em>on the author.</em></h1>
+        <p class="lede" data-hero-lede data-anim>I’m a final-year Computer Science (Data Science) student at JSS Academy of Technical Education, Noida, graduating in 2027. I spent this year building for OpenPrinting at The Linux Foundation, first as a contributor and then as a Google Summer of Code 2026 participant, and on cidx, a code index for AI coding agents that I maintain on PyPI.</p>
+        <p class="lede second" data-anim data-reveal="0.9">What I care about is whether a system can prove its own claims. That shows up as decision records, evaluation harnesses, honest limitation sections, and numbers that travel with the commands that produced them.</p>
+        <div class="ctas" data-hero-cta>
+          <a class="btn fill" href={site.links.resume} target="_blank" rel="noopener" data-magnetic="0.3" data-anim>Résumé (PDF) <span class="arr">↗</span></a>
+          <a class="btn" href={`mailto:${site.email}`} data-magnetic="0.3" data-anim>Email</a>
+          <a class="btn ghost" href={site.links.linkedin} target="_blank" rel="noopener" data-magnetic="0.3" data-anim>LinkedIn <span class="arr">↗</span></a>
+        </div>
+      </div>
+      <Portrait badge="Final-year CS · Class of 2027" />
     </div>
-    <figure class="photo" data-reveal="0.2" data-parallax="24">
-      <Image src={photo} alt="Gati Varshney" widths={[360, 560, 800]} sizes="(max-width: 860px) 60vw, 26vw" />
-    </figure>
   </section>
 
   <section class="wrap section">
@@ -36,27 +36,22 @@ import photo from '@/assets/gati-square.jpg';
       </ul>
       <p class="eyebrow" style="margin-top:48px" data-reveal>Competitive programming</p>
       <ul class="rows" data-reveal-group="0.08">
-        <li><span class="mono when">as of Sep 2026</span><div><h2>LeetCode Knight</h2><p class="muted">Contest rating 1925 · top 3.98% of contest participants · 736 problems solved · <a class="u" href={site.links.leetcode} target="_blank" rel="noopener">profile ↗</a></p></div></li>
+        <li><span class="mono when">as of Sep 2026</span><div><h2>LeetCode Knight</h2><p class="muted">Contest rating 1925 · top 3.98% of contest participants · 700+ problems solved · <a class="u" href={site.links.leetcode} target="_blank" rel="noopener">profile ↗</a></p></div></li>
       </ul>
     </div>
   </section>
 </Base>
 
 <style>
-  .head { padding-top: clamp(130px, 18vh, 200px); display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 64px; align-items: start; }
-  .head h1 { font-size: clamp(48px, 7.2vw, 108px); margin: 20px 0 28px; }
-  .head .lede { max-width: 680px; margin-bottom: 18px; }
-  .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
-  .photo { border-radius: 999px 999px 18px 18px; overflow: hidden; border: 1px solid var(--hair); margin-top: 40px; }
-  .photo :global(img) { width: 100%; height: auto; filter: saturate(0.92); }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .lede.second { font-size: 16.5px; }
+  .section:first-of-type { padding-top: clamp(72px, 9vw, 120px); }
   .rows { border-top: 1px solid var(--hair); margin-top: 18px; max-width: 860px; }
   .rows li { display: grid; grid-template-columns: 140px 1fr; gap: 28px; padding: 22px 0; border-bottom: 1px solid var(--hair); }
   .when { font-size: 12px; color: var(--ink-2); padding-top: 4px; }
   .rows h2 { font-size: 18px; font-weight: 500; margin-bottom: 6px; }
   .rows .muted { font-size: 15px; }
   @media (max-width: 860px) {
-    .head { grid-template-columns: 1fr; gap: 32px; }
-    .photo { width: 60%; margin-top: 0; }
     .rows li { grid-template-columns: 1fr; gap: 6px; }
   }
 </style>

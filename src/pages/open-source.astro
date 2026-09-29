@@ -9,6 +9,7 @@ import { site, prGroups } from '@/data/site';
 import opLogo from '@/assets/logos/openprinting.png';
 import lfLogo from '@/assets/logos/linuxfoundation.png';
 import gsocLogo from '@/assets/logos/gsoc.svg';
+import searchSnap from '@/assets/previews/openprinting-search.jpg';
 import wocCert from '@/assets/certs/woc-5.jpg';
 import gsocCert from '@/assets/certs/gsoc-2026.jpg';
 
@@ -74,6 +75,10 @@ const ledger = [
       <h2 class="display" data-split-words data-anim>The search, the homepage,<br /><em>the posts.</em></h2>
       <p class="lede" data-reveal="0.1">The live OpenPrinting website. Use the search in its header: it runs a build-time index in the browser with no search server. The homepage layout and the author cards on every post are also mine.</p>
       <p class="links" data-reveal="0.15"><a class="u" href={site.links.openprintingSite} target="_blank" rel="noopener">openprinting.github.io ↗</a><a class="u" href={site.links.openprintingRepo} target="_blank" rel="noopener">repository ↗</a><a class="u" href={site.links.commits} target="_blank" rel="noopener">my commits ↗</a></p>
+      <div class="search-shot" data-reveal="0.2">
+        <Preview url={site.links.openprintingSite} title="The search overlay on openprinting.github.io" image={searchSnap} alt="OpenPrinting search overlay open over the homepage, with OpenPrinting and Foomatic Lookup Site scopes and a Cmd/Ctrl+K shortcut" ratio="16 / 8" label="openprinting.github.io · Cmd/Ctrl + K" />
+        <p class="mono cap">The search overlay: two scopes, keyboard-first, served from a build-time index.</p>
+      </div>
     </div>
     <div data-reveal="0.1"><Preview url={site.links.openprintingSite} title="OpenPrinting website, live" live base={1280} ratio="16 / 11" /></div>
   </section>
@@ -179,6 +184,8 @@ const ledger = [
   .two h2 { font-size: clamp(36px, 4.4vw, 64px); margin: 18px 0 20px; }
   .two .lede { max-width: 520px; margin-bottom: 20px; }
   .links { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14.5px; color: var(--ink-2); }
+  .search-shot { margin-top: 28px; }
+  .cap { margin-top: 10px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
 
   .prgroups { display: grid; gap: 0; border-top: 1px solid var(--hair); }
   .prg { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 32px 0; border-bottom: 1px solid var(--hair); }
