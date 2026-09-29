@@ -14,7 +14,7 @@ import mediumSnap from '@/assets/writing/gsoc-report-cover.png';
 import gsocSnap from '@/assets/previews/gsoc-project.png';
 import searchSnap from '@/assets/previews/openprinting-search.jpg';
 
-interface Props { kind: 'cidx' | 'printers' | 'openprinting' | 'gsoc' | 'quinque' }
+interface Props { kind: 'cidx' | 'printers' | 'openprinting' | 'gsoc' | 'quinque' | 'search' }
 const { kind } = Astro.props;
 ---
 {kind === 'openprinting' && (
@@ -65,6 +65,9 @@ const { kind } = Astro.props;
       <p class="pypi-meta mono">pypi.org/project/cidx · alpha · Python 3.11+ · Apache-2.0 ↗</p>
     </a>
   </>
+)}
+{kind === 'search' && (
+  <Preview url={site.links.openprintingSite} title="The search overlay on openprinting.github.io" image={searchSnap} alt="OpenPrinting search overlay open over the homepage, with OpenPrinting and Foomatic Lookup Site scopes and a Cmd/Ctrl+K shortcut" ratio="16 / 8" label="openprinting.github.io · Cmd/Ctrl + K" />
 )}
 {kind === 'printers' && (
   <Preview url={site.links.gsocReport} title="GSoC 2026 final report on Medium" image={mediumSnap} alt="Medium article: GSoC 2026 Final Report" ratio="16 / 10" />

@@ -36,7 +36,7 @@ export const nav = [
 
 export type Evidence = { value: string; label: string };
 export type Link = { label: string; href: string; external?: boolean };
-export type VisualKind = 'cidx' | 'printers' | 'openprinting' | 'gsoc' | 'quinque';
+export type VisualKind = 'cidx' | 'printers' | 'openprinting' | 'gsoc' | 'quinque' | 'search';
 export type Tone = 'ok' | 'warn' | 'accent' | 'plain';
 
 export type Entry = {
@@ -55,6 +55,7 @@ export type Entry = {
 
 const OP = 'https://github.com/OpenPrinting/openprinting.github.io/pull/';
 const STAGING = 'https://github.com/rudra-iitm/openprinting.github.io/pull/';
+const OPC = 'https://github.com/OpenPrinting/openprinting.github.io/commit/';
 
 /* ------------------------------------------------------------------ */
 /* Professional journey: the three milestones, in order                */
@@ -76,6 +77,7 @@ export const milestones: Entry[] = [
     ],
     links: [
       { label: 'Open source', href: '/open-source/' },
+      { label: 'Search case study', href: '/work/openprinting-search/' },
       { label: 'Commits', href: site.links.commits, external: true },
       { label: 'Hall of Fame', href: site.links.hallOfFame, external: true },
     ],
@@ -171,6 +173,29 @@ export const work: Entry[] = [
     ],
     visual: 'printers',
     href: '/work/printer-recommendations/',
+  },
+  {
+    slug: 'openprinting-search',
+    title: 'OpenPrinting site search',
+    kicker: 'Winter of Code 5.0 · OpenPrinting · in production',
+    period: 'Mar 2026',
+    status: { label: 'Live in production', tone: 'ok' },
+    tags: ['TypeScript', 'unified / remark', 'MiniSearch', 'static export'],
+    summary:
+      'Site-wide search for a statically exported Next.js site with no backend. A build step parses every post into a JSON index; the browser loads it once and answers queries locally with weighted, fuzzy ranking. Opens with Cmd/Ctrl + K on openprinting.github.io today.',
+    evidence: [
+      { value: '263', label: 'documents in the live index' },
+      { value: '0', label: 'search servers' },
+      { value: '2', label: 'PRs, both in production' },
+    ],
+    links: [
+      { label: 'Case study', href: '/work/openprinting-search/' },
+      { label: 'Try it live', href: site.links.openprintingSite, external: true },
+      { label: 'PR #18', href: `${STAGING}18`, external: true },
+      { label: 'PR #22', href: `${STAGING}22`, external: true },
+    ],
+    visual: 'search',
+    href: '/work/openprinting-search/',
   },
 ];
 

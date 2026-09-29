@@ -21,6 +21,8 @@ export type CaseStudy = {
 const CIDX = 'https://github.com/gativarshney/cidx';
 const OP = 'https://github.com/OpenPrinting/openprinting.github.io/pull/';
 const REPORT = 'https://medium.com/@gativarshney/gsoc-2026-final-report-ai-driven-printer-compatibility-recommendation-portal-9283d6fe2a5c';
+const STAGING = 'https://github.com/rudra-iitm/openprinting.github.io/pull/';
+const OPC = 'https://github.com/OpenPrinting/openprinting.github.io/commit/';
 
 export const caseStudies: Record<string, CaseStudy> = {
   cidx: {
@@ -128,6 +130,53 @@ export const caseStudies: Record<string, CaseStudy> = {
     next: [
       'Land the upstream review on #224, #230 and #236.',
       'A small hand-labelled set of known replacement pairs, to put a human-judged number next to the internal-consistency ones.',
+    ],
+    lastVerified: '2026-09-29',
+  },
+  'openprinting-search': {
+    slug: 'openprinting-search',
+    problem: [
+      'The OpenPrinting website is a statically exported Next.js application on GitHub Pages. There is no server to run a query against, and the site had a placeholder search that did nothing useful. It also had more than 200 news posts and pages worth finding.',
+      'The constraint was the same one that later shaped the GSoC work: anything expensive has to happen at build time, and the browser has to do only the cheap part. The result is a search that works entirely from a JSON file the site already ships.',
+    ],
+    pipeline: {
+      title: 'From Markdown to an answer, with no server',
+      steps: [
+        'A prebuild step runs before every production build and walks every Markdown post in the content directory.',
+        'Each post is parsed into an AST with unified and remark-parse, then walked to extract the title, the h1 to h3 headings, a snippet, and normalised body text. Code blocks and formatting artifacts are stripped so they cannot pollute results.',
+        'The extractor writes one versioned static index file, public/search/static-index.json, which the deploy ships like any other asset. The live index holds 263 documents.',
+        'In the browser, MiniSearch builds its in-memory index lazily on the first query, so visitors who never search pay nothing.',
+        'Ranking is weighted: title matches count three times, headings twice, body once. Fuzzy matching with a 0.2 threshold tolerates typos, and results are capped at the top eight.',
+        'The modal opens with Cmd or Ctrl + K, debounces input by 200 ms, shows a loading state during initialisation, handles empty results, and closes on Escape.',
+      ],
+      note: 'Do the expensive work before deploy. Keep the browser’s job small.',
+    },
+    evidence: [
+      { claim: 'Live in production', value: 'openprinting.github.io', context: 'press Cmd or Ctrl + K on any page; the index is served from /search/static-index.json', source: { label: 'live index', href: 'https://openprinting.github.io/search/static-index.json' } },
+      { claim: 'Index size', value: '263 documents', context: 'measured from the live index on 2026-09-29; the PR indexed 200+ posts at the time', source: { label: 'live index', href: 'https://openprinting.github.io/search/static-index.json' } },
+      { claim: 'Search system', value: '+793 lines · 14 files', context: 'build-time extractor, runtime engine, modal UI, architecture doc; 13 commits, merged 2026-03-06', source: { label: 'PR #18', href: `${STAGING}18` } },
+      { claim: 'Deployment fix', value: '1 file', context: 'the generated index was gitignored and never reached GitHub Pages; fixed the same day', source: { label: 'PR #22', href: `${STAGING}22` } },
+      { claim: 'Landed in production', value: '2 commits', context: 'promoted from the staging repository under my name', source: { label: 'commit bf73641', href: `${OPC}bf736416e141d87112c9a273ccbc1016768b717d` } },
+      { claim: 'Ranking', value: 'title ×3 · headings ×2 · body ×1', context: 'fuzzy threshold 0.2, top 8 results, 200 ms debounce', source: { label: 'PR #18', href: `${STAGING}18` } },
+    ],
+    decisions: [
+      { title: 'Two layers, separated on purpose', body: 'A build-time indexing layer and a client-side runtime layer, with a typed schema between them. The build side can change how it extracts text without touching the UI, and the runtime can change ranking without re-parsing Markdown.' },
+      { title: 'AST parsing instead of regular expressions', body: 'Markdown is not regular. Parsing with unified and remark-parse and walking the tree gives clean titles, headings and body text, and makes it trivial to drop code blocks, which would otherwise dominate matches with identifiers.' },
+      { title: 'MiniSearch in the browser', body: 'A small, dependency-free full-text engine that supports field boosting, fuzzy matching and prefix search. It fits the static-export constraint exactly: fetch one JSON file, build the index in memory, answer locally.' },
+      { title: 'Lazy initialisation and a base-path-aware fetch', body: 'The index is only fetched and built on the first keystroke, and the fetch respects the Next.js base path so the same code works in development, in preview builds and on GitHub Pages.' },
+      { title: 'Designed for a second source', body: 'The schema anticipated a second index, the Foomatic driver lookup, without an architectural change. The live site now offers exactly that as a second search scope.' },
+    ],
+    wentWrong: [
+      { title: 'The index never reached production', body: 'The generated index file was listed in .gitignore, so the deployed site fetched a path that did not exist and search failed silently in production while working locally. PR #22 fixed the ignore rule the same day. The general lesson came back during the trailing-slash investigation months later: a build that only breaks in the deploy environment needs a check that runs in the deploy environment.' },
+    ],
+    limitations: [
+      'The whole index ships to the browser on first search, about 1.9 MB uncompressed for 263 documents. Fine at this size; a much larger site would want a sharded or prefix-split index.',
+      'Ranking is lexical. There is no semantic matching, which is the right trade for a static site with no server.',
+      'Results are capped at eight; there is no pagination.',
+    ],
+    next: [
+      'Compress or shard the index if the post count keeps growing.',
+      'Add a CI check that the deployed site can fetch the index, so a regression of the PR #22 bug is caught before merge.',
     ],
     lastVerified: '2026-09-29',
   },
