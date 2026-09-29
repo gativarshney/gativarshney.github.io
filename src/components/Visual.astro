@@ -12,6 +12,7 @@ import gsocCert from '@/assets/certs/gsoc-2026.jpg';
 import cidxSnap from '@/assets/previews/github-cidx.png';
 import mediumSnap from '@/assets/writing/gsoc-report-cover.png';
 import gsocSnap from '@/assets/previews/gsoc-project.png';
+import searchSnap from '@/assets/previews/openprinting-search.jpg';
 
 interface Props { kind: 'cidx' | 'printers' | 'openprinting' | 'gsoc' | 'quinque' }
 const { kind } = Astro.props;
@@ -21,9 +22,9 @@ const { kind } = Astro.props;
     <div class="logo-row">
       <Logo src={opLogo} alt="OpenPrinting" tone="op" size={60} />
       <Logo src={lfLogo} alt="The Linux Foundation" tone="lf" size={60} />
-      <div><p class="lname">OpenPrinting · The Linux Foundation</p><p class="lsub mono">the live site, with the search and homepage I built</p></div>
+      <div><p class="lname">OpenPrinting · The Linux Foundation</p><p class="lsub mono">the search I built, live on the production site</p></div>
     </div>
-    <Preview url={site.links.openprintingSite} title="OpenPrinting website, live" live base={1280} ratio="16 / 10" />
+    <Preview url={site.links.openprintingSite} title="The search overlay on openprinting.github.io" image={searchSnap} alt="OpenPrinting search overlay open over the homepage, with OpenPrinting and Foomatic Lookup Site scopes and a Cmd/Ctrl+K shortcut" ratio="16 / 8" label="openprinting.github.io · Cmd/Ctrl + K" />
   </>
 )}
 {kind === 'gsoc' && (

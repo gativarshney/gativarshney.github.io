@@ -4,7 +4,7 @@ import Milestone from '@/components/Milestone.astro';
 import FeaturedArticle from '@/components/FeaturedArticle.astro';
 import Timeline from '@/components/Timeline.astro';
 import Portrait from '@/components/Portrait.astro';
-import { site, milestones, work, journey, record } from '@/data/site';
+import { site, milestones, work, record } from '@/data/site';
 
 const cidx = work.find((w) => w.slug === 'cidx')!;
 
@@ -33,9 +33,9 @@ const jsonLd = {
   <section class="hero" data-hero>
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow" data-hero-eyebrow data-anim><span class="dot"></span>Gati&nbsp;Varshney · Final-year CS&nbsp;student · GSoC&nbsp;2026 at&nbsp;OpenPrinting · Open&nbsp;to&nbsp;relocation</p>
+        <p class="eyebrow" data-hero-eyebrow data-anim><span class="dot"></span>Final-year CS&nbsp;student · GSoC&nbsp;2026 at&nbsp;OpenPrinting · Open&nbsp;to&nbsp;relocation</p>
         <h1 class="display" data-hero-title data-anim>Software that<br /><em>proves itself.</em></h1>
-        <p class="lede" data-hero-lede data-anim>I’m Gati Varshney, a final-year CS student and <b>Google Summer of Code 2026</b> contributor at <b>OpenPrinting, The Linux Foundation</b>. I build developer tools and data systems that ship with their proof: measured, tested, and reproducible.</p>
+        <p class="lede" data-hero-lede data-anim>I’m Gati Varshney, a final-year CS student and <b>Google Summer of Code 2026</b> contributor at <b>OpenPrinting, The Linux Foundation</b>.</p>
         <div class="ctas" data-hero-cta>
           <a class="btn fill" href="#journey" data-magnetic="0.3" data-anim>The journey <span class="arr">↓</span></a>
           <a class="btn" href="/open-source/" data-magnetic="0.3" data-anim>Open source</a>
@@ -80,7 +80,7 @@ const jsonLd = {
       {milestones.map((m, i) => <Milestone entry={m} num={`0${i + 1}`} />)}
       <hr class="hr" data-line />
     </Timeline>
-    <p class="all more" data-reveal><a class="btn fill" href="/open-source/" data-magnetic="0.3">The open-source story <span class="arr">→</span></a><a class="btn" href="/work/" data-magnetic="0.3">Full journey &amp; certificates <span class="arr">→</span></a></p>
+    <p class="all more" data-reveal><a class="btn fill" href="/open-source/" data-magnetic="0.3">The open-source story <span class="arr">→</span></a><a class="btn" href="/about/" data-magnetic="0.3">About me <span class="arr">→</span></a></p>
   </section>
 
   <!-- PROJECT -------------------------------------------------------- -->
@@ -96,35 +96,14 @@ const jsonLd = {
       <Milestone entry={cidx} num="04" />
       <hr class="hr" data-line />
     </div>
-    <p class="all"><a class="btn" href="/work/" data-magnetic="0.3" data-reveal>All work <span class="arr">→</span></a></p>
-  </section>
-
-  <!-- TRAJECTORY ----------------------------------------------------- -->
-  <section class="section wrap">
-    <div class="shead">
-      <div>
-        <p class="eyebrow" data-reveal>04 — Trajectory</p>
-        <h2 class="display" data-split-words data-anim>Compounding,<br /><em>not collecting.</em></h2>
-      </div>
-      <p data-reveal="0.15">From a first merged component to a Linux Foundation summer and a first industry role, in four steps.</p>
-    </div>
-    <ol class="journey" data-reveal-group="0.12">
-      {journey.map((j) => (
-        <li class="step">
-          <span class="yr display">{j.year}</span>
-          <h3>{j.title}</h3>
-          <p>{j.body}</p>
-          <span class="lesson mono">{j.lesson}</span>
-        </li>
-      ))}
-    </ol>
+    <p class="all"><a class="btn" href="/work/cidx/" data-magnetic="0.3" data-reveal>Read the case study <span class="arr">→</span></a><a class="btn ghost" href="/work/" data-magnetic="0.3" data-reveal>All projects <span class="arr">→</span></a></p>
   </section>
 
   <!-- WRITING -------------------------------------------------------- -->
   <section class="section wrap">
     <div class="shead">
       <div>
-        <p class="eyebrow" data-reveal>05 — Writing</p>
+        <p class="eyebrow" data-reveal>04 — Writing</p>
         <h2 class="display" data-split-words data-anim>Notes from<br /><em>the debugging.</em></h2>
       </div>
       <p data-reveal="0.15">Long-form write-ups of the work, starting with the GSoC 2026 final report.</p>
@@ -137,23 +116,23 @@ const jsonLd = {
   <section class="section wrap" id="explore">
     <div class="shead">
       <div>
-        <p class="eyebrow" data-reveal>06 — Explore</p>
+        <p class="eyebrow" data-reveal>05 — Explore</p>
         <h2 class="display" data-split-words data-anim>The rest<br /><em>of the site.</em></h2>
       </div>
       <p data-reveal="0.15">Four pages, each with the evidence behind what this one summarises.</p>
     </div>
     <ul class="explore" data-reveal-group="0.08">
-      <li><a href="/work/" data-cursor="Open"><span class="mono n">01</span><span class="t display">Work</span><span class="d">The professional journey with certificates, plus the cidx case study: claims, decisions, and what went wrong.</span><span class="arr display">→</span></a></li>
+      <li><a href="/work/" data-cursor="Open"><span class="mono n">01</span><span class="t display">Work</span><span class="d">Projects with their evidence: the cidx case study today, with claims, decisions, and what went wrong. New projects land here.</span><span class="arr display">→</span></a></li>
       <li><a href="/open-source/" data-cursor="Open"><span class="mono n">02</span><span class="t display">Open Source</span><span class="d">The live OpenPrinting Hall of Fame, every pull request grouped by what it built, the commit ledger, and both certificates.</span><span class="arr display">→</span></a></li>
       <li><a href="/writing/" data-cursor="Open"><span class="mono n">03</span><span class="t display">Writing</span><span class="d">Long-form write-ups, starting with the GSoC 2026 final report.</span><span class="arr display">→</span></a></li>
-      <li><a href="/about/" data-cursor="Open"><span class="mono n">04</span><span class="t display">About</span><span class="d">Education, experience, competitive programming, and the résumé.</span><span class="arr display">→</span></a></li>
+      <li><a href="/about/" data-cursor="Open"><span class="mono n">04</span><span class="t display">About</span><span class="d">Education, experience, competitive programming, certificates, and the résumé.</span><span class="arr display">→</span></a></li>
     </ul>
   </section>
 
   <!-- CONTACT -------------------------------------------------------- -->
   <section class="section wrap contact" id="contact">
     <div>
-      <p class="eyebrow" data-reveal>07 — Start a conversation</p>
+      <p class="eyebrow" data-reveal>06 — Start a conversation</p>
       <h2 class="display" data-split-words data-anim>Start a<br /><em>conversation.</em></h2>
       <p class="lede" data-reveal="0.1">Have an opportunity, an interesting idea, or want to talk about engineering? I’d love to hear from you.</p>
       <p class="ctas contact-ctas" data-reveal="0.15">
@@ -191,16 +170,6 @@ const jsonLd = {
   .explore .arr { font-size: 32px; font-weight: 300; color: var(--ink-3); transition: transform 0.5s var(--ease-out), color 0.3s; }
   .explore a:hover .arr { transform: translateX(8px); color: var(--accent); }
 
-  /* trajectory */
-  .journey { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--hair); border-radius: var(--radius-lg); overflow: hidden; }
-  .step { padding: 30px 26px 30px; border-right: 1px solid var(--hair); display: flex; flex-direction: column; min-height: 300px; background: var(--bg); transition: background-color 0.5s var(--ease-out); }
-  .step:hover { background: var(--bg-2); }
-  .step:last-child { border-right: 0; }
-  .yr { font-size: clamp(44px, 4.2vw, 60px); font-weight: 300; margin-bottom: 18px; }
-  .step h3 { font-size: 17px; font-weight: 500; margin-bottom: 8px; }
-  .step p { font-size: 15px; color: var(--ink-2); margin-bottom: auto; }
-  .lesson { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-top: 24px; }
-
   /* writing */
   .wlist { border-top: 1px solid var(--hair); }
   .wrow { display: grid; grid-template-columns: 110px 1fr 180px; gap: 32px; padding: 28px 0; border-bottom: 1px solid var(--hair); align-items: baseline; transition: padding-left 0.5s var(--ease-out); }
@@ -228,9 +197,6 @@ const jsonLd = {
   @media (max-width: 860px) {
     .strip { grid-template-columns: 1fr; }
     .strip li { border-right: 0; border-bottom: 1px solid var(--hair); padding-left: 0 !important; }
-    .journey { grid-template-columns: 1fr; }
-    .step { border-right: 0; border-bottom: 1px solid var(--hair); min-height: 0; }
-    .step:last-child { border-bottom: 0; }
     .wrow { grid-template-columns: 1fr; gap: 8px; }
     .wrow .r { text-align: left; }
     .explore a { grid-template-columns: 1fr auto; gap: 6px 16px; padding: 22px 0; }

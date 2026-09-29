@@ -21,22 +21,6 @@ const timeline: { when: string; title: string; body: string; tone: string; stamp
   { when: 'Aug 2026', title: 'Trailing-slash root cause and a CI URL check', body: 'Production 404s, including RSS links consumed by LWN, traced to a deploy-time action generating a config that overrode the repository’s.', tone: 'ok', stamp: 'merged' },
 ];
 
-const ledger = [
-  ['2026-08-13', 'Fix #207: Support trailing-slash URLs (#231)'],
-  ['2026-03-20', 'feat(gsod): complete and finalize GSoD page with content, layout, and routing (#58)'],
-  ['2026-03-12', 'Improve hero banner appearance in light theme (#53)'],
-  ['2026-03-12', 'feat(news): add author avatars to front page news boxes (#52)'],
-  ['2026-03-12', 'fix(blog): update author avatars in blog post author boxes (#51)'],
-  ['2026-03-08', 'Make homepage fully functional and align with current OpenPrinting site (#13)'],
-  ['2026-03-06', 'fix(search): include generated search index for GitHub Pages deployment (#22)'],
-  ['2026-03-06', 'feat(search): implement build-time indexed client-side search system (#18)'],
-  ['2026-03-05', 'feat(posts): add automatic redirect support for previous slugs (#20)'],
-  ['2026-03-05', 'feat(posts): display post publication date on article pages (#21)'],
-  ['2025-12-14', 'feat(news): migrate all posts from old Jekyll site into Next.js setup (#11)'],
-  ['2025-11-27', 'feat(news): integrate AuthorCard into news post layout (#9)'],
-  ['2025-11-16', 'feat(authors): add reusable AuthorCard component and fix linting issues (#8)'],
-  ['2025-11-15', 'feat(authors): introduce reusable AuthorCard component (#5)'],
-];
 ---
 <Base title="Open Source" description="Gati Varshney’s open-source work at OpenPrinting (The Linux Foundation): the live site, the Hall of Fame, merged pull requests, GSoC 2026, and certificates.">
   <section class="wrap head">
@@ -114,6 +98,7 @@ const ledger = [
         </div>
       ))}
     </div>
+    <p class="more"><a class="btn" href={site.links.commits} target="_blank" rel="noopener" data-magnetic="0.3">All 14 commits on GitHub <span class="arr">↗</span></a></p>
   </section>
 
   <!-- TIMELINE -------------------------------------------------------- -->
@@ -139,23 +124,11 @@ const ledger = [
     </ol>
   </section>
 
-  <!-- LEDGER ---------------------------------------------------------- -->
-  <section class="wrap section">
-    <p class="eyebrow" data-reveal>05 — Contribution ledger · OpenPrinting/openprinting.github.io</p>
-    <table class="ledger" data-reveal>
-      <thead><tr><th>Date</th><th>Commit</th></tr></thead>
-      <tbody>
-        {ledger.map(([d, t]) => <tr><td class="mono">{d}</td><td>{t}</td></tr>)}
-      </tbody>
-    </table>
-    <p class="more"><a class="btn" href={site.links.commits} target="_blank" rel="noopener" data-magnetic="0.3">All 14 commits on GitHub <span class="arr">↗</span></a></p>
-  </section>
-
   <!-- CERTIFICATES ---------------------------------------------------- -->
   <section class="wrap section">
     <div class="shead">
       <div>
-        <p class="eyebrow" data-reveal>06 — Certificates</p>
+        <p class="eyebrow" data-reveal>05 — Certificates</p>
         <h2 class="display" data-split-words data-anim>On paper,<br /><em>too.</em></h2>
       </div>
       <p data-reveal="0.15">Click either certificate to view it at full size.</p>
@@ -208,10 +181,6 @@ const ledger = [
   .tl .muted { font-size: 15.5px; max-width: 680px; }
   .orgs { display: flex; align-items: center; gap: 12px; margin: 6px 0 12px; }
   .orgs .gsoc { height: 20px; width: auto; padding: 8px 12px; border-radius: 999px; background: oklch(98% 0.01 75); border: 1px solid oklch(78% 0.14 70 / 0.5); box-sizing: content-box; }
-  .ledger { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 15px; }
-  .ledger th { text-align: left; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; padding: 10px 16px 10px 0; border-bottom: 1px solid var(--ink); }
-  .ledger td { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--hair); vertical-align: top; }
-  .ledger td.mono { font-size: 13px; color: var(--ink-2); white-space: nowrap; width: 130px; }
   .more { margin-top: 28px; }
   .certs { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
   @media (max-width: 1024px) { .head { grid-template-columns: 1fr; } .logo-card { margin-top: 0; width: 240px; } }

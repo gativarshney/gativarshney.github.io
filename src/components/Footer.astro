@@ -1,13 +1,14 @@
 ---
 import { site, nav } from '@/data/site';
 const year = new Date().getFullYear();
+const isHome = Astro.url.pathname === '/';
 ---
 <footer class="site-footer">
   <div class="wrap">
     <div class="top">
       <div>
         <a class="brand" href="/">Gati <em>Varshney</em></a>
-        <p class="say">Have something worth building? <a class="u" href={`mailto:${site.email}?subject=Hello%20Gati`}>Start a conversation ↗</a></p>
+        {!isHome && <p class="say">Have something worth building? <a class="u" href={`mailto:${site.email}?subject=Hello%20Gati`}>Start a conversation ↗</a></p>}
       </div>
       <nav aria-label="Footer" class="cols">
         <div>
