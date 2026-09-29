@@ -1,7 +1,7 @@
 export const site = {
   name: 'Gati Varshney',
   url: 'https://gativarshney.github.io',
-  title: 'Gati Varshney — Building software you can verify',
+  title: 'Gati Varshney',
   description:
     'Gati Varshney is a final-year CS student and Google Summer of Code 2026 contributor at OpenPrinting (The Linux Foundation). Developer tools and data systems, measured honestly.',
   email: 'gativarshney01@gmail.com',
