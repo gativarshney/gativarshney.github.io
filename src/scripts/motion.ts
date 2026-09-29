@@ -146,8 +146,6 @@ async function initPage() {
     return;
   }
 
-  await document.fonts.ready;
-
   ctx = gsap.context(() => {
     /* hero ------------------------------------------------------- */
     const hero = document.querySelector<HTMLElement>('[data-hero]');
@@ -166,14 +164,14 @@ async function initPage() {
       if (title) {
         const chars = splitToChars(title);
         show(title);
-        gsap.set(chars, { yPercent: 115, rotate: 6 });
-        tl.to(chars, { yPercent: 0, rotate: 0, duration: 1.15, stagger: 0.016 }, 0.12);
+        gsap.set(chars, { y: '1.15em', rotate: 6 });
+        tl.to(chars, { y: 0, rotate: 0, duration: 1.15, stagger: 0.016 }, 0.12);
       }
       if (lede) {
         const words = splitToWords(lede);
         show(lede);
-        gsap.set(words, { yPercent: 60, autoAlpha: 0 });
-        tl.to(words, { yPercent: 0, autoAlpha: 1, duration: 0.8, stagger: 0.011 }, 0.6);
+        gsap.set(words, { y: '0.6em', autoAlpha: 0 });
+        tl.to(words, { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.011 }, 0.6);
       }
       if (ctas.length) { show(ctas); tl.from(ctas, { y: 18, autoAlpha: 0, duration: 0.9, stagger: 0.08 }, 0.95); }
       if (orb) { show(orb); tl.from(orb, { autoAlpha: 0, scale: 0.8, duration: 2.2, ease: 'power2.out' }, 0.2); }
@@ -183,7 +181,7 @@ async function initPage() {
           { clipPath: 'inset(100% 0% 0% 0% round 999px 999px 18px 18px)', scale: 1.12 },
           { clipPath: 'inset(0% 0% 0% 0% round 999px 999px 18px 18px)', scale: 1, duration: 1.5, ease: 'expo.out' }, 0.35);
         gsap.to(portrait, {
-          yPercent: 12, ease: 'none',
+          y: 60, ease: 'none',
           scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
         });
       }
@@ -211,19 +209,23 @@ async function initPage() {
 
       // subtle exit of headline as you scroll away
       if (title) {
-        gsap.to(title, { yPercent: -10, autoAlpha: 0.15, ease: 'none',
+        gsap.to(title, { y: '-0.4em', autoAlpha: 0.15, ease: 'none',
           scrollTrigger: { trigger: hero, start: '40% top', end: 'bottom top', scrub: true } });
       }
     }
 
+    /* everything below the fold is wired up after the hero has painted */
+    const later = () => ctx!.add(() => {
     /* section headings: words rise -------------------------------- */
     document.querySelectorAll<HTMLElement>('[data-split-words]').forEach((el) => {
-      const words = splitToWords(el);
-      show(el);
-      gsap.set(words, { yPercent: 110, autoAlpha: 0 });
-      gsap.to(words, {
-        yPercent: 0, autoAlpha: 1, duration: 1.1, stagger: 0.045, ease: EASE,
-        scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+      ScrollTrigger.create({
+        trigger: el, start: 'top 105%', once: true,
+        onEnter: () => {
+          const words = splitToWords(el);
+          gsap.set(words, { y: '1.1em', autoAlpha: 0 });
+          show(el);
+          gsap.to(words, { y: 0, autoAlpha: 1, duration: 1.1, stagger: 0.045, ease: EASE, delay: 0.05 });
+        },
       });
     });
 
@@ -321,17 +323,17 @@ async function initPage() {
         wrap.style.setProperty('--rail-bottom', `${wr.bottom - (last.top + 19)}px`);
       };
       place();
-      new ResizeObserver(place).observe(wrap);
       const fractions = () => {
         if (!rail) return nums.map(() => 0);
         const rr = rail.getBoundingClientRect();
         return nums.map((n) => Math.min(1, Math.max(0, (n.getBoundingClientRect().top + 19 - rr.top) / Math.max(1, rr.height))));
       };
+      let fr = fractions();
       ScrollTrigger.create({
         trigger: rail ?? wrap, start: 'top 58%', end: 'bottom 58%', scrub: 0.5,
+        onRefresh: () => { place(); fr = fractions(); },
         onUpdate: (self) => {
           wrap.style.setProperty('--p', self.progress.toFixed(4));
-          const fr = fractions();
           nums.forEach((n, i) => n.classList.toggle('is-on', self.progress >= fr[i] - 0.001));
         },
       });
@@ -355,15 +357,16 @@ async function initPage() {
       gsap.to(progress, { scaleX: 1, ease: 'none',
         scrollTrigger: { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 } });
     }
+      document.querySelectorAll<HTMLElement>('[data-anim]').forEach((el) => {
+        if (getComputedStyle(el).visibility === 'hidden') el.style.visibility = 'visible';
+      });
+      ScrollTrigger.refresh();
+      if (location.hash) setTimeout(() => scrollToHash(location.hash), 150);
+    });
+    if ('requestIdleCallback' in window) (window as any).requestIdleCallback(later, { timeout: 700 });
+    else setTimeout(later, 120);
   });
 
-  // anything still hidden (no animation matched) becomes visible
-  document.querySelectorAll<HTMLElement>('[data-anim]').forEach((el) => {
-    if (getComputedStyle(el).visibility === 'hidden') el.style.visibility = 'visible';
-  });
-
-  ScrollTrigger.refresh();
-  if (location.hash) setTimeout(() => scrollToHash(location.hash), 150);
 }
 
 /* ------------------------------------------------------------------ */
@@ -454,6 +457,16 @@ function initLightbox() {
 /* Scaled live-page frames and cursor handling over iframes            */
 /* ------------------------------------------------------------------ */
 function initFrames() {
+  const lazy = 'IntersectionObserver' in window
+    ? new IntersectionObserver((entries, obs) => {
+        entries.forEach((en) => {
+          if (!en.isIntersecting) return;
+          const f = en.target.querySelector<HTMLIFrameElement>('iframe[data-src]');
+          if (f) { f.src = f.dataset.src!; f.removeAttribute('data-src'); }
+          obs.unobserve(en.target);
+        });
+      }, { rootMargin: '400px 0px' })
+    : null;
   document.querySelectorAll<HTMLElement>('[data-scale-frame]').forEach((el) => {
     if (el.dataset.bound) return;
     el.dataset.bound = '1';
@@ -461,6 +474,8 @@ function initFrames() {
     const set = () => el.style.setProperty('--s', String(el.clientWidth / base));
     set();
     new ResizeObserver(set).observe(el);
+    if (lazy) lazy.observe(el);
+    else { const f = el.querySelector<HTMLIFrameElement>('iframe[data-src]'); if (f) f.src = f.dataset.src!; }
   });
   const root = document.querySelector<HTMLElement>('.cursor');
   if (!root) return;

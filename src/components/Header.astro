@@ -8,7 +8,7 @@ const path = Astro.url.pathname;
     <a class="brand" href="/" aria-label="Gati Varshney, home">Gati <em>Varshney</em></a>
     <nav aria-label="Primary">
       {nav.map((n) => (
-        <a href={n.href} class:list={['u', { cur: path.startsWith(n.href) }]} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a>
+        <a href={n.href} class:list={['u', { cur: path.startsWith(n.href) }]} aria-current={path.startsWith(n.href) ? 'page' : undefined} data-astro-prefetch>{n.label}</a>
       ))}
     </nav>
     <div class="right">

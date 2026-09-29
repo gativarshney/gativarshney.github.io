@@ -149,8 +149,8 @@ html.js [data-anim] { visibility: hidden; }
 
 /* word/char split helpers */
 .word { display: inline-block; overflow: hidden; padding: 0.08em 0.03em 0.14em; margin: -0.08em -0.03em -0.14em; vertical-align: bottom; }
-.char { display: inline-block; will-change: transform; }
-.w { display: inline-block; will-change: transform, opacity; }
+.char { display: inline-block; }
+.w { display: inline-block; }
 
 /* links with sweep underline */
 .u {

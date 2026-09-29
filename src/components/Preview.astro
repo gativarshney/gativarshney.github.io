@@ -28,7 +28,8 @@ const shown = label ?? url.replace(/^https?:\/\//, '').replace(/\/$/, '');
   </div>
   <div class="pbody" style={`aspect-ratio:${ratio}`} data-scale-frame={live ? base : undefined} data-cursor-hide={live ? '' : undefined}>
     {live ? (
-      <iframe src={url} title={title} loading="lazy" referrerpolicy="no-referrer" style={`width:${base}px`}></iframe>
+      <iframe data-src={url} title={title} loading="lazy" referrerpolicy="no-referrer" style={`width:${base}px`}></iframe>
+      <noscript><a class="snap empty" href={url} target="_blank" rel="noopener">{title} ↗</a></noscript>
     ) : image ? (
       <a class="snap" href={url} target="_blank" rel="noopener" data-cursor="Open" aria-label={`Open ${title}`}>
         <Image src={image} alt={alt} widths={[640, 960, 1280]} sizes="(max-width: 860px) 92vw, 44vw" loading="lazy" />

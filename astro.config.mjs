@@ -10,5 +10,5 @@ export default defineConfig({
   build: { format: 'directory' },
   integrations: [mdx(), sitemap()],
   image: { responsiveStyles: true },
-  prefetch: { prefetchAll: true, defaultStrategy: 'viewport' },
+  prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
 });

@@ -11,7 +11,7 @@ const { entry: w, num } = Astro.props;
     <div class="num mono" data-reveal data-node><span class="node" aria-hidden="true"></span>{num}</div>
     <div class="entry-copy">
       <p class="kicker mono" data-reveal>{w.kicker}<span class="period"> · {w.period}</span></p>
-      <h3 class="display" data-reveal="0.05"><a href={w.href} data-cursor="Open">{w.title}</a></h3>
+      <h3 class="display" data-reveal="0.05">{w.href ? <a href={w.href} data-cursor="Open">{w.title}</a> : <span>{w.title}</span>}</h3>
       <div class="tags" data-reveal="0.1">
         {w.status && <span class:list={['tag', w.status.tone]}>{w.status.label}</span>}
         {w.tags.map((t) => <span class="tag">{t}</span>)}

@@ -50,7 +50,7 @@ export type Entry = {
   evidence: Evidence[];
   links: Link[];
   visual: VisualKind;
-  href: string;
+  href?: string;
 };
 
 const OP = 'https://github.com/OpenPrinting/openprinting.github.io/pull/';
@@ -117,9 +117,8 @@ export const milestones: Entry[] = [
     summary:
       'A first industry role, and an international one: Software Engineer Intern at Quin Que, a Japanese company based in Kobe, on Rapilogi, a warehouse reception management system. This is private company work, so only the public outline is shown here.',
     evidence: [],
-    links: [],
+    links: [{ label: 'Quin Que on LinkedIn', href: 'https://www.linkedin.com/company/quinque-kobe/', external: true }],
     visual: 'quinque',
-    href: '/work/',
   },
 ];
 
