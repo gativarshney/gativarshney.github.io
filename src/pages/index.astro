@@ -172,13 +172,15 @@ const jsonLd = {
 
 <style>
   /* hero */
-  .hero { padding-top: clamp(120px, 16vh, 180px); position: relative; }
-  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: clamp(32px, 5vw, 80px); align-items: center; min-height: calc(100svh - 180px); }
-  .hero-copy h1 { font-size: clamp(56px, 8.6vw, 132px); margin: 28px 0 36px; }
-  .hero-copy .lede { max-width: 620px; margin-bottom: 40px; }
+  .hero { padding-top: clamp(96px, 13vh, 150px); position: relative; }
+  .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
+  .hero-copy { container-type: inline-size; }
+  .hero-copy h1 { font-size: clamp(52px, min(12.6cqw, 14.5vh), 112px); margin: 22px 0 28px; }
+  .hero-copy h1 em { white-space: nowrap; text-wrap: nowrap; }
+  .hero-copy .lede { max-width: 620px; margin-bottom: 32px; }
   .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
 
-  .hero-visual { position: relative; justify-self: end; width: min(100%, 440px); aspect-ratio: 4 / 5; }
+  .hero-visual { position: relative; justify-self: end; width: min(100%, 440px, calc((100svh - 190px) * 0.72)); aspect-ratio: 4 / 5; }
   .orb {
     position: absolute; inset: -18% -30% -10% -30%; border-radius: 50%; filter: blur(48px); opacity: 0.9; z-index: 0;
     background:
@@ -199,7 +201,7 @@ const jsonLd = {
     background: var(--ink); color: var(--bg); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
     box-shadow: 0 10px 30px -10px oklch(0% 0 0 / 0.4);
   }
-  .strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: clamp(56px, 8vh, 96px); border-top: 1px solid var(--hair); }
+  .strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: clamp(48px, 7vh, 88px); border-top: 1px solid var(--hair); }
   .strip li { padding: 22px 24px 22px 0; border-right: 1px solid var(--hair); display: grid; gap: 4px; }
   .strip li:not(:first-child) { padding-left: 24px; }
   .strip li:last-child { border-right: 0; }
@@ -248,6 +250,8 @@ const jsonLd = {
     .hero { padding-top: 104px; }
     .hero-grid { grid-template-columns: 1fr; min-height: 0; gap: 40px; }
     .hero-copy h1 { font-size: clamp(48px, 13vw, 72px); }
+    .hero-copy h1 em { white-space: normal; }
+    .hero-visual { width: min(100%, 360px); }
     .hero-visual { justify-self: start; width: min(100%, 360px); }
     .strip { grid-template-columns: 1fr 1fr; }
     .strip li { border-right: 0; border-bottom: 1px solid var(--hair); padding-left: 0 !important; }
