@@ -6,14 +6,16 @@ import Preview from '@/components/Preview.astro';
 import Certificate from '@/components/Certificate.astro';
 import { site, prGroups } from '@/data/site';
 import opLogo from '@/assets/logos/openprinting.png';
+import lfLogo from '@/assets/logos/linuxfoundation.png';
+import gsocLogo from '@/assets/logos/gsoc.svg';
 import wocCert from '@/assets/certs/woc-5.jpg';
 import gsocCert from '@/assets/certs/gsoc-2026.jpg';
 
-const timeline = [
+const timeline: { when: string; title: string; body: string; tone: string; stamp: string; link?: { l: string; h: string }; gsoc?: boolean }[] = [
   { when: 'Nov 2025', title: 'Author system', body: 'A reusable AuthorCard component and its integration into the post layout.', tone: 'ok', stamp: 'merged' },
   { when: 'Dec 2025', title: 'Migration of 200+ posts from Jekyll', body: 'A Node script handling frontmatter, media assets and redirects that preserve legacy URLs.', tone: 'ok', stamp: 'merged' },
   { when: 'Mar 2026', title: 'Build-time indexed search, live in production', body: 'A unified/remark AST pipeline compiles every post into a static JSON index, queried in-browser by MiniSearch. No search server.', tone: 'ok', stamp: 'merged' },
-  { when: 'May – Aug 2026', title: 'GSoC 2026: printer recommendations and a natural-language assistant', body: 'Explainable similarity over 6,657 printers; a deterministic assistant that reports data gaps instead of guessing.', tone: 'warn', stamp: 'under review', link: { l: 'Case study →', h: '/work/printer-recommendations/' } },
+  { when: 'May – Aug 2026', title: 'Google Summer of Code 2026 · OpenPrinting, The Linux Foundation', body: 'Printer recommendations and a natural-language assistant: explainable similarity over 6,657 printers; a deterministic assistant that reports data gaps instead of guessing. PRs #224, #230 and #236 (documentation) are listed below.', tone: 'warn', stamp: 'under review', link: { l: 'Case study →', h: '/work/printer-recommendations/' }, gsoc: true },
   { when: 'Aug 2026', title: 'Trailing-slash root cause and a CI URL check', body: 'Production 404s, including RSS links consumed by LWN, traced to a deploy-time action generating a config that overrode the repository’s.', tone: 'ok', stamp: 'merged', link: { l: 'Writing →', h: '/writing/tracing-production-404s/' } },
 ];
 
@@ -116,6 +118,13 @@ const ledger = [
           <span class="mono when">{t.when}</span>
           <div>
             <h2>{t.title} <span class:list={['tag', t.tone]}>{t.stamp}</span></h2>
+            {t.gsoc && (
+              <p class="orgs">
+                <img src={gsocLogo.src} alt="Google Summer of Code" class="gsoc" width="180" height="23" />
+                <Image src={opLogo} alt="OpenPrinting" width={40} height={40} class="olog" />
+                <Image src={lfLogo} alt="The Linux Foundation" width={40} height={40} class="olog" />
+              </p>
+            )}
             <p class="muted">{t.body} {t.link && <a class="u" href={t.link.h}>{t.link.l}</a>}</p>
           </div>
         </li>
@@ -186,6 +195,10 @@ const ledger = [
   .when { font-size: 12.5px; color: var(--ink-2); padding-top: 5px; }
   .tl h2 { font-size: 20px; font-weight: 500; margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
   .tl .muted { font-size: 15.5px; max-width: 680px; }
+  .orgs { display: flex; align-items: center; gap: 12px; margin: 6px 0 12px; }
+  .orgs .gsoc { height: 22px; width: auto; }
+  :global(:root[data-theme='dark']) .orgs .gsoc { filter: invert(1) hue-rotate(180deg) saturate(1.2); }
+  .orgs :global(.olog) { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--hair); background: #fff; padding: 3px; object-fit: contain; }
   .ledger { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 15px; }
   .ledger th { text-align: left; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; padding: 10px 16px 10px 0; border-bottom: 1px solid var(--ink); }
   .ledger td { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--hair); vertical-align: top; }

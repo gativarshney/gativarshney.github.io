@@ -4,7 +4,7 @@
 import '@/styles/global.css';
 import { Image } from 'astro:assets';
 import portrait from '@/assets/gati-cutout.png';
-const title = Astro.url.searchParams.get('t') ?? 'Software that|shows its working.';
+const title = Astro.url.searchParams.get('t') ?? 'Building software|you can verify.';
 const [line1, line2] = title.split('|');
 const sub = Astro.url.searchParams.get('s') ?? 'Final-year CS student · GSoC 2026 contributor at OpenPrinting, The Linux Foundation';
 ---

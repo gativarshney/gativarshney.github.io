@@ -1,7 +1,7 @@
 export const site = {
   name: 'Gati Varshney',
   url: 'https://gativarshney.github.io',
-  title: 'Gati Varshney — Software that shows its working',
+  title: 'Gati Varshney — Building software you can verify',
   description:
     'Gati Varshney is a final-year CS student and Google Summer of Code 2026 contributor at OpenPrinting (The Linux Foundation). Developer tools and data systems, measured honestly.',
   email: 'gativarshney01@gmail.com',
@@ -85,7 +85,7 @@ export const milestones: Entry[] = [
   {
     slug: 'gsoc-2026',
     title: 'Google Summer of Code 2026',
-    kicker: 'Contributor · OpenPrinting, The Linux Foundation',
+    kicker: 'Contributor · OpenPrinting · sponsored by The Linux Foundation',
     period: 'May 25 – Aug 24, 2026',
     status: { label: 'Completed · under upstream review', tone: 'warn' },
     tags: ['recommendation pipeline', 'build-time ML', 'natural language'],
@@ -100,8 +100,9 @@ export const milestones: Entry[] = [
       { label: 'Case study', href: '/work/printer-recommendations/' },
       { label: 'Final report', href: site.links.gsocReport, external: true },
       { label: 'Project page', href: site.links.gsocProject, external: true },
-      { label: 'PR #224', href: `${OP}224`, external: true },
-      { label: 'PR #230', href: `${OP}230`, external: true },
+      { label: 'PR #224 · recommendations', href: `${OP}224`, external: true },
+      { label: 'PR #230 · assistant', href: `${OP}230`, external: true },
+      { label: 'PR #236 · documentation', href: `${OP}236`, external: true },
     ],
     visual: 'gsoc',
     href: '/work/printer-recommendations/',
@@ -112,9 +113,9 @@ export const milestones: Entry[] = [
     kicker: 'Software Engineer Intern · Quin Que, Kobe, Japan',
     period: '2026',
     status: { label: 'International internship', tone: 'accent' },
-    tags: ['Japan', 'Rapilogi', 'warehouse reception', 'system renewal'],
+    tags: ['Japan', 'Rapilogi', 'warehouse reception management'],
     summary:
-      'A first industry role, and an international one: Software Engineer Intern at Quin Que, a Japanese company based in Kobe, on Rapilogi, the renewal of a warehouse reception management system. This is private company work, so only the public outline is shown here.',
+      'A first industry role, and an international one: Software Engineer Intern at Quin Que, a Japanese company based in Kobe, on Rapilogi, a warehouse reception management system. This is private company work, so only the public outline is shown here.',
     evidence: [],
     links: [],
     visual: 'quinque',
@@ -130,7 +131,7 @@ export const work: Entry[] = [
     slug: 'cidx',
     title: 'cidx',
     kicker: 'Personal project · developer tool',
-    period: 'Jul 2026 – present',
+    period: 'Jul – Sep 2026',
     status: { label: 'Alpha on PyPI', tone: 'accent' },
     tags: ['Python', 'tree-sitter', 'SQLite', 'MCP'],
     summary:
@@ -165,8 +166,9 @@ export const work: Entry[] = [
     links: [
       { label: 'Case study', href: '/work/printer-recommendations/' },
       { label: 'Final report', href: site.links.gsocReport, external: true },
-      { label: 'PR #224', href: `${OP}224`, external: true },
-      { label: 'PR #230', href: `${OP}230`, external: true },
+      { label: 'PR #224 · recommendations', href: `${OP}224`, external: true },
+      { label: 'PR #230 · assistant', href: `${OP}230`, external: true },
+      { label: 'PR #236 · documentation', href: `${OP}236`, external: true },
     ],
     visual: 'printers',
     href: '/work/printer-recommendations/',
@@ -234,7 +236,7 @@ export const prGroups: { area: string; note: string; prs: PR[] }[] = [
 export const journey = [
   {
     year: '2023',
-    title: 'JSS Academy, Noida',
+    title: 'JSS Academy of Technical Education, Noida',
     body: 'B.Tech in Computer Science (Data Science). Started competitive programming; would end up a LeetCode Knight.',
     lesson: 'Hard problems for their own sake.',
   },
@@ -252,8 +254,8 @@ export const journey = [
   },
   {
     year: 'Now',
-    title: 'Japan, cidx, and what’s next',
-    body: 'An international internship: Software Engineer Intern at Quin Que, a Japanese company in Kobe, on Rapilogi. Auditing cidx at Django scale. GSoC work in upstream review. Graduating 2027, open to relocation.',
+    title: 'Quin Que, and what’s next',
+    body: 'Software Engineer Intern at Quin Que, a Japanese company in Kobe. Building new projects worth putting on this page. Graduating 2027, open to relocation.',
     lesson: 'Publish the losses too.',
   },
 ];
@@ -302,8 +304,7 @@ export const writing = [
 /* Hero strip                                                          */
 /* ------------------------------------------------------------------ */
 export const record = [
-  { k: 'Now · International', v: 'Software Engineer Intern · Quin Que, Kobe, Japan', m: 'Rapilogi · warehouse reception system renewal' },
+  { k: 'Now · International', v: 'Software Engineer Intern · Quin Que, Kobe, Japan', m: 'Rapilogi · warehouse reception management' },
   { k: 'Summer 2026', v: 'Google Summer of Code · OpenPrinting', m: 'printer recommendations + NL assistant · completed' },
   { k: 'Since Nov 2025', v: 'OpenPrinting website contributor', m: '14 commits in production · Hall of Fame' },
-  { k: 'Building', v: 'cidx — code index for AI coding agents', m: '0.1.0a2 on PyPI · 263 tests · 3 OS × 3 Python' },
 ];

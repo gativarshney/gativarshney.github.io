@@ -33,9 +33,9 @@ const jsonLd = {
   <section class="hero" data-hero>
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow" data-hero-eyebrow data-anim><span class="dot"></span>Gati Varshney · Final-year CS student · GSoC 2026 at OpenPrinting · Open to relocation</p>
-        <h1 class="display" data-hero-title data-anim>Software that<br /><em>shows its working.</em></h1>
-        <p class="lede" data-hero-lede data-anim>I’m Gati Varshney, a final-year CS student and <b>Google Summer of Code 2026</b> contributor at <b>OpenPrinting, The Linux Foundation</b>. I build developer tools and data systems, measure them honestly, and publish what they get wrong.</p>
+        <p class="eyebrow" data-hero-eyebrow data-anim><span class="dot"></span>Gati&nbsp;Varshney · Final-year CS&nbsp;student · GSoC&nbsp;2026 at&nbsp;OpenPrinting · Open&nbsp;to&nbsp;relocation</p>
+        <h1 class="display" data-hero-title data-anim>Building software<br /><em>you can verify.</em></h1>
+        <p class="lede" data-hero-lede data-anim>I’m Gati Varshney, a final-year CS student and <b>Google Summer of Code 2026</b> contributor at <b>OpenPrinting, The Linux Foundation</b>. I build developer tools and data systems whose claims can be checked: measured, tested, and reproducible.</p>
         <div class="ctas" data-hero-cta>
           <a class="btn fill" href="#journey" data-magnetic="0.3" data-anim>The journey <span class="arr">↓</span></a>
           <a class="btn" href="/open-source/" data-magnetic="0.3" data-anim>Open source</a>
@@ -68,7 +68,7 @@ const jsonLd = {
   <!-- PRINCIPLE ------------------------------------------------------ -->
   <section class="section wrap">
     <p class="eyebrow" data-reveal>01 — Principle</p>
-    <p class="manifesto display" data-split-words data-anim>Most software is trusted because it <em>looks</em> right. I’d rather build things that can be <em>checked</em>: measured numbers with the commands that produced them, decision records, evaluation harnesses that fail when a claim drifts, and limitation sections nobody asked for.</p>
+    <p class="manifesto display" data-split-words data-anim>Most software is trusted because it <em>looks</em> right. I’d rather build things that can be <em>checked</em>: numbers with the commands that produced them, decision records, evaluation harnesses that fail when a claim drifts, and limitation sections nobody asked for.</p>
   </section>
 
   <!-- JOURNEY -------------------------------------------------------- -->
@@ -91,7 +91,7 @@ const jsonLd = {
   <section class="section wrap" id="project">
     <div class="shead">
       <div>
-        <p class="eyebrow" data-reveal>03 — Building now</p>
+        <p class="eyebrow" data-reveal>03 — Selected project</p>
         <h2 class="display" data-split-words data-anim>Built, measured,<br /><em>documented.</em></h2>
       </div>
       <p data-reveal="0.15">A tool for AI coding agents, published on PyPI, with every number tied to the command that produced it.</p>
@@ -165,7 +165,6 @@ const jsonLd = {
       <div><dt class="eyebrow">Based</dt><dd>India (IST) · open to relocation, anywhere</dd></div>
       <div><dt class="eyebrow">Status</dt><dd>Graduating 2027 · open to internships &amp; new-grad roles</dd></div>
       <div><dt class="eyebrow">Elsewhere</dt><dd><a class="u" href={site.links.github} target="_blank" rel="noopener">GitHub</a> · <a class="u" href={site.links.linkedin} target="_blank" rel="noopener">LinkedIn</a> · <a class="u" href={site.links.leetcode} target="_blank" rel="noopener">LeetCode</a></dd></div>
-      <div><dt class="eyebrow">Currently reading</dt><dd>SQLite’s query planner, more than is reasonable</dd></div>
     </dl>
   </section>
 </Base>
@@ -201,7 +200,7 @@ const jsonLd = {
     background: var(--ink); color: var(--bg); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
     box-shadow: 0 10px 30px -10px oklch(0% 0 0 / 0.4);
   }
-  .strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: clamp(48px, 7vh, 88px); border-top: 1px solid var(--hair); }
+  .strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: clamp(48px, 7vh, 88px); border-top: 1px solid var(--hair); }
   .strip li { padding: 22px 24px 22px 0; border-right: 1px solid var(--hair); display: grid; gap: 4px; }
   .strip li:not(:first-child) { padding-left: 24px; }
   .strip li:last-child { border-right: 0; }
@@ -243,6 +242,7 @@ const jsonLd = {
   .note { display: block; margin-top: 12px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); transition: color 0.3s; }
   .note.is-on { color: var(--accent); }
   .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 32px; }
+  .meta div:last-child { grid-column: 1 / -1; }
   .meta dt { margin-bottom: 8px; }
   .meta dd { font-size: 16px; }
 
@@ -253,7 +253,7 @@ const jsonLd = {
     .hero-copy h1 em { white-space: normal; }
     .hero-visual { width: min(100%, 360px); }
     .hero-visual { justify-self: start; width: min(100%, 360px); }
-    .strip { grid-template-columns: 1fr 1fr; }
+    .strip { grid-template-columns: 1fr; }
     .strip li { border-right: 0; border-bottom: 1px solid var(--hair); padding-left: 0 !important; }
     .journey { grid-template-columns: 1fr; }
     .step { border-right: 0; border-bottom: 1px solid var(--hair); min-height: 0; }

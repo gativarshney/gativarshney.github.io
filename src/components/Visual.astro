@@ -6,6 +6,7 @@ import { site } from '@/data/site';
 import opLogo from '@/assets/logos/openprinting.png';
 import gsocLogo from '@/assets/logos/gsoc.svg';
 import qqLogo from '@/assets/logos/quinque.png';
+import lfLogo from '@/assets/logos/linuxfoundation.png';
 import gsocCert from '@/assets/certs/gsoc-2026.jpg';
 import cidxSnap from '@/assets/previews/github-cidx.png';
 import mediumSnap from '@/assets/writing/gsoc-report-cover.png';
@@ -25,8 +26,12 @@ const { kind } = Astro.props;
 )}
 {kind === 'gsoc' && (
   <>
-    <div class="logo-row">
+    <div class="logo-row gsoc-row">
       <img src={gsocLogo.src} alt="Google Summer of Code" width="220" height="28" class="gsoc" />
+      <span class="sep" aria-hidden="true"></span>
+      <Image src={opLogo} alt="OpenPrinting" width={56} height={56} class="logo sm" />
+      <Image src={lfLogo} alt="The Linux Foundation" width={56} height={56} class="logo sm" />
+      <div><p class="lname">OpenPrinting</p><p class="lsub mono">sponsored by The Linux Foundation</p></div>
     </div>
     <Preview url={site.links.gsocProject} title="Project page on summerofcode.withgoogle.com" image={gsocSnap} alt="Google Summer of Code project page: AI-Driven Printer Compatibility & Recommendation Portal" ratio="16 / 9" />
     <Certificate src={gsocCert} alt="Google Summer of Code 2026 completion certificate for Gati Varshney, The Linux Foundation, May 25 to August 24, 2026" title="GSoC 2026 certificate" meta="Signed by the program manager, Google" compact />
@@ -40,14 +45,23 @@ const { kind } = Astro.props;
     </div>
     <div class="panel qq" data-tilt="3">
       <p class="eyebrow">Rapilogi</p>
-      <p class="qq-mark display">Warehouse reception,<br /><em>renewed.</em></p>
-      <p class="qq-sub mono">warehouse reception management · system renewal</p>
+      <p class="qq-mark display">Warehouse reception<br /><em>management.</em></p>
+      <p class="qq-sub mono">software engineer intern · kobe, japan</p>
       <p class="foot">A Japanese company · private company work · public outline only.</p>
     </div>
   </>
 )}
 {kind === 'cidx' && (
-  <Preview url={site.links.cidxRepo} title="cidx on GitHub" image={cidxSnap} alt="The cidx repository on GitHub" ratio="16 / 10" />
+  <>
+    <Preview url={site.links.cidxRepo} title="cidx on GitHub" image={cidxSnap} alt="The cidx repository on GitHub" ratio="16 / 10" />
+    <a class="panel pypi" href={site.links.cidxPypi} target="_blank" rel="noopener" data-cursor="Open" data-tilt="2">
+      <div>
+        <p class="eyebrow">Install from PyPI</p>
+        <pre>pip install --pre cidx</pre>
+      </div>
+      <p class="pypi-meta mono">pypi.org/project/cidx · alpha · Python 3.11+ · Apache-2.0 ↗</p>
+    </a>
+  </>
 )}
 {kind === 'printers' && (
   <Preview url={site.links.gsocReport} title="GSoC 2026 final report on Medium" image={mediumSnap} alt="Medium article: GSoC 2026 Final Report" ratio="16 / 10" />
@@ -57,6 +71,14 @@ const { kind } = Astro.props;
   .logo-row { display: flex; align-items: center; gap: 16px; }
   .logo { width: 56px; height: 56px; border-radius: 12px; border: 1px solid var(--hair); background: #fff; padding: 4px; object-fit: contain; }
   .gsoc { height: 26px; width: auto; }
+  .gsoc-row { flex-wrap: wrap; gap: 12px 14px; }
+  .sep { width: 1px; height: 28px; background: var(--hair); }
+  .logo.sm { width: 40px; height: 40px; border-radius: 9px; }
+  .pypi { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; padding: 18px 20px; }
+  .pypi pre { font-size: 15px; margin-top: 10px; }
+  .pypi-meta { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); text-align: right; }
+  .pypi:hover .pypi-meta { color: var(--accent); }
+  @media (max-width: 600px) { .pypi { flex-direction: column; align-items: flex-start; } .pypi-meta { text-align: left; } }
   :global(:root[data-theme='dark']) .gsoc { filter: invert(1) hue-rotate(180deg) saturate(1.2); }
   .lname { font-weight: 500; font-size: 15px; }
   .lsub { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-top: 2px; }
