@@ -1,0 +1,23 @@
+---
+/** Wraps Milestone entries with a vertical rail whose fill and dot follow the scroll. */
+---
+<div class="rail-wrap" data-rail>
+  <div class="rail" aria-hidden="true">
+    <span class="rail-track"></span>
+    <span class="rail-fill"></span>
+    <span class="rail-dot"></span>
+  </div>
+  <slot />
+</div>
+
+<style>
+  .rail-wrap { position: relative; --p: 0; }
+  .rail { position: absolute; left: 4px; top: var(--rail-top, 24px); bottom: var(--rail-bottom, 24px); width: 2px; pointer-events: none; }
+  .rail-track { position: absolute; inset: 0; background: var(--hair); border-radius: 2px; }
+  .rail-fill { position: absolute; inset: 0; background: linear-gradient(180deg, var(--accent), color-mix(in oklch, var(--accent) 60%, transparent)); border-radius: 2px; transform-origin: top; transform: scaleY(var(--p)); }
+  .rail-dot {
+    position: absolute; left: 50%; top: calc(var(--p) * 100%); width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%;
+    background: var(--accent); box-shadow: 0 0 0 4px var(--bg), 0 0 0 6px color-mix(in oklch, var(--accent) 35%, transparent), 0 0 24px var(--accent-glow);
+  }
+  @media (prefers-reduced-motion: reduce) { .rail-wrap { --p: 1; } .rail-dot { display: none; } }
+</style>

@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Preview from '@/components/Preview.astro';
 import Certificate from '@/components/Certificate.astro';
+import Logo from '@/components/Logo.astro';
 import { site } from '@/data/site';
 import opLogo from '@/assets/logos/openprinting.png';
 import gsocLogo from '@/assets/logos/gsoc.svg';
@@ -18,7 +19,8 @@ const { kind } = Astro.props;
 {kind === 'openprinting' && (
   <>
     <div class="logo-row">
-      <Image src={opLogo} alt="OpenPrinting" width={72} height={72} class="logo" />
+      <Logo src={opLogo} alt="OpenPrinting" tone="op" size={60} />
+      <Logo src={lfLogo} alt="The Linux Foundation" tone="lf" size={60} />
       <div><p class="lname">OpenPrinting · The Linux Foundation</p><p class="lsub mono">the live site, with the search and homepage I built</p></div>
     </div>
     <Preview url={site.links.openprintingSite} title="OpenPrinting website, live" live base={1280} ratio="16 / 10" />
@@ -29,8 +31,8 @@ const { kind } = Astro.props;
     <div class="logo-row gsoc-row">
       <img src={gsocLogo.src} alt="Google Summer of Code" width="220" height="28" class="gsoc" />
       <span class="sep" aria-hidden="true"></span>
-      <Image src={opLogo} alt="OpenPrinting" width={56} height={56} class="logo sm" />
-      <Image src={lfLogo} alt="The Linux Foundation" width={56} height={56} class="logo sm" />
+      <Logo src={opLogo} alt="OpenPrinting" tone="op" size={48} />
+      <Logo src={lfLogo} alt="The Linux Foundation" tone="lf" size={48} />
       <div><p class="lname">OpenPrinting</p><p class="lsub mono">sponsored by The Linux Foundation</p></div>
     </div>
     <Preview url={site.links.gsocProject} title="Project page on summerofcode.withgoogle.com" image={gsocSnap} alt="Google Summer of Code project page: AI-Driven Printer Compatibility & Recommendation Portal" ratio="16 / 9" />
@@ -40,7 +42,7 @@ const { kind } = Astro.props;
 {kind === 'quinque' && (
   <>
     <div class="logo-row">
-      <Image src={qqLogo} alt="Quin Que" width={72} height={72} class="logo" />
+      <Logo src={qqLogo} alt="Quin Que" tone="qq" size={60} />
       <div><p class="lname">Quin Que · Kobe, Japan</p><p class="lsub mono">international internship · software engineer intern</p></div>
     </div>
     <div class="panel qq" data-tilt="3">
@@ -70,7 +72,7 @@ const { kind } = Astro.props;
 <style>
   .logo-row { display: flex; align-items: center; gap: 16px; }
   .logo { width: 56px; height: 56px; border-radius: 12px; border: 1px solid var(--hair); background: #fff; padding: 4px; object-fit: contain; }
-  .gsoc { height: 26px; width: auto; }
+  .gsoc { height: 26px; width: auto; padding: 10px 14px; border-radius: 999px; background: oklch(98% 0.01 75); border: 1px solid oklch(78% 0.14 70 / 0.5); box-sizing: content-box; }
   .gsoc-row { flex-wrap: wrap; gap: 12px 14px; }
   .sep { width: 1px; height: 28px; background: var(--hair); }
   .logo.sm { width: 40px; height: 40px; border-radius: 9px; }
@@ -79,7 +81,7 @@ const { kind } = Astro.props;
   .pypi-meta { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); text-align: right; }
   .pypi:hover .pypi-meta { color: var(--accent); }
   @media (max-width: 600px) { .pypi { flex-direction: column; align-items: flex-start; } .pypi-meta { text-align: left; } }
-  :global(:root[data-theme='dark']) .gsoc { filter: invert(1) hue-rotate(180deg) saturate(1.2); }
+  :global(:root[data-theme='dark']) .gsoc { background: oklch(97% 0.01 75); }
   .lname { font-weight: 500; font-size: 15px; }
   .lsub { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-top: 2px; }
   .qq { min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; }

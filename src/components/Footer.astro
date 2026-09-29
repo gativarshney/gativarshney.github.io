@@ -5,7 +5,10 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="wrap">
     <div class="top">
-      <a class="brand" href="/">Gati <em>Varshney</em></a>
+      <div>
+        <a class="brand" href="/">Gati <em>Varshney</em></a>
+        <p class="say">Have something worth building? <a class="u" href={`mailto:${site.email}?subject=Hello%20Gati`}>Start a conversation ↗</a></p>
+      </div>
       <nav aria-label="Footer" class="cols">
         <div>
           <p class="eyebrow">Index</p>
@@ -38,6 +41,8 @@ const year = new Date().getFullYear();
   .top { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; align-items: start; }
   .brand { font-family: var(--font-display); font-size: clamp(32px, 4vw, 52px); letter-spacing: -0.02em; line-height: 1; }
   .brand em { font-style: italic; font-weight: 300; color: var(--accent); }
+  .say { margin-top: 18px; font-size: 15px; color: var(--ink-2); max-width: 300px; }
+  .say a { color: var(--ink); }
   .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .cols div { display: flex; flex-direction: column; gap: 10px; font-size: 15px; }
   .cols .eyebrow { margin-bottom: 8px; }

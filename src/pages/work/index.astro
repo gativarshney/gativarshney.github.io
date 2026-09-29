@@ -2,6 +2,7 @@
 import Base from '@/layouts/Base.astro';
 import Milestone from '@/components/Milestone.astro';
 import Certificate from '@/components/Certificate.astro';
+import Timeline from '@/components/Timeline.astro';
 import { milestones, work, site } from '@/data/site';
 import wocCert from '@/assets/certs/woc-5.jpg';
 import gsocCert from '@/assets/certs/gsoc-2026.jpg';
@@ -15,10 +16,10 @@ import gsocCert from '@/assets/certs/gsoc-2026.jpg';
 
   <section class="wrap">
     <p class="eyebrow" data-reveal>Journey</p>
-    <div class="entries">
+    <Timeline>
       {milestones.map((m, i) => <Milestone entry={m} num={`0${i + 1}`} />)}
       <hr class="hr" data-line />
-    </div>
+    </Timeline>
   </section>
 
   <section class="wrap section">

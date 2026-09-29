@@ -288,6 +288,35 @@ async function initPage() {
       });
     }
 
+    /* timeline rail ----------------------------------------------- */
+    document.querySelectorAll<HTMLElement>('[data-rail]').forEach((wrap) => {
+      const nums = Array.from(wrap.querySelectorAll<HTMLElement>('[data-node]'));
+      if (!nums.length) return;
+      const rail = wrap.querySelector<HTMLElement>('.rail');
+      const place = () => {
+        const wr = wrap.getBoundingClientRect();
+        const first = nums[0].getBoundingClientRect();
+        const last = nums[nums.length - 1].getBoundingClientRect();
+        wrap.style.setProperty('--rail-top', `${first.top - wr.top + 19}px`);
+        wrap.style.setProperty('--rail-bottom', `${wr.bottom - (last.top + 19)}px`);
+      };
+      place();
+      new ResizeObserver(place).observe(wrap);
+      const fractions = () => {
+        if (!rail) return nums.map(() => 0);
+        const rr = rail.getBoundingClientRect();
+        return nums.map((n) => Math.min(1, Math.max(0, (n.getBoundingClientRect().top + 19 - rr.top) / Math.max(1, rr.height))));
+      };
+      ScrollTrigger.create({
+        trigger: rail ?? wrap, start: 'top 58%', end: 'bottom 58%', scrub: 0.5,
+        onUpdate: (self) => {
+          wrap.style.setProperty('--p', self.progress.toFixed(4));
+          const fr = fractions();
+          nums.forEach((n, i) => n.classList.toggle('is-on', self.progress >= fr[i] - 0.001));
+        },
+      });
+    });
+
     /* header show/hide ------------------------------------------- */
     const header = document.querySelector<HTMLElement>('[data-header]');
     if (header) {

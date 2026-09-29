@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Base from '@/layouts/Base.astro';
 import Milestone from '@/components/Milestone.astro';
 import FeaturedArticle from '@/components/FeaturedArticle.astro';
+import Timeline from '@/components/Timeline.astro';
 import { site, milestones, work, journey, writing, record } from '@/data/site';
 import portrait from '@/assets/gati-cutout.png';
 
@@ -81,10 +82,10 @@ const jsonLd = {
       <p data-reveal="0.15">Open source first, then Google Summer of Code, then industry. Each stop with its evidence and the pages where you can check it.</p>
     </div>
 
-    <div class="entries">
+    <Timeline>
       {milestones.map((m, i) => <Milestone entry={m} num={`0${i + 1}`} />)}
       <hr class="hr" data-line />
-    </div>
+    </Timeline>
   </section>
 
   <!-- PROJECT -------------------------------------------------------- -->
@@ -151,12 +152,16 @@ const jsonLd = {
   </section>
 
   <!-- CONTACT -------------------------------------------------------- -->
-  <section class="section wrap contact">
+  <section class="section wrap contact" id="contact">
     <div>
-      <p class="eyebrow" data-reveal>06 — Say hello</p>
-      <h2 class="display" data-split-words data-anim>Send me the bug<br /><em>nobody can reproduce.</em></h2>
-      <p class="lede" data-reveal="0.1">I like problems that need patience: indexing, evaluation, data pipelines, and the small decisions that make a system trustworthy.</p>
-      <p data-reveal="0.15">
+      <p class="eyebrow" data-reveal>06 — Start a conversation</p>
+      <h2 class="display" data-split-words data-anim>Start a<br /><em>conversation.</em></h2>
+      <p class="lede" data-reveal="0.1">Have an opportunity, an interesting idea, or want to talk about engineering? I’d love to hear from you.</p>
+      <p class="ctas contact-ctas" data-reveal="0.15">
+        <a class="btn fill" href={`mailto:${site.email}?subject=Hello%20Gati`} data-magnetic="0.3">Get in touch via email <span class="arr">↗</span></a>
+        <a class="btn" href={site.links.linkedin} target="_blank" rel="noopener" data-magnetic="0.3">LinkedIn <span class="arr">↗</span></a>
+      </p>
+      <p class="email-line" data-reveal="0.2">
         <a class="email display" href={`mailto:${site.email}`} data-copy={site.email} data-cursor="Copy" data-magnetic="0.15">{site.email}</a>
         <span class="note mono" data-copy-note>click to copy</span>
       </p>
@@ -236,8 +241,10 @@ const jsonLd = {
   /* contact */
   .contact { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 64px; align-items: end; }
   .contact h2 { font-size: clamp(48px, 7vw, 104px); margin: 20px 0 28px; font-weight: 300; }
-  .contact .lede { max-width: 560px; margin-bottom: 36px; }
-  .email { font-size: clamp(22px, 2.4vw, 32px); border-bottom: 1px solid var(--hair-strong); padding-bottom: 4px; display: inline-block; transition: border-color 0.3s, color 0.3s; }
+  .contact .lede { max-width: 560px; margin-bottom: 28px; }
+  .contact-ctas { margin-bottom: 40px; }
+  .email-line { margin-top: 8px; }
+  .email { font-size: clamp(20px, 2vw, 26px); border-bottom: 1px solid var(--hair-strong); padding-bottom: 4px; display: inline-block; transition: border-color 0.3s, color 0.3s; }
   .email:hover { color: var(--accent); border-color: var(--accent); }
   .note { display: block; margin-top: 12px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); transition: color 0.3s; }
   .note.is-on { color: var(--accent); }

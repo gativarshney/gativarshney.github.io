@@ -4,6 +4,7 @@ import Base from '@/layouts/Base.astro';
 import HallOfFame from '@/components/HallOfFame.astro';
 import Preview from '@/components/Preview.astro';
 import Certificate from '@/components/Certificate.astro';
+import Logo from '@/components/Logo.astro';
 import { site, prGroups } from '@/data/site';
 import opLogo from '@/assets/logos/openprinting.png';
 import lfLogo from '@/assets/logos/linuxfoundation.png';
@@ -48,8 +49,9 @@ const ledger = [
       </blockquote>
     </div>
     <div class="logo-card" data-reveal="0.2" data-tilt="3">
-      <Image src={opLogo} alt="OpenPrinting" width={200} height={200} />
-      <p class="mono">The Linux Foundation · openprinting.github.io</p>
+      <div class="bubbles"><Logo src={opLogo} alt="OpenPrinting" tone="op" size={96} /><Logo src={lfLogo} alt="The Linux Foundation" tone="lf" size={72} /></div>
+      <p class="mono">OpenPrinting · The Linux Foundation</p>
+      <p class="mono sub">openprinting.github.io</p>
     </div>
   </section>
 
@@ -121,8 +123,8 @@ const ledger = [
             {t.gsoc && (
               <p class="orgs">
                 <img src={gsocLogo.src} alt="Google Summer of Code" class="gsoc" width="180" height="23" />
-                <Image src={opLogo} alt="OpenPrinting" width={40} height={40} class="olog" />
-                <Image src={lfLogo} alt="The Linux Foundation" width={40} height={40} class="olog" />
+                <Logo src={opLogo} alt="OpenPrinting" tone="op" size={40} />
+                <Logo src={lfLogo} alt="The Linux Foundation" tone="lf" size={40} />
               </p>
             )}
             <p class="muted">{t.body} {t.link && <a class="u" href={t.link.h}>{t.link.l}</a>}</p>
@@ -167,9 +169,11 @@ const ledger = [
   blockquote { margin: 40px 0 0; padding-left: 24px; border-left: 2px solid var(--accent); max-width: 760px; }
   .q { font-size: clamp(22px, 2.4vw, 32px); font-weight: 300; font-style: italic; line-height: 1.25; }
   cite { display: block; margin-top: 12px; font-style: normal; font-size: 12px; color: var(--ink-2); letter-spacing: 0.06em; }
-  .logo-card { margin-top: 60px; border: 1px solid var(--hair); border-radius: 16px; background: #fff; padding: 28px; display: grid; gap: 14px; justify-items: center; transform: perspective(1000px); }
-  .logo-card :global(img) { width: 170px; height: auto; }
-  .logo-card p { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #5C5F66; text-align: center; }
+  .logo-card { margin-top: 60px; border: 1px solid var(--hair); border-radius: 16px; background: var(--bg-2); padding: 32px 28px 26px; display: grid; gap: 14px; justify-items: center; transform: perspective(1000px); }
+  .bubbles { display: flex; align-items: center; }
+  .bubbles > :global(*:last-child) { margin-left: -14px; }
+  .logo-card p { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); text-align: center; }
+  .logo-card .sub { color: var(--ink-3); margin-top: -8px; }
 
   .two { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; }
   .two h2 { font-size: clamp(36px, 4.4vw, 64px); margin: 18px 0 20px; }
@@ -196,9 +200,7 @@ const ledger = [
   .tl h2 { font-size: 20px; font-weight: 500; margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
   .tl .muted { font-size: 15.5px; max-width: 680px; }
   .orgs { display: flex; align-items: center; gap: 12px; margin: 6px 0 12px; }
-  .orgs .gsoc { height: 22px; width: auto; }
-  :global(:root[data-theme='dark']) .orgs .gsoc { filter: invert(1) hue-rotate(180deg) saturate(1.2); }
-  .orgs :global(.olog) { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--hair); background: #fff; padding: 3px; object-fit: contain; }
+  .orgs .gsoc { height: 20px; width: auto; padding: 8px 12px; border-radius: 999px; background: oklch(98% 0.01 75); border: 1px solid oklch(78% 0.14 70 / 0.5); box-sizing: content-box; }
   .ledger { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 15px; }
   .ledger th { text-align: left; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; padding: 10px 16px 10px 0; border-bottom: 1px solid var(--ink); }
   .ledger td { padding: 12px 16px 12px 0; border-bottom: 1px solid var(--hair); vertical-align: top; }
