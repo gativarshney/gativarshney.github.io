@@ -6,11 +6,13 @@ import badges from '@/data/leetcode-badges.json';
 
 const icons = import.meta.glob<{ default: ImageMetadata }>('/src/assets/leetcode/*.png', { eager: true });
 const icon = (slug: string) => icons[`/src/assets/leetcode/${slug}.png`]?.default;
+interface Props { wide?: boolean }
+const { wide = false } = Astro.props;
 const knight = icon('knight');
 const rest = badges.filter((b) => b.slug !== 'knight').sort((a, b) => b.date.localeCompare(a.date));
 const fmt = (d: string) => new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB', { month: 'short', year: 'numeric', timeZone: 'UTC' });
 ---
-<div class="lc">
+<div class:list={['lc', { wide }]}>
   <a class="knight" href={site.links.leetcode} target="_blank" rel="noopener" data-cursor="Open" data-tilt="4">
     <span class="kb"><Image src={knight} alt="LeetCode Knight badge" width={120} height={120} /></span>
     <span class="kt">
@@ -33,6 +35,8 @@ const fmt = (d: string) => new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB'
 
 <style>
   .lc { margin-top: 18px; max-width: 860px; }
+  .lc.wide { max-width: none; margin-top: 0; }
+  .lc.wide .badges { grid-template-columns: repeat(8, 1fr); }
   .knight { display: grid; grid-template-columns: auto 1fr auto; gap: 22px; align-items: center; padding: 22px 26px; border: 1px solid var(--hair); border-radius: 16px; background: var(--bg-2); transform: perspective(1000px); transition: border-color 0.4s, box-shadow 0.6s var(--ease-out); box-shadow: 0 1px 0 0 oklch(100% 0 0 / 0.5) inset; }
   .knight:hover { border-color: var(--hair-strong); box-shadow: 0 1px 0 0 oklch(100% 0 0 / 0.5) inset, 0 24px 48px -28px oklch(0% 0 0 / 0.4); }
   .kb { width: 84px; height: 84px; display: grid; place-items: center; border-radius: 50%; background: radial-gradient(circle at 35% 30%, oklch(100% 0 0 / 0.9), transparent 60%), oklch(95% 0.05 75); border: 1px solid oklch(78% 0.14 70 / 0.6); }
@@ -52,6 +56,6 @@ const fmt = (d: string) => new Date(d + 'T00:00:00Z').toLocaleDateString('en-GB'
   @media (max-width: 860px) {
     .knight { grid-template-columns: auto 1fr; padding: 18px; }
     .knight .arr { display: none; }
-    .badges { grid-template-columns: repeat(2, 1fr); }
+    .badges, .lc.wide .badges { grid-template-columns: repeat(2, 1fr); }
   }
 </style>

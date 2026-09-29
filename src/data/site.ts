@@ -113,7 +113,7 @@ export const milestones: Entry[] = [
     slug: 'quin-que',
     title: 'Quin Que',
     kicker: 'Software Engineer Intern · Quin Que, Kobe, Japan',
-    period: '2026',
+    period: 'Sep 2026',
     status: { label: 'International internship', tone: 'accent' },
     tags: ['Japan', 'Rapilogi', 'warehouse reception management'],
     summary:
@@ -277,7 +277,7 @@ export const journey = [
     lesson: 'Do the expensive work before deploy.',
   },
   {
-    year: 'Now',
+    year: 'Sep 2026',
     title: 'Quin Que, and what’s next',
     body: 'Software Engineer Intern at Quin Que, a Japanese company in Kobe. Building new projects worth putting on this page. Graduating 2027, open to relocation.',
     lesson: 'Publish the losses too.',
@@ -303,7 +303,7 @@ export const writing: { slug: string; title: string; subtitle: string; date: str
 /* Hero strip                                                          */
 /* ------------------------------------------------------------------ */
 export const record = [
-  { k: 'Now · International', v: 'Software Engineer Intern · Quin Que, Kobe, Japan', m: 'Rapilogi · warehouse reception management' },
+  { k: 'Sep 2026 · International', v: 'Software Engineer Intern · Quin Que, Kobe, Japan', m: 'Rapilogi · warehouse reception management' },
   { k: 'Summer 2026', v: 'Google Summer of Code · OpenPrinting', m: 'printer recommendations + NL assistant · completed' },
   { k: 'Since Nov 2025', v: 'OpenPrinting website contributor', m: '14 commits in production · Hall of Fame' },
 ];
