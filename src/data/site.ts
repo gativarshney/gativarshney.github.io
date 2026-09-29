@@ -109,12 +109,12 @@ export const milestones: Entry[] = [
   {
     slug: 'quin-que',
     title: 'Quin Que',
-    kicker: 'Software Engineer Intern · Quin Que, Japan',
+    kicker: 'Software Engineer Intern · Quin Que, Kobe, Japan',
     period: '2026',
-    status: { label: 'Internship', tone: 'plain' },
-    tags: ['Rapilogi', 'warehouse reception', 'system renewal'],
+    status: { label: 'International internship', tone: 'accent' },
+    tags: ['Japan', 'Rapilogi', 'warehouse reception', 'system renewal'],
     summary:
-      'Software Engineer Intern on Rapilogi, the renewal of a warehouse reception management system. This is private company work, so only the public outline is shown here.',
+      'A first industry role, and an international one: Software Engineer Intern at Quin Que, a Japanese company based in Kobe, on Rapilogi, the renewal of a warehouse reception management system. This is private company work, so only the public outline is shown here.',
     evidence: [],
     links: [],
     visual: 'quinque',
@@ -252,8 +252,8 @@ export const journey = [
   },
   {
     year: 'Now',
-    title: 'Quin Que, cidx, and what’s next',
-    body: 'Software Engineer Intern at Quin Que (Japan) on Rapilogi. Auditing cidx at Django scale. GSoC work in upstream review. Graduating 2027, open to relocation.',
+    title: 'Japan, cidx, and what’s next',
+    body: 'An international internship: Software Engineer Intern at Quin Que, a Japanese company in Kobe, on Rapilogi. Auditing cidx at Django scale. GSoC work in upstream review. Graduating 2027, open to relocation.',
     lesson: 'Publish the losses too.',
   },
 ];
@@ -302,7 +302,7 @@ export const writing = [
 /* Hero strip                                                          */
 /* ------------------------------------------------------------------ */
 export const record = [
-  { k: 'Now', v: 'Software Engineer Intern · Quin Que, Japan', m: 'Rapilogi · warehouse reception system renewal' },
+  { k: 'Now · International', v: 'Software Engineer Intern · Quin Que, Kobe, Japan', m: 'Rapilogi · warehouse reception system renewal' },
   { k: 'Summer 2026', v: 'Google Summer of Code · OpenPrinting', m: 'printer recommendations + NL assistant · completed' },
   { k: 'Since Nov 2025', v: 'OpenPrinting website contributor', m: '14 commits in production · Hall of Fame' },
   { k: 'Building', v: 'cidx — code index for AI coding agents', m: '0.1.0a2 on PyPI · 263 tests · 3 OS × 3 Python' },
