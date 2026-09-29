@@ -501,8 +501,29 @@ function initAnchors() {
   }, true);
 }
 
+function initMenu() {
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const btn = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const panel = document.querySelector<HTMLElement>('[data-mobile-menu]');
+  if (!header || !btn || !panel || btn.dataset.bound) return;
+  btn.dataset.bound = '1';
+  const set = (open: boolean) => {
+    header.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    html.classList.toggle('menu-open', open);
+    if (open) lenis?.stop(); else lenis?.start();
+  };
+  btn.addEventListener('click', () => set(!header.classList.contains('menu-open')));
+  panel.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) set(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+  document.addEventListener('astro:before-swap', () => set(false));
+  matchMedia('(min-width: 861px)').addEventListener('change', (e) => { if (e.matches) set(false); });
+}
+
 function boot() {
   initAnchors();
+  initMenu();
   initLenis();
   initCursor();
   initTheme();
