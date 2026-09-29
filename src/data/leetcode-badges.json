@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "knight",
+    "name": "Knight",
+    "date": "2026-07-16"
+  },
+  {
+    "slug": "days-365",
+    "name": "365 Days Badge",
+    "date": "2026-05-24"
+  },
+  {
+    "slug": "days-200-2026",
+    "name": "200 Days Badge 2026",
+    "date": "2026-07-19"
+  },
+  {
+    "slug": "days-100-2026",
+    "name": "100 Days Badge 2026",
+    "date": "2026-04-10"
+  },
+  {
+    "slug": "days-50-2026",
+    "name": "50 Days Badge 2026",
+    "date": "2026-02-19"
+  },
+  {
+    "slug": "days-200-2025",
+    "name": "200 Days Badge 2025",
+    "date": "2025-12-31"
+  },
+  {
+    "slug": "days-100-2025",
+    "name": "100 Days Badge 2025",
+    "date": "2025-09-22"
+  },
+  {
+    "slug": "days-50-2025",
+    "name": "50 Days Badge 2025",
+    "date": "2025-05-19"
+  },
+  {
+    "slug": "dcc-2026-07",
+    "name": "Jul LeetCoding Challenge",
+    "date": "2026-07-31"
+  }
+]

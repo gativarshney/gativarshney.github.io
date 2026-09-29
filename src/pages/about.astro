@@ -2,6 +2,7 @@
 import Base from '@/layouts/Base.astro';
 import Portrait from '@/components/Portrait.astro';
 import Certificate from '@/components/Certificate.astro';
+import LeetCode from '@/components/LeetCode.astro';
 import wocCert from '@/assets/certs/woc-5.jpg';
 import gsocCert from '@/assets/certs/gsoc-2026.jpg';
 import { site } from '@/data/site';
@@ -43,9 +44,7 @@ import { site } from '@/data/site';
         <Certificate src={gsocCert} alt="Google Summer of Code 2026 completion certificate for Gati Varshney, The Linux Foundation, May 25 to August 24, 2026" title="Google Summer of Code 2026" meta="The Linux Foundation · May 25 – Aug 24, 2026" compact />
       </div>
       <p class="eyebrow" style="margin-top:48px" data-reveal>Competitive programming</p>
-      <ul class="rows" data-reveal-group="0.08">
-        <li><span class="mono when">as of Sep 2026</span><div><h2>LeetCode Knight</h2><p class="muted">Contest rating 1925 · top 3.98% of contest participants · 700+ problems solved · <a class="u" href={site.links.leetcode} target="_blank" rel="noopener">profile ↗</a></p></div></li>
-      </ul>
+      <LeetCode />
     </div>
   </section>
 </Base>
