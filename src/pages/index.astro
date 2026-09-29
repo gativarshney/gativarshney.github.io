@@ -198,13 +198,13 @@ const jsonLd = {
   .hero-visual:hover .portrait .sheen { animation: sheen 1.4s var(--ease-out) 1 both; }
   @keyframes sheen { to { transform: translateX(130%); } }
   .halo {
-    position: absolute; left: 50%; top: 0; width: 132%; aspect-ratio: 1; transform: translate(-50%, -22%); border-radius: 50%; z-index: 0; pointer-events: none; opacity: 0.55;
+    position: absolute; left: 50%; top: 0; width: 120%; aspect-ratio: 1; transform: translate(-50%, -20%); border-radius: 50%; z-index: 0; pointer-events: none; opacity: 0.55;
     background: conic-gradient(from 0deg, transparent 0 40%, var(--accent-glow) 52%, oklch(80% 0.1 300 / 0.35) 62%, transparent 74% 100%);
     -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 46px), #000 calc(100% - 44px), #000 calc(100% - 10px), transparent 100%);
             mask: radial-gradient(farthest-side, transparent calc(100% - 46px), #000 calc(100% - 44px), #000 calc(100% - 10px), transparent 100%);
     filter: blur(10px); animation: spin 26s linear infinite;
   }
-  .ring { position: absolute; left: 50%; top: 0; width: 118%; transform: translate(-50%, -18%); z-index: 0; color: var(--ink-3); opacity: 0.45; pointer-events: none; animation: spin 90s linear infinite reverse; }
+  .ring { position: absolute; left: 50%; top: 0; width: 108%; transform: translate(-50%, -16%); z-index: 0; color: var(--ink-3); opacity: 0.45; pointer-events: none; animation: spin 90s linear infinite reverse; }
   @keyframes spin { to { rotate: 360deg; } }
   :global(:root[data-theme='dark']) .halo { opacity: 0.75; }
   .badge {
