@@ -541,8 +541,40 @@ function initMenu() {
   matchMedia('(min-width: 861px)').addEventListener('change', (e) => { if (e.matches) set(false); });
 }
 
+/* ------------------------------------------------------------------ */
+/* Cursor-trailing page preview over list rows (Explore index)         */
+/* ------------------------------------------------------------------ */
+function initHoverPreview() {
+  const hp = document.querySelector<HTMLElement>('[data-hover-preview]');
+  if (!hp || hp.dataset.bound || !finePointer || reduced) return;
+  hp.dataset.bound = '1';
+  const x = gsap.quickTo(hp, 'x', { duration: 0.55, ease: 'power3.out' });
+  const y = gsap.quickTo(hp, 'y', { duration: 0.55, ease: 'power3.out' });
+  const rot = gsap.quickTo(hp, 'rotation', { duration: 0.6, ease: 'power3.out' });
+  let lastX = 0;
+  const rows = Array.from(document.querySelectorAll<HTMLElement>('[data-preview]'));
+  rows.forEach((row) => {
+    row.addEventListener('mouseenter', (e) => {
+      const key = row.dataset.preview!;
+      hp.querySelectorAll<HTMLElement>('[data-preview-img]').forEach((im) => im.classList.toggle('is-on', im.dataset.previewImg === key));
+      x((e as MouseEvent).clientX); y((e as MouseEvent).clientY); lastX = (e as MouseEvent).clientX;
+      gsap.to(hp, { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power3.out', overwrite: 'auto' });
+    });
+    row.addEventListener('mousemove', (e) => {
+      x(e.clientX); y(e.clientY);
+      rot(Math.max(-6, Math.min(6, (e.clientX - lastX) * 0.35)));
+      lastX = e.clientX;
+    });
+    row.addEventListener('mouseleave', () => {
+      gsap.to(hp, { autoAlpha: 0, scale: 0.9, duration: 0.35, ease: 'power3.out', overwrite: 'auto' });
+      rot(0);
+    });
+  });
+}
+
 function boot() {
   initAnchors();
+  initHoverPreview();
   initMenu();
   initLenis();
   initCursor();

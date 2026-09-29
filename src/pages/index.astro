@@ -5,6 +5,12 @@ import FeaturedArticle from '@/components/FeaturedArticle.astro';
 import Timeline from '@/components/Timeline.astro';
 import Portrait from '@/components/Portrait.astro';
 import LeetCode from '@/components/LeetCode.astro';
+import { Image } from 'astro:assets';
+import pvWork from '@/assets/previews/page-work.jpg';
+import pvOpen from '@/assets/previews/page-open-source.jpg';
+import pvWriting from '@/assets/previews/page-writing.jpg';
+import pvAbout from '@/assets/previews/page-about.jpg';
+const previews = { work: pvWork, 'open-source': pvOpen, writing: pvWriting, about: pvAbout };
 import { site, milestones, work, record } from '@/data/site';
 
 const cidx = work.find((w) => w.slug === 'cidx')!;
@@ -135,11 +141,16 @@ const jsonLd = {
       <p data-reveal="0.15">Four pages, each with the evidence behind what this one summarises.</p>
     </div>
     <ul class="explore" data-reveal-group="0.08">
-      <li><a href="/work/" data-cursor="Open"><span class="mono n">01</span><span class="t display">Work</span><span class="d">Projects with their evidence: cidx, the GSoC printer recommendations, and the OpenPrinting site search. Claims, decisions, and what went wrong.</span><span class="arr display">→</span></a></li>
-      <li><a href="/open-source/" data-cursor="Open"><span class="mono n">02</span><span class="t display">Open Source</span><span class="d">The live OpenPrinting Hall of Fame, every pull request grouped by what it built, the commit ledger, and both certificates.</span><span class="arr display">→</span></a></li>
-      <li><a href="/writing/" data-cursor="Open"><span class="mono n">03</span><span class="t display">Writing</span><span class="d">Long-form write-ups, starting with the GSoC 2026 final report.</span><span class="arr display">→</span></a></li>
-      <li><a href="/about/" data-cursor="Open"><span class="mono n">04</span><span class="t display">About</span><span class="d">Education, experience, competitive programming, certificates, and the résumé.</span><span class="arr display">→</span></a></li>
+      <li><a href="/work/" data-cursor="Open" data-preview="work"><span class="mono n">01</span><span class="t display">Work</span><span class="d">Projects with their evidence: cidx, the GSoC printer recommendations, and the OpenPrinting site search. Claims, decisions, and what went wrong.</span><span class="arr display">→</span></a></li>
+      <li><a href="/open-source/" data-cursor="Open" data-preview="open-source"><span class="mono n">02</span><span class="t display">Open Source</span><span class="d">The live OpenPrinting Hall of Fame, every pull request grouped by what it built, and both certificates.</span><span class="arr display">→</span></a></li>
+      <li><a href="/writing/" data-cursor="Open" data-preview="writing"><span class="mono n">03</span><span class="t display">Writing</span><span class="d">Long-form write-ups, starting with the GSoC 2026 final report.</span><span class="arr display">→</span></a></li>
+      <li><a href="/about/" data-cursor="Open" data-preview="about"><span class="mono n">04</span><span class="t display">About</span><span class="d">Education, experience, competitive programming, certificates, and the résumé.</span><span class="arr display">→</span></a></li>
     </ul>
+    <div class="hp" data-hover-preview aria-hidden="true">
+      {Object.entries(previews).map(([k, img]) => (
+        <div class="hp-img" data-preview-img={k}><Image src={img} alt="" widths={[640, 960]} sizes="360px" loading="lazy" /></div>
+      ))}
+    </div>
   </section>
 
   <!-- CONTACT -------------------------------------------------------- -->
@@ -182,6 +193,12 @@ const jsonLd = {
   .explore .d { color: var(--ink-2); font-size: 15.5px; max-width: 520px; }
   .explore .arr { font-size: 32px; font-weight: 300; color: var(--ink-3); transition: transform 0.5s var(--ease-out), color 0.3s; }
   .explore a:hover .arr { transform: translateX(8px); color: var(--accent); }
+  /* floating page preview that trails the cursor over the explore rows */
+  .hp { position: fixed; left: 0; top: 0; z-index: 60; width: 360px; aspect-ratio: 16 / 10; margin: -112px 0 0 28px; border-radius: 12px; overflow: hidden; pointer-events: none; opacity: 0; transform: scale(0.9); border: 1px solid var(--hair-strong); box-shadow: 0 30px 70px -30px oklch(0% 0 0 / 0.55), 0 1px 0 0 oklch(100% 0 0 / 0.5) inset; background: var(--bg-2); will-change: transform, opacity; }
+  .hp-img { position: absolute; inset: 0; opacity: 0; transition: opacity 0.35s var(--ease-out); }
+  .hp-img.is-on { opacity: 1; }
+  .hp-img :global(img) { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  @media (pointer: coarse), (max-width: 860px) { .hp { display: none; } }
 
   /* writing */
   .wlist { border-top: 1px solid var(--hair); }
