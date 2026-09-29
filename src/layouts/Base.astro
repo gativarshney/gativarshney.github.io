@@ -5,6 +5,9 @@ import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import Lightbox from '@/components/Lightbox.astro';
 import { site } from '@/data/site';
+import frauncesNormal from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2?url';
+import frauncesItalic from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-italic.woff2?url';
+import geist from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
 
 interface Props {
   title?: string;
@@ -25,6 +28,9 @@ const ogImage = new URL(image ?? '/og-default.png', Astro.site).href;
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={frauncesNormal} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={frauncesItalic} />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={geist} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />

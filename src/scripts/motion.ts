@@ -16,7 +16,7 @@ let lenis: Lenis | null = null;
 
 function initLenis() {
   if (reduced || lenis) return;
-  lenis = new Lenis({ autoRaf: false, lerp: 0.09, smoothWheel: true, anchors: true });
+  lenis = new Lenis({ autoRaf: false, lerp: 0.12, smoothWheel: true, anchors: true });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((t) => lenis!.raf(t * 1000));
   gsap.ticker.lagSmoothing(0);
@@ -158,34 +158,39 @@ async function initPage() {
       const orb = hero.querySelector<HTMLElement>('[data-hero-orb]');
       const strip = document.querySelectorAll<HTMLElement>('[data-hero-strip] > *');
 
-      const tl = gsap.timeline({ defaults: { ease: EASE } });
+      // If the script arrived late (slow network or device), skip the entrance: content first.
+      const late = performance.now() > 1100;
+      const tl = gsap.timeline({ defaults: { ease: EASE }, paused: late });
+      if (late) tl.progress(1);
 
-      if (eyebrow) { show(eyebrow); tl.from(eyebrow, { y: 14, autoAlpha: 0, duration: 0.9 }, 0.05); }
+      if (eyebrow) { show(eyebrow); tl.from(eyebrow, { y: 12, autoAlpha: 0, duration: 0.6 }, 0); }
       if (title) {
         const chars = splitToChars(title);
         show(title);
-        gsap.set(chars, { y: '1.15em', rotate: 6 });
-        tl.to(chars, { y: 0, rotate: 0, duration: 1.15, stagger: 0.016 }, 0.12);
+        gsap.set(chars, { y: '1.1em', rotate: 5 });
+        tl.to(chars, { y: 0, rotate: 0, duration: 0.85, stagger: 0.011 }, 0.04);
       }
       if (lede) {
         const words = splitToWords(lede);
         show(lede);
-        gsap.set(words, { y: '0.6em', autoAlpha: 0 });
-        tl.to(words, { y: 0, autoAlpha: 1, duration: 0.8, stagger: 0.011 }, 0.6);
+        gsap.set(words, { y: '0.5em', autoAlpha: 0 });
+        tl.to(words, { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.007 }, 0.3);
       }
-      if (ctas.length) { show(ctas); tl.from(ctas, { y: 18, autoAlpha: 0, duration: 0.9, stagger: 0.08 }, 0.95); }
-      if (orb) { show(orb); tl.from(orb, { autoAlpha: 0, scale: 0.8, duration: 2.2, ease: 'power2.out' }, 0.2); }
+      if (ctas.length) { show(ctas); tl.from(ctas, { y: 14, autoAlpha: 0, duration: 0.6, stagger: 0.06 }, 0.55); }
+      if (orb) { show(orb); tl.from(orb, { autoAlpha: 0, scale: 0.85, duration: 1.6, ease: 'power2.out' }, 0.1); }
       if (portrait) {
         show(portrait);
         tl.fromTo(portrait,
           { clipPath: 'inset(100% 0% 0% 0% round 999px 999px 18px 18px)', scale: 1.12 },
-          { clipPath: 'inset(0% 0% 0% 0% round 999px 999px 18px 18px)', scale: 1, duration: 1.5, ease: 'expo.out' }, 0.35);
+          { clipPath: 'inset(0% 0% 0% 0% round 999px 999px 18px 18px)', scale: 1, duration: 1.1, ease: 'expo.out' }, 0.2);
         gsap.to(portrait, {
           y: 60, ease: 'none',
           scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
         });
       }
-      if (strip.length) { show(strip); tl.from(strip, { y: 16, autoAlpha: 0, duration: 0.9, stagger: 0.07 }, 1.1); }
+      if (strip.length) { show(strip); tl.from(strip, { y: 14, autoAlpha: 0, duration: 0.6, stagger: 0.06 }, 0.65); }
+
+      if (late) { tl.progress(1).pause(); }
 
       // cursor parallax on the portrait stage
       const stage = hero.querySelector<HTMLElement>('[data-hero-stage]');
@@ -548,6 +553,18 @@ function boot() {
   initPage();
 }
 
-document.addEventListener('astro:page-load', boot);
+let bootedFor = '';
+function bootOnce() {
+  const key = location.pathname;
+  if (bootedFor === key) return;
+  bootedFor = key;
+  boot();
+}
+// First paint: start as soon as the document is parsed, not on window.load
+// (which waits for every font and image). Later navigations: astro:page-load.
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bootOnce, { once: true });
+else bootOnce();
+document.addEventListener('astro:page-load', bootOnce);
+document.addEventListener('astro:before-swap', () => { bootedFor = ''; });
 document.addEventListener('astro:before-swap', () => { ctx?.revert(); ScrollTrigger.getAll().forEach((t) => t.kill()); });
 document.addEventListener('astro:after-swap', () => { if (!scrollToHash(location.hash, true)) lenis?.scrollTo(0, { immediate: true }); });

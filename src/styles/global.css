@@ -110,7 +110,8 @@ html.menu-open, html.menu-open body { overflow: hidden; }
 html.has-cursor.lb-open button, html.has-cursor.lb-open a { cursor: pointer; }
 
 /* pre-animation hide (only when JS is present; no-JS users see everything) */
-html.js [data-anim] { visibility: hidden; }
+html.js [data-anim] { visibility: hidden; animation: anim-fallback 0s 1s forwards; }
+@keyframes anim-fallback { to { visibility: visible; } }
 
 /* ------------------------------------------------------------------
    Typography
