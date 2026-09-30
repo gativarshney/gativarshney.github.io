@@ -74,7 +74,7 @@ const timeline: { when: string; title: string; body: string; tone: string; stamp
         <p class="eyebrow" data-reveal>03 — Pull requests</p>
         <h2 class="display" data-split-words data-anim>Reviewed, merged,<br /><em>and still open.</em></h2>
       </div>
-      <p data-reveal="0.15">The site was rebuilt in a staging repository and promoted to production; each staging PR below landed in the production repository as a commit under my name. The trailing-slash fix and the GSoC work went straight to production.</p>
+      <p data-reveal="0.15">14 pull requests merged through maintainer review. The site was rebuilt in a staging repository and promoted to production, so 13 of them were reviewed and merged there and now appear in the production repository’s history under my name; the trailing-slash fix and the GSoC work went straight to production.</p>
     </div>
     <div class="prgroups">
       {prGroups.map((g) => (
@@ -98,7 +98,7 @@ const timeline: { when: string; title: string; body: string; tone: string; stamp
         </div>
       ))}
     </div>
-    <p class="more"><a class="btn" href={site.links.commits} target="_blank" rel="noopener" data-magnetic="0.3">All 14 commits on GitHub <span class="arr">↗</span></a></p>
+    <p class="more"><a class="btn" href={site.links.commits} target="_blank" rel="noopener" data-magnetic="0.3">All 14 merged, in production history <span class="arr">↗</span></a></p>
   </section>
 
   <!-- TIMELINE -------------------------------------------------------- -->
@@ -181,7 +181,7 @@ const timeline: { when: string; title: string; body: string; tone: string; stamp
   .tl .muted { font-size: 15.5px; max-width: 680px; }
   .orgs { display: flex; align-items: center; gap: 12px; margin: 6px 0 12px; }
   .orgs .gsoc { height: 20px; width: auto; padding: 8px 12px; border-radius: 999px; background: oklch(98% 0.01 75); border: 1px solid oklch(78% 0.14 70 / 0.5); box-sizing: content-box; }
-  .more { margin-top: 28px; }
+  .more { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px; }
   .certs { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
   @media (max-width: 1024px) { .head { grid-template-columns: 1fr; } .logo-card { margin-top: 0; width: 240px; } }
   @media (max-width: 860px) {

@@ -71,14 +71,14 @@ export const milestones: Entry[] = [
     summary:
       'Where the journey starts. OpenPrinting maintains the printing stack behind every Linux desktop, and its website was being rebuilt from Jekyll into a statically exported Next.js site. I built the author system, migrated 200+ posts, shipped the site’s build-time search with no search server, rebuilt the homepage, and traced a production 404 to a config generated at deploy time.',
     evidence: [
-      { value: '14', label: 'commits in production' },
+      { value: '14', label: 'pull requests merged' },
       { value: '200+', label: 'posts migrated' },
       { value: '0', label: 'search servers' },
     ],
     links: [
       { label: 'Open source', href: '/open-source/' },
       { label: 'Search case study', href: '/work/openprinting-search/' },
-      { label: 'Commits', href: site.links.commits, external: true },
+      { label: 'All 14 in production', href: site.links.commits, external: true },
       { label: 'Hall of Fame', href: site.links.hallOfFame, external: true },
     ],
     visual: 'openprinting',
@@ -90,7 +90,7 @@ export const milestones: Entry[] = [
     kicker: 'Contributor · OpenPrinting · sponsored by The Linux Foundation',
     period: 'May 25 – Aug 24, 2026',
     status: { label: 'Completed · under upstream review', tone: 'warn' },
-    tags: ['recommendation pipeline', 'build-time ML', 'natural language'],
+    tags: ['engineered similarity pipeline', 'not a trained model', 'build-time', 'natural language'],
     summary:
       'AI-Driven Printer Compatibility & Recommendation Portal. Explainable “what else will work” recommendations across 6,657 printers in the Foomatic database, computed entirely at build time for a static site, plus a deterministic natural-language assistant that reports data gaps instead of inventing capabilities.',
     evidence: [
@@ -305,5 +305,5 @@ export const writing: { slug: string; title: string; subtitle: string; date: str
 export const record = [
   { k: 'Sep 2026 · International · Remote', v: 'Software Engineer Intern · Quin Que, Kobe, Japan', m: 'Rapilogi · warehouse reception management' },
   { k: 'Summer 2026', v: 'Google Summer of Code · OpenPrinting', m: 'printer recommendations + NL assistant · completed' },
-  { k: 'Since Nov 2025', v: 'OpenPrinting website contributor', m: '14 commits in production · Hall of Fame' },
+  { k: 'Since Nov 2025', v: 'OpenPrinting website contributor', m: '14 pull requests merged · Hall of Fame' },
 ];

@@ -156,7 +156,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       { claim: 'Index size', value: '263 documents', context: 'measured from the live index on 2026-09-29; the PR indexed 200+ posts at the time', source: { label: 'live index', href: 'https://openprinting.github.io/search/static-index.json' } },
       { claim: 'Search system', value: '+793 lines · 14 files', context: 'build-time extractor, runtime engine, modal UI, architecture doc; 13 commits, merged 2026-03-06', source: { label: 'PR #18', href: `${STAGING}18` } },
       { claim: 'Deployment fix', value: '1 file', context: 'the generated index was gitignored and never reached GitHub Pages; fixed the same day', source: { label: 'PR #22', href: `${STAGING}22` } },
-      { claim: 'Landed in production', value: '2 commits', context: 'promoted from the staging repository under my name', source: { label: 'commit bf73641', href: `${OPC}bf736416e141d87112c9a273ccbc1016768b717d` } },
+      { claim: 'Merged and in production', value: '2 pull requests', context: 'reviewed and merged in the staging repository, then promoted to the production history under my name', source: { label: 'production history', href: `${OPC}bf736416e141d87112c9a273ccbc1016768b717d` } },
       { claim: 'Ranking', value: 'title ×3 · headings ×2 · body ×1', context: 'fuzzy threshold 0.2, top 8 results, 200 ms debounce', source: { label: 'PR #18', href: `${STAGING}18` } },
     ],
     decisions: [
