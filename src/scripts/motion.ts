@@ -221,43 +221,44 @@ async function initPage() {
 
     /* everything below the fold is wired up after the hero has painted */
     const later = () => ctx!.add(() => {
-    /* section headings: words rise -------------------------------- */
+    /* reveals ------------------------------------------------------
+       Subtle for readers, invisible to skimmers: every reveal starts
+       before the element enters the viewport, runs short, and is
+       skipped entirely when the page is being scrolled fast.        */
+    const FAST = 1800; // px/s; above this a reveal completes instantly
+    const reveal = (trigger: Element, tween: gsap.core.Tween, start = 'top 100%') => {
+      ScrollTrigger.create({
+        trigger, start, once: true,
+        onEnter: (self) => { if (Math.abs(self.getVelocity()) > FAST) tween.progress(1); else tween.play(); },
+      });
+    };
+
     document.querySelectorAll<HTMLElement>('[data-split-words]').forEach((el) => {
       ScrollTrigger.create({
-        trigger: el, start: 'top 105%', once: true,
-        onEnter: () => {
+        trigger: el, start: 'top 110%', once: true,
+        onEnter: (self) => {
           const words = splitToWords(el);
-          gsap.set(words, { y: '1.1em', autoAlpha: 0 });
           show(el);
-          gsap.to(words, { y: 0, autoAlpha: 1, duration: 1.1, stagger: 0.045, ease: EASE, delay: 0.05 });
+          if (Math.abs(self.getVelocity()) > FAST) return;
+          gsap.set(words, { y: '0.9em', autoAlpha: 0 });
+          gsap.to(words, { y: 0, autoAlpha: 1, duration: 0.7, stagger: 0.028, ease: EASE });
         },
       });
     });
 
-    /* generic reveals -------------------------------------------- */
     document.querySelectorAll<HTMLElement>('[data-reveal]').forEach((el) => {
-      const delay = Number(el.dataset.reveal || 0);
+      const delay = Number(el.dataset.reveal || 0) * 0.6;
       show(el);
-      gsap.fromTo(el, { y: 40, autoAlpha: 0 }, {
-        y: 0, autoAlpha: 1, duration: 1.1, delay, ease: EASE,
-        scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-      });
+      reveal(el, gsap.fromTo(el, { y: 22, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, delay, ease: EASE, paused: true }));
     });
     document.querySelectorAll<HTMLElement>('[data-reveal-group]').forEach((group) => {
       const items = Array.from(group.children) as HTMLElement[];
       show(group); show(items);
-      gsap.fromTo(items, { y: 36, autoAlpha: 0 }, {
-        y: 0, autoAlpha: 1, duration: 1, stagger: Number(group.dataset.revealGroup || 0.08), ease: EASE,
-        scrollTrigger: { trigger: group, start: 'top 88%', once: true },
-      });
+      reveal(group, gsap.fromTo(items, { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, stagger: Math.min(0.06, Number(group.dataset.revealGroup || 0.06)), ease: EASE, paused: true }));
     });
 
-    /* hairline draw --------------------------------------------- */
     document.querySelectorAll<HTMLElement>('[data-line]').forEach((el) => {
-      gsap.fromTo(el, { scaleX: 0, transformOrigin: 'left center' }, {
-        scaleX: 1, duration: 1.4, ease: EASE,
-        scrollTrigger: { trigger: el, start: 'top 92%', once: true },
-      });
+      reveal(el, gsap.fromTo(el, { scaleX: 0, transformOrigin: 'left center' }, { scaleX: 1, duration: 0.9, ease: EASE, paused: true }), 'top 105%');
     });
 
     /* parallax --------------------------------------------------- */
