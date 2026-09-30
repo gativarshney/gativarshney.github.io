@@ -28,8 +28,15 @@ const shown = label ?? url.replace(/^https?:\/\//, '').replace(/\/$/, '');
   </div>
   <div class="pbody" style={`aspect-ratio:${ratio}`} data-scale-frame={live ? base : undefined} data-cursor-hide={live ? '' : undefined}>
     {live ? (
-      <iframe data-src={url} title={title} loading="lazy" referrerpolicy="no-referrer" style={`width:${base}px`}></iframe>
-      <noscript><a class="snap empty" href={url} target="_blank" rel="noopener">{title} ↗</a></noscript>
+      <>
+        <iframe class="live-only" data-src={url} title={title} loading="lazy" referrerpolicy="no-referrer" style={`width:${base}px`}></iframe>
+        {image && (
+          <a class="snap static-only" href={url} target="_blank" rel="noopener" data-cursor="Open" aria-label={`Open ${title}`}>
+            <Image src={image} alt={alt} widths={[640, 960]} sizes="92vw" loading="lazy" />
+          </a>
+        )}
+        <noscript><a class="snap empty" href={url} target="_blank" rel="noopener">{title} ↗</a></noscript>
+      </>
     ) : image ? (
       <a class="snap" href={url} target="_blank" rel="noopener" data-cursor="Open" aria-label={`Open ${title}`}>
         <Image src={image} alt={alt} widths={[640, 960, 1280]} sizes="(max-width: 860px) 92vw, 44vw" loading="lazy" />
@@ -58,4 +65,10 @@ const shown = label ?? url.replace(/^https?:\/\//, '').replace(/\/$/, '');
   .snap.empty { display: grid; place-items: center; font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); }
   .pfall { margin: 0; padding: 8px 12px; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); border-top: 1px solid var(--hair); }
   .pfall a:hover { color: var(--accent); }
+  .static-only { display: none; }
+  @media (pointer: coarse), (max-width: 860px) {
+    .pbody:has(.static-only) .live-only { display: none; }
+    .static-only { display: block; }
+    .pbody:has(.static-only) ~ .pfall { display: none; }
+  }
 </style>

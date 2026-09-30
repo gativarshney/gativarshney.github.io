@@ -71,7 +71,7 @@
    Reset & base
    ------------------------------------------------------------------ */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: auto; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: auto; overflow-x: clip; }
 html.lenis, html.lenis body { height: auto; }
 body {
   margin: 0;
@@ -355,4 +355,20 @@ html.cursor-down .cursor-ring { transform: scale(0.85); }
   .hero-visual { width: min(100%, 360px); }
   .hero-visual { justify-self: start; width: min(100%, 360px); }
   .halo, .ring { display: none; }
+}
+
+/* ------------------------------------------------------------------
+   Phones: legible labels, comfortable tap targets, nothing off-canvas
+   ------------------------------------------------------------------ */
+@media (max-width: 860px) {
+  .eyebrow, .kicker, .lab, .purl, .pfall, .foot, .lsub, .qq-sub, .verified, .note, .cap,
+  .strip .m, .strip .k, .bd, .cert .m, .cert .v, .repo, .pill, .popen, .r, .stamp, .say,
+  .site-footer .bottom { font-size: 12.5px !important; }
+  .tag { font-size: 11.5px !important; padding: 7px 12px; }
+  .hero-visual .orb { inset: -8% -8% -6% -8%; filter: blur(36px); }
+}
+@media (pointer: coarse) {
+  .site-footer .cols a, .links a, .cert .v, .popen, .say a, .pn a, .evtable td.l a, .prs .pr, .tl .muted a { padding-block: 8px; display: inline-block; }
+  .links { gap: 4px 22px; }
+  .u::after { bottom: 6px; }
 }

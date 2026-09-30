@@ -1,9 +1,10 @@
 ---
 import Preview from '@/components/Preview.astro';
 import { site } from '@/data/site';
+import hof from '@/assets/previews/hall-of-fame.jpg';
 ---
 <div class="hof" data-reveal>
-  <Preview url={site.links.hallOfFame} title="OpenPrinting Hall of Fame, live" live base={1280} ratio="16 / 11" />
+  <Preview url={site.links.hallOfFame} title="OpenPrinting Hall of Fame, live" live base={1280} ratio="16 / 11" image={hof} alt="The OpenPrinting Hall of Fame page, with the entry for Gati Varshney" />
 </div>
 
 <style>

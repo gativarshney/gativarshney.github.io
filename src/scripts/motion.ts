@@ -463,12 +463,14 @@ function initLightbox() {
 /* Scaled live-page frames and cursor handling over iframes            */
 /* ------------------------------------------------------------------ */
 function initFrames() {
+  const coarse = matchMedia('(pointer: coarse), (max-width: 860px)').matches;
   const lazy = 'IntersectionObserver' in window
     ? new IntersectionObserver((entries, obs) => {
         entries.forEach((en) => {
           if (!en.isIntersecting) return;
           const f = en.target.querySelector<HTMLIFrameElement>('iframe[data-src]');
-          if (f) { f.src = f.dataset.src!; f.removeAttribute('data-src'); }
+          const hasStatic = !!en.target.querySelector('.static-only');
+          if (f && !(coarse && hasStatic)) { f.src = f.dataset.src!; f.removeAttribute('data-src'); }
           obs.unobserve(en.target);
         });
       }, { rootMargin: '400px 0px' })

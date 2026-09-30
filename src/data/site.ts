@@ -6,7 +6,7 @@ export const site = {
     'Gati Varshney is a final-year CS student and Google Summer of Code 2026 contributor at OpenPrinting (The Linux Foundation). Developer tools and data systems, measured honestly.',
   email: 'gativarshney01@gmail.com',
   location: 'India · IST · open to relocation',
-  updated: '2026-09-29',
+  updated: '2026-09-30',
   links: {
     github: 'https://github.com/gativarshney',
     linkedin: 'https://www.linkedin.com/in/gativarshney/',
