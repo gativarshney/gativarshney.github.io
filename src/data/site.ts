@@ -65,7 +65,7 @@ export const milestones: Entry[] = [
     slug: 'openprinting',
     title: 'OpenPrinting',
     kicker: 'Open Source Contributor · The Linux Foundation',
-    period: 'Nov 2025 – present',
+    period: 'Nov 2025 – Aug 2026',
     status: { label: 'Hall of Fame', tone: 'accent' },
     tags: ['Next.js', 'TypeScript', 'static generation', 'CI'],
     summary:
@@ -305,5 +305,5 @@ export const writing: { slug: string; title: string; subtitle: string; date: str
 export const record = [
   { k: 'Sep 2026 · International · Remote', v: 'Software Engineer Intern · Quin Que, Kobe, Japan', m: 'Rapilogi · warehouse reception management' },
   { k: 'Summer 2026', v: 'Google Summer of Code · OpenPrinting', m: 'printer recommendations + NL assistant · completed' },
-  { k: 'Since Nov 2025', v: 'OpenPrinting website contributor', m: '14 pull requests merged · Hall of Fame' },
+  { k: 'Nov 2025 – Aug 2026', v: 'OpenPrinting website contributor', m: '14 pull requests merged · Hall of Fame' },
 ];
