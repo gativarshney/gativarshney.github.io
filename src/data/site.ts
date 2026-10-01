@@ -132,29 +132,6 @@ export const milestones: Entry[] = [
 /* ------------------------------------------------------------------ */
 export const work: Entry[] = [
   {
-    slug: 'repoinsight',
-    title: 'RepoInsight',
-    kicker: 'Personal project · web app for open source contributors',
-    period: 'Oct 2026',
-    status: { label: 'Live on Vercel', tone: 'ok' },
-    tags: ['TypeScript', 'Next.js 16', 'React 19', 'three.js', 'GitHub REST API'],
-    summary:
-      'Know a repository before your first pull request. Paste a public GitHub repository and it reports where to start, who maintains it, how fast people reply, and whether outside pull requests actually get merged. Every answer is calculated by a fixed rule and shows its evidence; there is no AI and no health score.',
-    evidence: [
-      { value: '10', label: 'checklist questions, each with its rule' },
-      { value: '74', label: 'tests' },
-      { value: '0', label: 'databases, paid APIs or AI services' },
-    ],
-    links: [
-      { label: 'Case study', href: '/work/repoinsight/' },
-      { label: 'Open the app', href: site.links.repoinsightApp, external: true },
-      { label: 'Example report', href: `${site.links.repoinsightApp}/sample`, external: true },
-      { label: 'Repository', href: site.links.repoinsightRepo, external: true },
-    ],
-    visual: 'repoinsight',
-    href: '/work/repoinsight/',
-  },
-  {
     slug: 'cidx',
     title: 'cidx',
     kicker: 'Personal project · developer tool',
@@ -176,6 +153,29 @@ export const work: Entry[] = [
     ],
     visual: 'cidx',
     href: '/work/cidx/',
+  },
+  {
+    slug: 'repoinsight',
+    title: 'RepoInsight',
+    kicker: 'Personal project · web app for open source contributors',
+    period: 'Oct 2026',
+    status: { label: 'Live on Vercel', tone: 'ok' },
+    tags: ['TypeScript', 'Next.js 16', 'React 19', 'three.js', 'GitHub REST API'],
+    summary:
+      'Know a repository before your first pull request. Paste a public GitHub repository and it reports where to start, who maintains it, how fast people reply, and whether outside pull requests actually get merged. Every answer is calculated by a fixed rule and shows its evidence; there is no AI and no health score.',
+    evidence: [
+      { value: '10', label: 'checklist questions, each with its rule' },
+      { value: '74', label: 'tests' },
+      { value: '0', label: 'databases, paid APIs or AI services' },
+    ],
+    links: [
+      { label: 'Case study', href: '/work/repoinsight/' },
+      { label: 'Open the app', href: site.links.repoinsightApp, external: true },
+      { label: 'Example report', href: `${site.links.repoinsightApp}/sample`, external: true },
+      { label: 'Repository', href: site.links.repoinsightRepo, external: true },
+    ],
+    visual: 'repoinsight',
+    href: '/work/repoinsight/',
   },
   {
     slug: 'printer-recommendations',
