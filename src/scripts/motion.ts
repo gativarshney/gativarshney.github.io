@@ -366,6 +366,37 @@ async function initPage() {
       });
     });
 
+    /* case-study section progress ---------------------------------- */
+    const snav = document.querySelector<HTMLElement>('[data-snav]');
+    const snavBody = document.querySelector<HTMLElement>('[data-snav-body]');
+    if (snav && snavBody) {
+      const links = Array.from(snav.querySelectorAll<HTMLAnchorElement>('[data-snav-link]'));
+      const num = snav.querySelector<HTMLElement>('[data-snav-n]');
+      const label = snav.querySelector<HTMLElement>('[data-snav-label]');
+      const activate = (i: number) => {
+        links.forEach((a, k) => {
+          a.classList.toggle('is-on', k === i);
+          if (k === i) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+        });
+        if (num) num.textContent = String(i + 1).padStart(2, '0');
+        if (label) label.textContent = links[i].querySelector('.t')?.textContent ?? '';
+      };
+      // the current section is the last one whose top has crossed the reading line
+      const sections = links.map((a) => document.getElementById(a.dataset.snavLink!));
+      let current = -1;
+      ScrollTrigger.create({
+        trigger: snavBody, start: 'top 60%', end: 'bottom 30%',
+        onToggle: (self) => { snav.classList.toggle('is-on', self.isActive); if (!self.isActive) snav.classList.remove('is-open'); },
+        onUpdate: (self) => {
+          snav.style.setProperty('--sp', self.progress.toFixed(4));
+          const line = innerHeight * 0.55;
+          let at = 0;
+          sections.forEach((s, k) => { if (s && s.getBoundingClientRect().top <= line) at = k; });
+          if (at !== current) activate((current = at));
+        },
+      });
+    }
+
     /* header show/hide ------------------------------------------- */
     const header = document.querySelector<HTMLElement>('[data-header]');
     if (header) {
@@ -735,7 +766,26 @@ function initWipe() {
   });
 }
 
+/* ------------------------------------------------------------------ */
+/* Case-study section list: the bottom pill opens it on small screens  */
+/* ------------------------------------------------------------------ */
+let snavBound = false;
+function initSnav() {
+  if (snavBound) return;
+  snavBound = true;
+  document.addEventListener('click', (e) => {
+    const snav = document.querySelector<HTMLElement>('[data-snav]');
+    if (!snav) return;
+    const toggle = (e.target as HTMLElement).closest<HTMLElement>('[data-snav-toggle]');
+    const open = toggle ? !snav.classList.contains('is-open') : false;
+    snav.classList.toggle('is-open', open);
+    snav.querySelector('[data-snav-toggle]')?.setAttribute('aria-expanded', String(open));
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelector('[data-snav]')?.classList.remove('is-open'); });
+}
+
 function boot() {
+  initSnav();
   initWipe();
   initPalette();
   initAnchors();
