@@ -1,0 +1,97 @@
+---
+/**
+ * cidx architecture, after ARCHITECTURE.md in the repository. Rendered twice
+ * (wide and narrow layout); strokes carry pathLength="1" so motion.ts can draw
+ * them with the scroll. Without JS, or with reduced motion, it is simply drawn.
+ */
+type Node = { id: string; step: number; n?: string; label: string; sub: string; x: number; y: number; w: number; accent?: boolean };
+type Edge = { step: number; x: number; y1: number; y2: number; label?: string };
+
+const H = 62;
+function layout(narrow: boolean) {
+  const W = narrow ? 340 : 840;
+  const gap = narrow ? 16 : 40;
+  const half = (W - gap) / 2;
+  const L = 0, R = half + gap;
+  const row = narrow ? 98 : 108;
+  const y = (i: number) => i * row;
+  const nodes: Node[] = [
+    { id: 'repo', step: 0, label: 'Your repository', sub: narrow ? 'source files · .gitignore honoured' : 'source files on disk · .gitignore honoured', x: narrow ? 0 : 200, y: y(0), w: narrow ? W : 440 },
+    { id: 'watcher', step: 2, n: '01', label: 'Watcher', sub: narrow ? 'debounce · coalesce' : 'debounce ~100 ms · coalesce per path', x: R, y: y(1), w: half },
+    { id: 'cold', step: 4, n: '01', label: 'Cold indexer', sub: narrow ? 'first full walk' : 'first full walk of the repository', x: L, y: y(2), w: half },
+    { id: 'engine', step: 4, n: '02', label: 'Incremental engine', sub: narrow ? 'hash → parse → write' : 'hash → tree-sitter → one transaction', x: R, y: y(2), w: half },
+    { id: 'store', step: 6, n: '04', label: 'SQLite store', sub: narrow ? 'WAL · FTS5 · outside the repo' : 'WAL · FTS5 · files / symbols / refs · one file, outside the repo', x: 0, y: y(3), w: W },
+    { id: 'query', step: 8, n: '05', label: 'Query layer', sub: narrow ? 'rank → budget → shape' : 'rank → fit ~700 tokens → shape, with a freshness stamp', x: 0, y: y(4), w: W },
+    { id: 'cli', step: 10, n: '06', label: 'CLI', sub: narrow ? 'query · check' : 'cidx index · query · check', x: L, y: y(5), w: half },
+    { id: 'mcp', step: 10, n: '06', label: 'MCP server', sub: narrow ? 'stdio · 5 tools' : 'stdio · 5 read-only tools', x: R, y: y(5), w: half },
+    { id: 'agent', step: 12, label: 'AI coding agent', sub: narrow ? 'locations, not dumps' : 'gets locations, not file dumps', x: R, y: y(6), w: half, accent: true },
+  ];
+  const cl = L + half / 2, cr = R + half / 2;
+  const xr = narrow ? cr : Math.min(cr, 200 + 440 - 60);
+  const xl = narrow ? cl : Math.max(cl, 200 + 60);
+  const edges: Edge[] = [
+    { step: 1, x: xr, y1: y(0) + H, y2: y(1), label: narrow ? 'saves' : 'saves, git ops' },
+    { step: 1, x: xl, y1: y(0) + H, y2: y(2), label: 'first run' },
+    { step: 3, x: cr, y1: y(1) + H, y2: y(2), label: 'paths' },
+    { step: 5, x: cl, y1: y(2) + H, y2: y(3), label: 'rows' },
+    { step: 5, x: cr, y1: y(2) + H, y2: y(3), label: 'rows' },
+    { step: 7, x: W / 2, y1: y(3) + H, y2: y(4), label: 'lookups' },
+    { step: 9, x: cl, y1: y(4) + H, y2: y(5) },
+    { step: 9, x: cr, y1: y(4) + H, y2: y(5) },
+    { step: 11, x: cr, y1: y(5) + H, y2: y(6), label: 'answers' },
+  ];
+  return { W, height: y(6) + H, nodes, edges };
+}
+const variants = [{ cls: 'wide', ...layout(false) }, { cls: 'narrow', ...layout(true) }];
+---
+<figure class="arch" data-arch>
+  {variants.map((v) => (
+    <svg class:list={['draw', v.cls]} data-draw viewBox={`-2 -2 ${v.W + 4} ${v.height + 4}`} role="img" aria-label="cidx architecture: a watcher and a cold indexer feed an incremental engine, which writes to a SQLite store; a query layer reads the store and serves a CLI and an MCP server used by AI coding agents.">
+      {v.edges.map((e) => (
+        <g data-step={e.step}>
+          <path class="d edge" pathLength="1" d={`M${e.x} ${e.y1}V${e.y2 - 1}`} />
+          <path class="flow" d={`M${e.x} ${e.y1}V${e.y2 - 1}`} />
+          <path class="t head" d={`M${e.x - 4.5} ${e.y2 - 7}L${e.x} ${e.y2 - 1}L${e.x + 4.5} ${e.y2 - 7}`} />
+          {e.label && <text class="t el" x={e.x + 12} y={(e.y1 + e.y2) / 2 + 3.5}>{e.label}</text>}
+        </g>
+      ))}
+      {v.nodes.map((n) => (
+        <g data-step={n.step} class:list={['node', { accent: n.accent }]}>
+          <rect class="t fill" x={n.x} y={n.y} width={n.w} height={H} rx="10" />
+          <rect class="d box" pathLength="1" x={n.x} y={n.y} width={n.w} height={H} rx="10" />
+          <text class="t l" x={n.x + 16} y={n.y + 26}>{n.label}</text>
+          <text class="t s" x={n.x + 16} y={n.y + 45}>{n.sub}</text>
+          {n.n && <text class="t n" x={n.x + n.w - 14} y={n.y + 25} text-anchor="end">{n.n}</text>}
+        </g>
+      ))}
+    </svg>
+  ))}
+  <figcaption class="mono">Fig. 1 · drawn in the order the data moves. Numbers match the steps below.</figcaption>
+</figure>
+
+<style>
+  .arch { margin: 0 0 clamp(32px, 4vw, 48px); }
+  svg { width: 100%; height: auto; overflow: visible; }
+  .narrow { display: none; max-width: 440px; }
+  .box, .edge, .head, .flow { fill: none; }
+  .box { stroke: var(--ink-3); stroke-width: 1; }
+  .fill { fill: var(--bg-2); }
+  .edge { stroke: var(--ink-3); stroke-width: 1; }
+  .head { stroke: var(--ink-3); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
+  .flow { stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 0.1 16; opacity: 0; transition: opacity 0.6s var(--ease-out); }
+  .arch:global(.is-done) .flow { opacity: 1; animation: arch-flow 1.4s linear infinite; }
+  @keyframes arch-flow { to { stroke-dashoffset: -16.1; } }
+  .l { font-family: var(--font-sans); font-size: 15px; font-weight: 500; fill: var(--ink); }
+  .s { font-family: var(--font-mono); font-size: 10.5px; fill: var(--ink-2); }
+  .n { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; fill: var(--accent); }
+  .el { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; fill: var(--ink-3); }
+  .accent .box { stroke: var(--accent); stroke-width: 1.5; }
+  .accent .l { fill: var(--accent); }
+  figcaption { margin-top: 16px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  @media (max-width: 760px) {
+    .wide { display: none; }
+    .narrow { display: block; }
+    .s { font-size: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .arch:global(.is-done) .flow { animation: none; opacity: 0; } }
+</style>

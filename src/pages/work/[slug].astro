@@ -1,6 +1,7 @@
 ---
 import Base from '@/layouts/Base.astro';
 import Visual from '@/components/Visual.astro';
+import CidxDiagram from '@/components/CidxDiagram.astro';
 import { work } from '@/data/site';
 import { caseStudies } from '@/data/casestudies';
 
@@ -62,6 +63,7 @@ const jsonLd = {
         <section class="two">
           <div><p class="eyebrow" data-reveal>03 — How it works</p><h2 class="display" data-reveal="0.05">{cs.pipeline.title}</h2></div>
           <div data-reveal="0.1">
+            {w.slug === 'cidx' && <CidxDiagram />}
             <ol class="steps">{cs.pipeline.steps.map((s) => <li>{s}</li>)}</ol>
             {cs.pipeline.note && <p class="note mono">{cs.pipeline.note}</p>}
           </div>

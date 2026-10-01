@@ -345,6 +345,27 @@ async function initPage() {
       });
     });
 
+    /* diagrams that draw themselves with the scroll --------------- */
+    document.querySelectorAll<SVGSVGElement>('[data-draw]').forEach((svg) => {
+      if (!svg.getClientRects().length) return; // the other breakpoint's layout
+      const fig = svg.closest<HTMLElement>('[data-arch]');
+      const tl = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: {
+          trigger: svg, start: 'top 82%', end: 'bottom 62%', scrub: 0.5,
+          onUpdate: (self) => fig?.classList.toggle('is-done', self.progress > 0.985),
+        },
+      });
+      svg.querySelectorAll<SVGGElement>('[data-step]').forEach((g) => {
+        const at = Number(g.dataset.step);
+        const strokes = g.querySelectorAll('.d');
+        const fades = g.querySelectorAll('.t');
+        gsap.set(strokes, { strokeDasharray: 1 });
+        tl.fromTo(strokes, { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.2 }, at);
+        tl.fromTo(fades, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.7 }, at + 0.45);
+      });
+    });
+
     /* header show/hide ------------------------------------------- */
     const header = document.querySelector<HTMLElement>('[data-header]');
     if (header) {
