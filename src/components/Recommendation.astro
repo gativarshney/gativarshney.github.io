@@ -47,21 +47,25 @@ const initials = r.author.split(' ').map((p) => p[0]).slice(0, 2).join('');
   .mark { display: block; height: 0.42em; font-size: clamp(96px, 11vw, 168px); line-height: 0.82; font-style: italic; font-weight: 300; color: var(--accent); user-select: none; }
   blockquote { margin: 0; }
   .pull { font-size: clamp(28px, 3.7vw, 54px); line-height: 1.14; font-weight: 300; letter-spacing: -0.02em; text-wrap: pretty; }
-  details { margin-top: clamp(28px, 3.4vw, 44px); border-top: 1px solid var(--hair); }
-  summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 0; list-style: none; font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); transition: color 0.3s var(--ease-out); }
+  details { margin-top: clamp(28px, 3.4vw, 44px); }
+  /* the disclosure is the section's one call to action: a filled accent pill that steps back once opened */
+  summary { display: inline-flex; align-items: center; gap: 14px; padding: 9px 10px 9px 24px; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); list-style: none; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; box-shadow: 0 16px 34px -16px var(--accent-glow); transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out), background-color 0.35s var(--ease-out), color 0.35s var(--ease-out); }
   summary::-webkit-details-marker { display: none; }
-  summary:hover { color: var(--accent); }
+  summary:hover { transform: translateY(-2px); box-shadow: 0 22px 40px -16px var(--accent-glow); }
+  details[open] summary { background: transparent; color: var(--accent); box-shadow: none; }
   details .shut, details[open] .open { display: none; }
   details[open] .shut { display: inline; }
-  .plus { position: relative; flex: none; width: 13px; height: 13px; }
-  .plus::before, .plus::after { content: ''; position: absolute; left: 0; top: 6px; width: 13px; height: 1px; background: currentColor; transition: transform 0.5s var(--ease-out); }
+  .plus { position: relative; flex: none; width: 32px; height: 32px; border-radius: 50%; background: color-mix(in oklch, currentColor 18%, transparent); transition: transform 0.5s var(--ease-out); }
+  .plus::before, .plus::after { content: ''; position: absolute; left: 10px; top: 15.5px; width: 12px; height: 1.5px; border-radius: 1px; background: currentColor; transition: transform 0.5s var(--ease-out); }
   .plus::after { transform: rotate(90deg); }
+  summary:hover .plus { transform: rotate(90deg); }
   details[open] .plus::after { transform: rotate(0deg); }
-  .full { padding: 4px 0 8px 22px; border-left: 2px solid var(--accent); max-width: 720px; animation: rec-in 0.6s var(--ease-out) both; }
+  details[open] summary:hover .plus { transform: none; }
+  .full { margin-top: 26px; padding: 4px 0 8px 22px; border-left: 2px solid var(--accent); max-width: 720px; animation: rec-in 0.6s var(--ease-out) both; }
   .full p { font-size: 17px; color: var(--ink-2); margin-bottom: 16px; }
   .full p:last-child { margin-bottom: 0; }
   @keyframes rec-in { from { opacity: 0; transform: translateY(8px); } }
-  details[open] { padding-bottom: 22px; border-bottom: 1px solid var(--hair); }
+  details[open] { padding-bottom: 26px; border-bottom: 1px solid var(--hair); }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   @media (max-width: 860px) {
     .rec { grid-template-columns: 1fr; gap: 28px; }
