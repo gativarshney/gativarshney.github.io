@@ -10,6 +10,7 @@ import opLogo from '@/assets/logos/openprinting.png';
 import lfLogo from '@/assets/logos/linuxfoundation.png';
 import gsocLogo from '@/assets/logos/gsoc.svg';
 import searchSnap from '@/assets/previews/openprinting-search.jpg';
+import homeSnap from '@/assets/previews/openprinting-home-light.jpg';
 import wocCert from '@/assets/certs/woc-5.jpg';
 import gsocCert from '@/assets/certs/gsoc-2026.jpg';
 
@@ -57,14 +58,17 @@ const timeline: { when: string; title: string; body: string; tone: string; stamp
     <div>
       <p class="eyebrow" data-reveal>02 — Live in production</p>
       <h2 class="display" data-split-words data-anim>The search, the homepage,<br /><em>the posts.</em></h2>
-      <p class="lede" data-reveal="0.1">The live OpenPrinting website. Use the search in its header: it runs a build-time index in the browser with no search server. The homepage layout and the author cards on every post are also mine.</p>
+      <p class="lede" data-reveal="0.1">All of it is live on the OpenPrinting website. The search in its header runs a build-time index in the browser with no search server. The homepage layout and the author cards on every post are also mine.</p>
       <p class="links" data-reveal="0.15"><a class="u" href={site.links.openprintingSite} target="_blank" rel="noopener">openprinting.github.io ↗</a><a class="u" href={site.links.openprintingRepo} target="_blank" rel="noopener">repository ↗</a><a class="u" href={site.links.commits} target="_blank" rel="noopener">my commits ↗</a></p>
       <div class="search-shot" data-reveal="0.2">
         <Preview url={site.links.openprintingSite} title="The search overlay on openprinting.github.io" image={searchSnap} alt="OpenPrinting search overlay open over the homepage, with OpenPrinting and Foomatic Lookup Site scopes and a Cmd/Ctrl+K shortcut" ratio="16 / 8" label="openprinting.github.io · Cmd/Ctrl + K" />
         <p class="mono cap">The search overlay: two scopes, keyboard-first, served from a build-time index.</p>
       </div>
     </div>
-    <div data-reveal="0.1"><Preview url={site.links.openprintingSite} title="OpenPrinting website, live" live base={1280} ratio="16 / 11" image={searchSnap} alt="The OpenPrinting homepage with the search overlay open" /></div>
+    <div data-reveal="0.1">
+      <Preview url={site.links.openprintingSite} title="The OpenPrinting homepage" image={homeSnap} alt="The OpenPrinting homepage in its light theme: the OpenPrinting wordmark over a colour-swatch fan, with Learn More and Find a Printer buttons and the Latest News section below" ratio="16 / 9" label="openprinting.github.io · light theme" />
+      <p class="mono cap">The homepage I rebuilt, in its light theme.</p>
+    </div>
   </section>
 
   <!-- PULL REQUESTS --------------------------------------------------- -->
