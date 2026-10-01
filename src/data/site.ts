@@ -300,6 +300,25 @@ export const featuredArticle = {
 export const writing: { slug: string; title: string; subtitle: string; date: string; tag: string; minutes: number }[] = [];
 
 /* ------------------------------------------------------------------ */
+/* Recommendation: quoted verbatim from LinkedIn                       */
+/* ------------------------------------------------------------------ */
+export const recommendation = {
+  author: 'Rudra Pratap Singh',
+  role: 'Software Engineer at Google',
+  relation: 'GSoC mentor · OpenPrinting',
+  date: '2026-07-16',
+  dateLabel: '16 Jul 2026',
+  href: 'https://www.linkedin.com/in/gativarshney/details/recommendations/',
+  // one sentence of the third paragraph, split where the emphasis starts
+  pull: ['Gati has the qualities that make a strong software engineer: ', 'a growth mindset, technical aptitude, and the determination to continuously improve.'],
+  body: [
+    'I had the pleasure of mentoring Gati during Google Summer of Code, where she contributed to the OpenPrinting website. From the outset, she impressed me with her curiosity, focus, and eagerness to learn. She consistently approached challenges with a thoughtful mindset, quickly grasped new concepts, and steadily improved through feedback.',
+    'What I appreciated most was her ability to translate guidance into action. She was proactive in asking the right questions, receptive to suggestions, and committed to delivering high-quality contributions. Her discipline and persistence allowed her to navigate the complexities of open source development while maintaining a collaborative and professional attitude.',
+    'Gati has the qualities that make a strong software engineer: a growth mindset, technical aptitude, and the determination to continuously improve. I’m confident she will continue to thrive in her career and make valuable contributions to any team she joins. I wholeheartedly recommend her and look forward to following her future accomplishments.',
+  ],
+};
+
+/* ------------------------------------------------------------------ */
 /* Hero strip                                                          */
 /* ------------------------------------------------------------------ */
 export const record = [

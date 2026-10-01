@@ -5,6 +5,7 @@ import FeaturedArticle from '@/components/FeaturedArticle.astro';
 import Timeline from '@/components/Timeline.astro';
 import Portrait from '@/components/Portrait.astro';
 import LeetCode from '@/components/LeetCode.astro';
+import Recommendation from '@/components/Recommendation.astro';
 import { Image } from 'astro:assets';
 import pvWork from '@/assets/previews/page-work.jpg';
 import pvOpen from '@/assets/previews/page-open-source.jpg';
@@ -89,6 +90,9 @@ const jsonLd = {
     </Timeline>
     <p class="all more" data-reveal><a class="btn fill" href="/open-source/" data-magnetic="0.3">The open-source story <span class="arr">→</span></a><a class="btn" href="/about/" data-magnetic="0.3">About me <span class="arr">→</span></a></p>
   </section>
+
+  <!-- RECOMMENDATION ------------------------------------------------- -->
+  <Recommendation />
 
   <!-- PROJECT -------------------------------------------------------- -->
   <section class="section wrap" id="project">

@@ -261,6 +261,15 @@ async function initPage() {
       reveal(el, gsap.fromTo(el, { scaleX: 0, transformOrigin: 'left center' }, { scaleX: 1, duration: 0.9, ease: EASE, paused: true }), 'top 105%');
     });
 
+    /* a quote that reads itself in: words go from faint to full ink with the scroll */
+    document.querySelectorAll<HTMLElement>('[data-read]').forEach((el) => {
+      gsap.fromTo(splitToWords(el), { opacity: 0.2 }, {
+        opacity: 1, ease: 'none', stagger: 0.12,
+        scrollTrigger: { trigger: el, start: 'top 86%', end: 'bottom 58%', scrub: 0.4 },
+      });
+    });
+    document.querySelectorAll<HTMLDetailsElement>('.rec details').forEach((d) => d.addEventListener('toggle', () => ScrollTrigger.refresh()));
+
     /* parallax --------------------------------------------------- */
     document.querySelectorAll<HTMLElement>('[data-parallax]').forEach((el) => {
       const amount = Number(el.dataset.parallax || 40);
