@@ -38,7 +38,9 @@ const jsonLd = {
     <p class="lede" data-reveal="0.1">{w.summary}</p>
     <div class="tags" data-reveal="0.15">{w.status && <span class:list={['tag', w.status.tone]}>{w.status.label}</span>}{w.tags.map((t) => <span class="tag">{t}</span>)}<span class="tag">{w.period}</span></div>
     <p class="links" data-reveal="0.2">
-      {w.links.slice(1).map((l) => <a class="btn" href={l.href} target="_blank" rel="noopener" data-magnetic="0.25">{l.label} <span class="arr">↗</span></a>)}
+      {w.links.slice(1).map((l) => l.external
+        ? <a class="btn" href={l.href} target="_blank" rel="noopener" data-magnetic="0.25">{l.label} <span class="arr">↗</span></a>
+        : <a class="btn fill" href={l.href} data-magnetic="0.25">{l.label} <span class="arr">↓</span></a>)}
     </p>
 
     <div class="grid">

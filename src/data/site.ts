@@ -147,6 +147,7 @@ export const work: Entry[] = [
     ],
     links: [
       { label: 'Case study', href: '/work/cidx/' },
+      { label: 'Try it in the browser', href: '/work/cidx/#try' },
       { label: 'Website', href: site.links.cidxSite, external: true },
       { label: 'Repository', href: site.links.cidxRepo, external: true },
       { label: 'PyPI', href: site.links.cidxPypi, external: true },
