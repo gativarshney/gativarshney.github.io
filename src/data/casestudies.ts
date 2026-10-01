@@ -93,7 +93,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       title: 'From Foomatic XML to a 3 KB shard',
       steps: [
         'foomatic-db XML is parsed and normalised into 6,657 printer records during the site’s generate step.',
-        'Each printer is encoded as a 415-dimension feature vector: driver families, command sets, PostScript and PCL levels, colour, mechanism type, resolution tiers and support grade. Drivers that foomatic-db marks obsolete are excluded, so a superseded driver never counts as shared evidence.',
+        'Each printer is encoded as a feature vector in a 463-dimension space: driver families, command sets, PostScript and PCL levels, colour, mechanism type, resolution tiers and support grade. Drivers that foomatic-db marks obsolete are then excluded, so a superseded driver never counts as shared evidence; that leaves 415 dimensions active in the published build.',
         'Candidates are ranked by IDF-weighted cosine similarity, so sharing a rare driver (necp6, 8 printers) counts for far more than sharing postscript (1,746 printers).',
         'The score is damped by how much evidence the pair actually shares, then multiplied by penalties for capability conflicts in type, colour and extreme resolution gaps.',
         'Results below a minimum score are dropped, the top 10 are kept in deterministic score-then-id order, and human-readable explanations are generated from the shared attributes.',
@@ -106,7 +106,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       { claim: 'Perfect-score saturation eliminated', value: '86.8% → 0%', context: 'share of recommendations scoring exactly 1.0, before and after the scoring redesign; measured by the project’s evaluation pipeline', source: { label: 'final report', href: REPORT } },
       { claim: 'Scores now track evidence', value: '0.078 → 0.851', context: 'correlation between supporting evidence and score', source: { label: 'final report', href: REPORT } },
       { claim: 'Misleading explanation claims', value: '1,470 → 0', context: 'final validation reaches zero false claims', source: { label: 'final report', href: REPORT } },
-      { claim: 'Scale', value: '6,657 printers · 415 dimensions', context: 'the full Foomatic printer set, one shard each, median 3.2 KB', source: { label: 'PR #224', href: `${OP}224` } },
+      { claim: 'Scale', value: '6,657 printers · 463 dimensions', context: 'the full Foomatic printer set and the engineered feature space; 415 dimensions stay active once obsolete drivers are excluded. One shard each, median 3.2 KB', source: { label: 'PR #236 · quality doc', href: `${OP}236` } },
       { claim: 'Recommendations pull request', value: '+4,013 lines · 34 files', context: '36 commits; open for upstream review', source: { label: 'PR #224', href: `${OP}224` } },
       { claim: 'Assistant pull request', value: '+11,200 lines · 70 files', context: '50 commits; screen recording in the PR; open for upstream review', source: { label: 'PR #230', href: `${OP}230` } },
       { claim: 'Documentation', value: '+1,091 lines', context: 'data formats, pipeline architecture, evaluation, regeneration, UI contract', source: { label: 'PR #236', href: `${OP}236` } },
