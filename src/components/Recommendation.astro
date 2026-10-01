@@ -17,7 +17,7 @@ const initials = r.author.split(' ').map((p) => p[0]).slice(0, 2).join('');
         <p class="rel mono">{r.relation} · {r.dateLabel}</p>
       </div>
     </div>
-    <p class="src mono" data-reveal="0.15"><a class="u" href={r.href} target="_blank" rel="noopener">Recommendation on LinkedIn ↗</a></p>
+    <p class="src" data-reveal="0.15"><a class="btn li" href={r.href} target="_blank" rel="noopener" data-magnetic="0.25">Recommendation on LinkedIn <span class="arr">↗</span></a></p>
   </div>
 
   <figure class="quote">
@@ -41,7 +41,11 @@ const initials = r.author.split(' ').map((p) => p[0]).slice(0, 2).join('');
   .name { font-weight: 500; font-size: 17px; line-height: 1.3; }
   .role { font-size: 15px; color: var(--ink-2); }
   .rel { margin-top: 6px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
-  .src { margin-top: 22px; font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+  .src { margin-top: 24px; }
+  /* outlined in the accent so it reads as the proof link, second to the filled button beside the quote */
+  .li { --pad: 13px 20px; border-color: var(--accent); color: var(--accent); }
+  .li::before { background: var(--accent); }
+  .li:hover { color: var(--accent-ink); border-color: var(--accent); }
 
   .quote { margin: 0; position: relative; }
   .mark { display: block; height: 0.42em; font-size: clamp(96px, 11vw, 168px); line-height: 0.82; font-style: italic; font-weight: 300; color: var(--accent); user-select: none; }
