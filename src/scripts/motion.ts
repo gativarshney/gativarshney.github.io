@@ -633,7 +633,10 @@ function initHoverPreview() {
 let paletteBound = false;
 function initPalette() {
   const mac = /Mac|iPhone|iPad/.test(navigator.platform);
-  if (mac) document.querySelectorAll<HTMLElement>('[data-cmdk-hint]').forEach((el) => (el.textContent = '⌘K'));
+  if (mac) document.querySelectorAll<HTMLElement>('[data-cmdk-hint]').forEach((el) => {
+    el.textContent = '⌘K';
+    el.closest('button')?.setAttribute('aria-label', '⌘K, open command palette');
+  });
   if (paletteBound) return;
   paletteBound = true;
 
