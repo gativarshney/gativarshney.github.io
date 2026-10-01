@@ -265,10 +265,8 @@ html.cursor-down .cursor-ring { transform: scale(0.85); }
    View transitions
    ------------------------------------------------------------------ */
 @view-transition { navigation: auto; }
-::view-transition-old(root) { animation: 0.32s var(--ease-in-out) both vt-out; }
-::view-transition-new(root) { animation: 0.5s 0.08s var(--ease-out) both vt-in; }
-@keyframes vt-out { to { opacity: 0; transform: translateY(-10px); } }
-@keyframes vt-in { from { opacity: 0; transform: translateY(14px); } }
+/* page changes are covered by the accent wipe panel (Wipe.astro), so the snapshots swap instantly beneath it */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; }
 /* theme switch uses a circular wipe instead */
 :root[data-vt='theme']::view-transition-old(root) { animation: none; mix-blend-mode: normal; }
 :root[data-vt='theme']::view-transition-new(root) { animation: none; mix-blend-mode: normal; }

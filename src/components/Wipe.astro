@@ -1,0 +1,20 @@
+---
+import { nav, work } from '@/data/site';
+// destination names shown on the panel while it covers the page
+const names: Record<string, string> = { '/': 'Home' };
+nav.forEach((n) => (names[n.href] = n.label));
+work.forEach((w) => (names[`/work/${w.slug}/`] = w.title));
+---
+<div class="wipe" data-wipe data-names={JSON.stringify(names)} aria-hidden="true" transition:persist="wipe">
+  <span class="display" data-wipe-label></span>
+</div>
+
+<style>
+  .wipe {
+    position: fixed; inset: 0; z-index: 950; display: grid; place-items: center;
+    background: var(--accent); color: var(--accent-ink);
+    clip-path: inset(0% 100% 0% 0%); visibility: hidden; pointer-events: none; will-change: clip-path;
+  }
+  .wipe:global(.is-on) { visibility: visible; pointer-events: auto; }
+  .wipe span { max-width: 16ch; padding: 0 var(--gutter); text-align: center; font-size: clamp(40px, 7vw, 104px); font-style: italic; font-weight: 300; line-height: 1.02; }
+</style>

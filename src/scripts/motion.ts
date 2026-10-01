@@ -698,7 +698,45 @@ function initPalette() {
   document.addEventListener('astro:before-swap', shut);
 }
 
+/* ------------------------------------------------------------------ */
+/* Page wipe: an accent panel sweeps across while the next page loads  */
+/* ------------------------------------------------------------------ */
+let wipeBound = false;
+function initWipe() {
+  if (wipeBound || reduced) return;
+  wipeBound = true;
+  const parts = () => {
+    const panel = document.querySelector<HTMLElement>('[data-wipe]');
+    return panel ? { panel, label: panel.querySelector<HTMLElement>('[data-wipe-label]')! } : null;
+  };
+  document.addEventListener('astro:before-preparation', (ev) => {
+    const e = ev as Event & { from: URL; to: URL; loader: () => Promise<void> };
+    const p = parts();
+    if (!p || e.to.pathname === e.from.pathname) return;
+    const names = JSON.parse(p.panel.dataset.names || '{}') as Record<string, string>;
+    p.label.textContent = names[e.to.pathname] ?? '';
+    p.panel.classList.add('is-on');
+    gsap.killTweensOf([p.panel, p.label]);
+    const covered = new Promise<void>((done) => {
+      gsap.timeline({ onComplete: done })
+        .fromTo(p.panel, { clipPath: 'inset(0% 100% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.45, ease: 'power3.inOut' })
+        .fromTo(p.label, { yPercent: 50, autoAlpha: 0 }, { yPercent: 0, autoAlpha: 1, duration: 0.4, ease: 'power3.out' }, 0.14);
+    });
+    // the swap waits for both the fetch and the cover, so the old page never changes in view
+    const load = e.loader;
+    e.loader = async () => { try { await load(); } finally { await covered; } };
+  });
+  document.addEventListener('astro:page-load', () => {
+    const p = parts();
+    if (!p || !p.panel.classList.contains('is-on')) return;
+    gsap.timeline({ onComplete: () => p.panel.classList.remove('is-on') })
+      .to(p.label, { yPercent: -50, autoAlpha: 0, duration: 0.3, ease: 'power2.in' }, 0.08)
+      .to(p.panel, { clipPath: 'inset(0% 0% 0% 100%)', duration: 0.55, ease: 'power3.inOut' }, 0.14);
+  });
+}
+
 function boot() {
+  initWipe();
   initPalette();
   initAnchors();
   initHoverPreview();

@@ -5,6 +5,7 @@ import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import Lightbox from '@/components/Lightbox.astro';
 import CommandPalette from '@/components/CommandPalette.astro';
+import Wipe from '@/components/Wipe.astro';
 import { site } from '@/data/site';
 import frauncesNormal from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2?url';
 import frauncesItalic from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-italic.woff2?url';
@@ -75,6 +76,7 @@ const ogImage = new URL(image ?? '/og-default.png', Astro.site).href;
       <div class="cursor-dot"></div>
     </div>
     <div class="grain" aria-hidden="true" transition:persist="grain"></div>
+    <Wipe />
     <Header />
     <main id="main" tabindex="-1">
       <slot />
