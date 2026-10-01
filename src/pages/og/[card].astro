@@ -1,12 +1,26 @@
 ---
-// Template used to render the default Open Graph image (1200×630) at build-prep time.
-// Not linked from anywhere; excluded from the sitemap; noindex.
+// Templates for the Open Graph images (1200×630), one per page. Each is screenshotted
+// into public/ (og-default.png, og/<card>.png). Not linked from anywhere; excluded
+// from the sitemap; noindex.
 import '@/styles/global.css';
 import { Image } from 'astro:assets';
 import portrait from '@/assets/gati-cutout.png';
-const title = Astro.url.searchParams.get('t') ?? 'Software that|proves itself.';
+
+const cards: Record<string, [title: string, sub: string]> = {
+  default: ['Software that|proves itself.', 'Final-year CS student · GSoC 2026 contributor at OpenPrinting, The Linux Foundation'],
+  work: ['Built to be|checked.', 'Projects with their evidence: cidx, the GSoC printer recommendations, and the OpenPrinting site search'],
+  cidx: ['A code index|for AI agents.', 'cidx · zero-config and local · five read-only MCP tools · try it in the browser'],
+  'printer-recommendations': ['What else|will work?', 'Explainable recommendations across 6,657 printers · Google Summer of Code 2026 at OpenPrinting'],
+  'openprinting-search': ['Search with|no server.', 'A build-time index and in-browser ranking, live on openprinting.github.io'],
+  'open-source': ['Ten months in|one codebase.', 'OpenPrinting, The Linux Foundation · 14 pull requests merged · Hall of Fame'],
+  writing: ['Notes from|the debugging.', 'Long-form write-ups, starting with the GSoC 2026 final report'],
+  about: ['A short file|on the author.', 'Final-year CS (Data Science) · JSS Academy of Technical Education · class of 2027'],
+};
+export function getStaticPaths() {
+  return ['default', 'work', 'cidx', 'printer-recommendations', 'openprinting-search', 'open-source', 'writing', 'about'].map((card) => ({ params: { card } }));
+}
+const [title, sub] = cards[Astro.params.card!];
 const [line1, line2] = title.split('|');
-const sub = Astro.url.searchParams.get('s') ?? 'Final-year CS student · GSoC 2026 contributor at OpenPrinting, The Linux Foundation';
 ---
 <html lang="en" data-theme="light">
   <head><meta charset="utf-8" /><meta name="robots" content="noindex" /><title>og</title></head>

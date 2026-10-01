@@ -30,7 +30,7 @@ const jsonLd = {
   dateModified: cs?.lastVerified, author: { '@id': 'https://gativarshney.github.io/#person' },
 };
 ---
-<Base title={w.title} description={w.summary} type="article">
+<Base title={w.title} description={w.summary} type="article" image={`/og/${w.slug}.png`}>
   <Fragment slot="head"><script type="application/ld+json" set:html={JSON.stringify(jsonLd)} /></Fragment>
   <article class="wrap cs">
     <p class="eyebrow" data-reveal><a class="u" href="/work/">Work</a> · Case study · 0{idx + 1}</p>
