@@ -71,7 +71,7 @@ const { kind } = Astro.props;
   <Preview url={site.links.repoinsightApp} title="RepoInsight, live" live gate image={riHome} alt="RepoInsight home page: Know a repository before your first pull request, with a field for a GitHub repository and a 3D skyline of commit activity" ratio="16 / 10" />
 )}
 {kind === 'search' && (
-  <Preview url={site.links.openprintingSite} title="The OpenPrinting website, live" live gate image={searchSnap} alt="OpenPrinting search overlay open over the homepage, with OpenPrinting and Foomatic Lookup Site scopes and a Cmd/Ctrl+K shortcut" ratio="16 / 8" label="openprinting.github.io · Cmd/Ctrl + K" />
+  <Preview url={site.links.openprintingSite} title="The search overlay on openprinting.github.io" image={searchSnap} alt="OpenPrinting search overlay open over the homepage, with OpenPrinting and Foomatic Lookup Site scopes and a Cmd/Ctrl+K shortcut" ratio="16 / 8" label="openprinting.github.io · Cmd/Ctrl + K" />
 )}
 {kind === 'printers' && (
   <Preview url={site.links.gsocReport} title="GSoC 2026 final report on Medium" image={mediumSnap} alt="Medium article: GSoC 2026 Final Report" ratio="16 / 10" />
