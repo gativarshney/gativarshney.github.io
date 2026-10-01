@@ -547,21 +547,6 @@ function initFrames() {
     else { const f = el.querySelector<HTMLIFrameElement>('iframe[data-src]'); if (f) f.src = f.dataset.src!; }
   });
   const root = document.querySelector<HTMLElement>('.cursor');
-  // gated embeds: a click hands the mouse to the live page, leaving it hands the wheel back to this one
-  document.querySelectorAll<HTMLElement>('[data-gate]').forEach((el) => {
-    if (el.dataset.boundGate) return;
-    el.dataset.boundGate = '1';
-    el.querySelector('[data-gate-open]')?.addEventListener('click', () => {
-      el.classList.add('is-live');
-      html.classList.remove('cursor-label', 'cursor-hover');
-      if (root) gsap.to(root, { opacity: 0, duration: 0.25 });
-    });
-    el.addEventListener('mouseleave', () => {
-      if (!el.classList.contains('is-live')) return;
-      el.classList.remove('is-live');
-      if (root) gsap.to(root, { opacity: 1, duration: 0.25 });
-    });
-  });
   if (!root) return;
   document.querySelectorAll<HTMLElement>('[data-cursor-hide]').forEach((el) => {
     if (el.dataset.boundCursor) return;
