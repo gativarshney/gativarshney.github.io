@@ -4,6 +4,7 @@ import '@/styles/global.css';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import Lightbox from '@/components/Lightbox.astro';
+import CommandPalette from '@/components/CommandPalette.astro';
 import { site } from '@/data/site';
 import frauncesNormal from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2?url';
 import frauncesItalic from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-italic.woff2?url';
@@ -80,6 +81,7 @@ const ogImage = new URL(image ?? '/og-default.png', Astro.site).href;
     </main>
     <Footer />
     <Lightbox />
+    <CommandPalette />
     <script>
       import '@/scripts/motion.ts';
     </script>

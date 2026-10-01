@@ -575,7 +575,110 @@ function initHoverPreview() {
   });
 }
 
+/* ------------------------------------------------------------------ */
+/* Command palette (Ctrl/Cmd + K)                                      */
+/* ------------------------------------------------------------------ */
+let paletteBound = false;
+function initPalette() {
+  const mac = /Mac|iPhone|iPad/.test(navigator.platform);
+  if (mac) document.querySelectorAll<HTMLElement>('[data-cmdk-hint]').forEach((el) => (el.textContent = '⌘K'));
+  if (paletteBound) return;
+  paletteBound = true;
+
+  const dialog = () => document.querySelector<HTMLDialogElement>('[data-cmdk]');
+  const shown = (dlg: HTMLElement) => Array.from(dlg.querySelectorAll<HTMLElement>('[data-cmdk-item]:not([hidden])'));
+  const select = (dlg: HTMLElement, el: HTMLElement | undefined, scroll = true) => {
+    dlg.querySelectorAll('[data-cmdk-item][aria-selected="true"]').forEach((i) => i.setAttribute('aria-selected', 'false'));
+    if (!el) return;
+    el.setAttribute('aria-selected', 'true');
+    if (scroll) el.scrollIntoView({ block: 'nearest' });
+  };
+  const filter = (dlg: HTMLElement, q: string) => {
+    const fold = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const tokens = fold(q).split(/\s+/).filter(Boolean);
+    dlg.querySelectorAll<HTMLElement>('[data-cmdk-item]').forEach((it) => {
+      const hay = fold(it.dataset.keys || '');
+      it.hidden = !tokens.every((t) => hay.includes(t));
+    });
+    dlg.querySelectorAll<HTMLElement>('[data-cmdk-group]').forEach((g) => { g.hidden = !g.querySelector('[data-cmdk-item]:not([hidden])'); });
+    const list = shown(dlg);
+    const empty = dlg.querySelector<HTMLElement>('[data-cmdk-empty]');
+    if (empty) empty.hidden = list.length > 0;
+    select(dlg, list[0]);
+    dlg.querySelector('.list')?.scrollTo({ top: 0 });
+  };
+  const cleanup = () => { html.classList.remove('cmdk-open'); lenis?.start(); };
+  const shut = () => { cleanup(); const dlg = dialog(); if (dlg?.open) dlg.close(); };
+  const open = () => {
+    const dlg = dialog();
+    if (!dlg || dlg.open) return;
+    const input = dlg.querySelector<HTMLInputElement>('[data-cmdk-input]')!;
+    input.value = '';
+    filter(dlg, '');
+    dlg.showModal();
+    html.classList.add('cmdk-open');
+    lenis?.stop();
+    input.focus();
+  };
+  const run = (item: HTMLElement) => {
+    const action = item.dataset.cmdkAction;
+    if (action === 'theme') {
+      shut();
+      document.querySelector('[data-theme-toggle]')?.dispatchEvent(new MouseEvent('click', { bubbles: true, clientX: innerWidth / 2, clientY: innerHeight / 2 }));
+    } else if (action === 'copy-email') {
+      const hint = item.querySelector<HTMLElement>('.h');
+      const done = () => { if (hint) hint.textContent = 'Copied'; setTimeout(() => { shut(); if (hint) hint.textContent = 'Action'; }, 700); };
+      if (navigator.clipboard) navigator.clipboard.writeText(item.dataset.email!).then(done, shut); else location.href = `mailto:${item.dataset.email}`;
+    }
+  };
+
+  document.addEventListener('keydown', (e) => {
+    const dlg = dialog();
+    if ((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      if (dlg?.open) shut(); else open();
+      return;
+    }
+    if (!dlg?.open) return;
+    const list = shown(dlg);
+    const at = list.findIndex((i) => i.getAttribute('aria-selected') === 'true');
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!list.length) return;
+      const next = e.key === 'ArrowDown' ? (at + 1) % list.length : (at - 1 + list.length) % list.length;
+      select(dlg, list[next]);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      list[Math.max(0, at)]?.click();
+    }
+  });
+  document.addEventListener('input', (e) => {
+    const input = (e.target as HTMLElement).closest<HTMLInputElement>('[data-cmdk-input]');
+    const dlg = dialog();
+    if (input && dlg) filter(dlg, input.value);
+  });
+  document.addEventListener('mousemove', (e) => {
+    const item = (e.target as HTMLElement).closest?.<HTMLElement>('[data-cmdk-item]');
+    const dlg = dialog();
+    if (item && dlg && item.getAttribute('aria-selected') !== 'true') select(dlg, item, false);
+  }, { passive: true });
+  // capture phase, and bound before the anchor handler: the palette must release Lenis before a hash link scrolls
+  document.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement;
+    if (t.closest('[data-cmdk-open]')) { open(); return; }
+    const dlg = dialog();
+    if (!dlg?.open) return;
+    if (t === dlg || t.closest('[data-cmdk-close]')) { shut(); return; }
+    const item = t.closest<HTMLElement>('[data-cmdk-item]');
+    if (!item) return;
+    if (item.dataset.cmdkAction) run(item); else shut();
+  }, true);
+  document.addEventListener('close', (e) => { if ((e.target as HTMLElement).matches?.('[data-cmdk]')) cleanup(); }, true);
+  document.addEventListener('astro:before-swap', shut);
+}
+
 function boot() {
+  initPalette();
   initAnchors();
   initHoverPreview();
   initMenu();

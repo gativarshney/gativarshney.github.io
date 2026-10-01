@@ -105,9 +105,9 @@ ul, ol { padding: 0; list-style: none; }
 /* custom cursor: hide native pointer on fine-pointer devices when JS enabled */
 html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor [data-cursor] { cursor: none; }
 /* the dialog top layer sits above the custom cursor: restore the native one while a lightbox is open */
-html.has-cursor.lb-open, html.has-cursor.lb-open * { cursor: auto; }
+html.has-cursor.lb-open, html.has-cursor.lb-open *, html.has-cursor.cmdk-open, html.has-cursor.cmdk-open * { cursor: auto; }
 html.menu-open, html.menu-open body { overflow: hidden; }
-html.has-cursor.lb-open button, html.has-cursor.lb-open a { cursor: pointer; }
+html.has-cursor.lb-open button, html.has-cursor.lb-open a, html.has-cursor.cmdk-open button, html.has-cursor.cmdk-open a { cursor: pointer; }
 
 /* pre-animation hide (only when JS is present; no-JS users see everything) */
 html.js [data-anim] { visibility: hidden; animation: anim-fallback 0s 1s forwards; }
