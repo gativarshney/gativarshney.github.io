@@ -784,7 +784,21 @@ function initSnav() {
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelector('[data-snav]')?.classList.remove('is-open'); });
 }
 
+/* ------------------------------------------------------------------ */
+/* The header persists across page swaps, so its "current page" mark   */
+/* has to follow the URL rather than the page it was first rendered on */
+/* ------------------------------------------------------------------ */
+function syncNav() {
+  document.querySelectorAll<HTMLAnchorElement>('[data-header] nav a[href^="/"]').forEach((a) => {
+    const href = a.getAttribute('href')!;
+    const on = href !== '/' && !href.includes('#') && location.pathname.startsWith(href);
+    a.classList.toggle('cur', on);
+    if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+  });
+}
+
 function boot() {
+  syncNav();
   initSnav();
   initWipe();
   initPalette();
@@ -814,4 +828,4 @@ else bootOnce();
 document.addEventListener('astro:page-load', bootOnce);
 document.addEventListener('astro:before-swap', () => { bootedFor = ''; });
 document.addEventListener('astro:before-swap', () => { ctx?.revert(); ScrollTrigger.getAll().forEach((t) => t.kill()); });
-document.addEventListener('astro:after-swap', () => { if (!scrollToHash(location.hash, true)) lenis?.scrollTo(0, { immediate: true }); });
+document.addEventListener('astro:after-swap', () => { syncNav(); if (!scrollToHash(location.hash, true)) lenis?.scrollTo(0, { immediate: true }); });
