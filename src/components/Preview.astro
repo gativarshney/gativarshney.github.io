@@ -16,8 +16,9 @@ interface Props {
   ratio?: string;   // css aspect-ratio for the body
   base?: number;    // virtual width the live page is laid out at
   label?: string;   // text shown in the address bar
+  gate?: boolean;   // live only: the embed takes mouse input after a click, so scrolling past it never gets trapped
 }
-const { url, title, live = false, image, alt = title, ratio = '16 / 10', base = 1280, label } = Astro.props;
+const { url, title, live = false, image, alt = title, ratio = '16 / 10', base = 1280, label, gate = false } = Astro.props;
 const shown = label ?? url.replace(/^https?:\/\//, '').replace(/\/$/, '');
 ---
 <div class="preview" data-tilt="2">
@@ -26,7 +27,7 @@ const shown = label ?? url.replace(/^https?:\/\//, '').replace(/\/$/, '');
     <span class="purl mono" title={url}>{shown}</span>
     <a class="popen mono" href={url} target="_blank" rel="noopener">Open ↗</a>
   </div>
-  <div class="pbody" style={`aspect-ratio:${ratio}`} data-scale-frame={live ? base : undefined} data-cursor-hide={live ? '' : undefined}>
+  <div class="pbody" style={`aspect-ratio:${ratio}`} data-scale-frame={live ? base : undefined} data-cursor-hide={live && !gate ? '' : undefined} data-gate={live && gate ? '' : undefined}>
     {live ? (
       <>
         <iframe class="live-only" data-src={url} title={title} loading="lazy" referrerpolicy="no-referrer" style={`width:${base}px`}></iframe>
@@ -35,6 +36,7 @@ const shown = label ?? url.replace(/^https?:\/\//, '').replace(/\/$/, '');
             <Image src={image} alt={alt} widths={[640, 960]} sizes="92vw" loading="lazy" />
           </a>
         )}
+        {gate && <button type="button" class="pgate live-only" data-gate-open data-cursor="Interact" aria-label={`Interact with the live page: ${title}`}><span class="mono">Live · click to interact</span></button>}
         <noscript><a class="snap empty" href={url} target="_blank" rel="noopener">{title} ↗</a></noscript>
       </>
     ) : image ? (
@@ -65,6 +67,12 @@ const shown = label ?? url.replace(/^https?:\/\//, '').replace(/\/$/, '');
   .snap.empty { display: grid; place-items: center; font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); }
   .pfall { margin: 0; padding: 8px 12px; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); border-top: 1px solid var(--hair); }
   .pfall a:hover { color: var(--accent); }
+  .pbody[data-gate] iframe { pointer-events: none; }
+  .pbody[data-gate].is-live iframe { pointer-events: auto; }
+  .pgate { position: absolute; inset: 0; z-index: 1; display: grid; place-items: end start; padding: 14px; background: transparent; }
+  .pgate span { padding: 7px 12px; border-radius: 999px; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--bg); background: color-mix(in oklch, var(--ink) 86%, transparent); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); opacity: 0; transform: translateY(6px); transition: opacity 0.3s var(--ease-out), transform 0.4s var(--ease-out); }
+  .pgate:hover span, .pgate:focus-visible span { opacity: 1; transform: none; }
+  .pbody.is-live .pgate { display: none; }
   .static-only { display: none; }
   @media (pointer: coarse), (max-width: 860px) {
     .pbody:has(.static-only) .live-only { display: none; }

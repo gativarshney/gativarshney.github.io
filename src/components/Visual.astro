@@ -9,7 +9,7 @@ import gsocLogo from '@/assets/logos/gsoc.svg';
 import qqLogo from '@/assets/logos/quinque.png';
 import lfLogo from '@/assets/logos/linuxfoundation.png';
 import gsocCert from '@/assets/certs/gsoc-2026.jpg';
-import cidxSnap from '@/assets/previews/github-cidx.png';
+import cidxSite from '@/assets/previews/cidx-site.jpg';
 import mediumSnap from '@/assets/writing/gsoc-report-cover.png';
 import gsocSnap from '@/assets/previews/gsoc-project.png';
 import searchSnap from '@/assets/previews/openprinting-search.jpg';
@@ -57,7 +57,7 @@ const { kind } = Astro.props;
 )}
 {kind === 'cidx' && (
   <>
-    <Preview url={site.links.cidxRepo} title="cidx on GitHub" image={cidxSnap} alt="The cidx repository on GitHub" ratio="16 / 10" />
+    <Preview url={site.links.cidxSite} title="The cidx website, live" live gate image={cidxSite} alt="The cidx website: a local code index for AI coding agents" ratio="16 / 10" />
     <a class="panel pypi" href={site.links.cidxPypi} target="_blank" rel="noopener" data-cursor="Open" data-tilt="2">
       <div>
         <p class="eyebrow">Install from PyPI</p>
@@ -68,10 +68,10 @@ const { kind } = Astro.props;
   </>
 )}
 {kind === 'repoinsight' && (
-  <Preview url={site.links.repoinsightApp} title="RepoInsight, live" image={riHome} alt="RepoInsight home page: Know a repository before your first pull request, with a field for a GitHub repository and a 3D skyline of commit activity" ratio="16 / 10" />
+  <Preview url={site.links.repoinsightApp} title="RepoInsight, live" live gate image={riHome} alt="RepoInsight home page: Know a repository before your first pull request, with a field for a GitHub repository and a 3D skyline of commit activity" ratio="16 / 10" />
 )}
 {kind === 'search' && (
-  <Preview url={site.links.openprintingSite} title="The search overlay on openprinting.github.io" image={searchSnap} alt="OpenPrinting search overlay open over the homepage, with OpenPrinting and Foomatic Lookup Site scopes and a Cmd/Ctrl+K shortcut" ratio="16 / 8" label="openprinting.github.io · Cmd/Ctrl + K" />
+  <Preview url={site.links.openprintingSite} title="The OpenPrinting website, live" live gate image={searchSnap} alt="OpenPrinting search overlay open over the homepage, with OpenPrinting and Foomatic Lookup Site scopes and a Cmd/Ctrl+K shortcut" ratio="16 / 8" label="openprinting.github.io · Cmd/Ctrl + K" />
 )}
 {kind === 'printers' && (
   <Preview url={site.links.gsocReport} title="GSoC 2026 final report on Medium" image={mediumSnap} alt="Medium article: GSoC 2026 Final Report" ratio="16 / 10" />

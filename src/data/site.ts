@@ -23,6 +23,7 @@ export const site = {
     openprintingRepo: 'https://github.com/OpenPrinting/openprinting.github.io',
     cidxRepo: 'https://github.com/gativarshney/cidx',
     cidxPypi: 'https://pypi.org/project/cidx/',
+    cidxSite: 'https://cidx.vercel.app',
     repoinsightApp: 'https://repoinsight-app.vercel.app',
     repoinsightRepo: 'https://github.com/gativarshney/repoinsight',
     wocVerify: 'https://verification.givemycertificate.com/v/74e4dfe9-cda1-4508-9b55-c815e35a3749',
@@ -169,6 +170,7 @@ export const work: Entry[] = [
     ],
     links: [
       { label: 'Case study', href: '/work/cidx/' },
+      { label: 'Website', href: site.links.cidxSite, external: true },
       { label: 'Repository', href: site.links.cidxRepo, external: true },
       { label: 'PyPI', href: site.links.cidxPypi, external: true },
     ],
