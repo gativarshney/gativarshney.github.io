@@ -2,6 +2,7 @@
 import Base from '@/layouts/Base.astro';
 import Visual from '@/components/Visual.astro';
 import ArchDiagram from '@/components/ArchDiagram.astro';
+import CidxDemo from '@/components/CidxDemo.astro';
 import { work } from '@/data/site';
 import { caseStudies } from '@/data/casestudies';
 import { diagrams } from '@/data/diagrams';
@@ -51,6 +52,13 @@ const jsonLd = {
       <section class="two archsec" id="architecture">
         <div><p class="eyebrow" data-reveal>Architecture</p><h2 class="display" data-reveal="0.05">The system, <em>at a glance.</em></h2></div>
         <ArchDiagram diagram={diagram} />
+      </section>
+    )}
+
+    {w.slug === 'cidx' && (
+      <section class="two archsec" id="try">
+        <div><p class="eyebrow" data-reveal>Try it</p><h2 class="display" data-reveal="0.05">A real index, <em>in your browser.</em></h2></div>
+        <div data-reveal="0.1"><CidxDemo /></div>
       </section>
     )}
 
@@ -150,6 +158,7 @@ const jsonLd = {
   .body { margin-top: clamp(64px, 8vw, 120px); display: grid; gap: clamp(64px, 8vw, 112px); }
   .two { display: grid; grid-template-columns: 0.32fr 0.68fr; gap: 40px; align-items: start; }
   .archsec { margin-top: clamp(64px, 8vw, 120px); }
+  .two > :global(*) { min-width: 0; }
   .two h2 { font-size: clamp(28px, 2.8vw, 40px); margin-top: 14px; line-height: 1.05; }
   .prose p { max-width: 720px; margin-bottom: 18px; font-size: 17.5px; color: var(--ink-2); }
   .prose p:first-child { color: var(--ink); }

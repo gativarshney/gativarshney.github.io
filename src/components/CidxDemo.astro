@@ -1,0 +1,91 @@
+---
+import { site } from '@/data/site';
+const tools = ['search_symbols', 'find_definition', 'find_references', 'outline_file'];
+const examples: { tool: string; q: string }[] = [
+  { tool: 'search_symbols', q: 'resolve' },
+  { tool: 'search_symbols', q: 'index' },
+  { tool: 'search_symbols', q: 'watch' },
+  { tool: 'search_symbols', q: 'e' },
+  { tool: 'find_definition', q: 'Store.open' },
+  { tool: 'find_definition', q: 'extract' },
+  { tool: 'find_definition', q: 'shape' },
+  { tool: 'find_references', q: 'node_text' },
+  { tool: 'find_references', q: 'find_definition' },
+  { tool: 'find_references', q: 'Store.open' },
+];
+---
+<div class="demo panel" data-cidx-demo data-src="/demo/cidx-sample.json" data-tool="search_symbols">
+  <div class="tabs mono" role="tablist" aria-label="cidx MCP tool" data-lenis-prevent>
+    {tools.map((t, i) => <button type="button" role="tab" data-tool={t} aria-selected={i === 0 ? 'true' : 'false'}>{t}</button>)}
+  </div>
+  <label class="prompt mono">
+    <span class="ps" aria-hidden="true">›</span>
+    <span class="call" data-call>search_symbols(query:</span>
+    <input type="text" data-q value="resolve" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Symbol name" />
+    <select data-file aria-label="File to outline"></select>
+    <span class="call" aria-hidden="true">)</span>
+  </label>
+  <p class="chips mono">
+    <span>try</span>
+    {examples.map((e) => <button type="button" data-try={e.q} data-for={e.tool}>{e.q}</button>)}
+  </p>
+  <div class="out mono" data-out data-lenis-prevent aria-live="polite" tabindex="0" role="region" aria-label="Tool response"><div class="ln meta">loading the sample index…</div></div>
+  <p class="foot mono" data-foot>sample index · cidx indexing its own source</p>
+</div>
+<p class="how mono">
+  cidx indexed its own source, and the index was exported from SQLite to JSON
+  (<a class="u" href={`${site.links.source}/blob/main/scripts/export-cidx-sample.py`} target="_blank" rel="noopener">export script ↗</a>).
+  Each tab is one of the MCP tools and shows the text an agent would receive, including the token budget’s truncation marker and the index age.
+  The box runs a JavaScript port of the query layer, not the Python tool itself, and leaves out the two edit-history ranking signals. Click a result to see who references it.
+</p>
+
+<script>
+  import '@/scripts/cidx-demo.ts';
+</script>
+
+<style>
+  .demo { padding: 0; overflow: hidden; }
+  .tabs { display: flex; gap: 2px; padding: 10px 12px 0; border-bottom: 1px solid var(--hair); overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs button { flex: none; padding: 9px 13px 10px; font-size: 11.5px; letter-spacing: 0.02em; color: var(--ink-3); border-radius: 8px 8px 0 0; border: 1px solid transparent; border-bottom: 0; margin-bottom: -1px; transition: color 0.3s; }
+  .tabs button:hover { color: var(--ink); }
+  .tabs button[aria-selected='true'] { color: var(--accent); background: var(--bg); border-color: var(--hair); }
+  .prompt { display: flex; align-items: center; gap: 8px; padding: 16px 18px 12px; font-size: 14px; background: var(--bg); }
+  .ps { color: var(--accent); }
+  .call { color: var(--ink-2); white-space: nowrap; }
+  .prompt input, .prompt select { flex: 1; min-width: 0; font: inherit; color: var(--ink); background: transparent; border: 0; border-bottom: 1px solid var(--hair-strong); padding: 4px 0; outline: 0; border-radius: 0; }
+  .prompt input:focus, .prompt select:focus { border-bottom-color: var(--accent); }
+  .prompt select { display: none; }
+  .demo[data-tool='outline_file'] .prompt input { display: none; }
+  .demo[data-tool='outline_file'] .prompt select { display: block; }
+  .prompt select :global(option) { background: var(--bg); color: var(--ink); }
+  .chips { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; min-height: 42px; padding: 0 18px 14px; background: var(--bg); font-size: 11px; color: var(--ink-3); border-bottom: 1px solid var(--hair); }
+  .chips span { letter-spacing: 0.12em; text-transform: uppercase; margin-right: 4px; }
+  .chips button { display: none; padding: 4px 10px; border: 1px solid var(--hair); border-radius: 999px; color: var(--ink-2); transition: color 0.3s, border-color 0.3s; }
+  .chips button:hover { color: var(--accent); border-color: color-mix(in oklch, var(--accent) 55%, transparent); }
+  .demo[data-tool='search_symbols'] .chips button[data-for='search_symbols'],
+  .demo[data-tool='find_definition'] .chips button[data-for='find_definition'],
+  .demo[data-tool='find_references'] .chips button[data-for='find_references'] { display: inline-block; }
+  .demo[data-tool='outline_file'] .chips { visibility: hidden; }
+  .out { padding: 14px 18px; height: 300px; overflow-y: auto; overscroll-behavior: contain; font-size: 12.5px; line-height: 1.5; }
+  .out:focus-visible { outline-offset: -2px; }
+  .out :global(.ln) { padding: 5px 8px; margin: 0 -8px; border-radius: 6px; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .out :global(.ln.go) { transition: background-color 0.25s; }
+  .out :global(.ln.go:hover), .out :global(.ln.go:focus-visible) { background: var(--bg-3); outline: 0; }
+  .out :global(.meta) { color: var(--ink-3); }
+  .out :global(.q) { color: var(--ink); font-weight: 500; }
+  .out :global(.k) { color: var(--accent); }
+  .out :global(.loc) { color: var(--ink-2); }
+  .out :global(.sig) { color: var(--ink-3); }
+  .out :global(.c.exact) { color: var(--ok); }
+  .out :global(.c.import) { color: var(--accent); }
+  .out :global(.c.name-only) { color: var(--warn); }
+  .foot { margin: 0; padding: 11px 18px; border-top: 1px solid var(--hair); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  .how { margin-top: 14px; font-size: 11px; line-height: 1.7; letter-spacing: 0.04em; color: var(--ink-3); max-width: 760px; }
+  .how a { color: var(--ink-2); }
+  @media (max-width: 860px) {
+    .prompt { flex-wrap: wrap; row-gap: 6px; }
+    .prompt input, .prompt select { flex-basis: 70%; font-size: 16px; }
+    .out { font-size: 12px; height: 320px; }
+  }
+</style>
