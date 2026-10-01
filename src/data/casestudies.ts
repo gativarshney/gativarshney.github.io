@@ -1,7 +1,7 @@
 /**
  * Long-form case-study content. Every number here traces to a linked source.
  * Sources: cidx README, ARCHITECTURE.md, DECISIONS.md, CHANGELOG.md, docs/verification.md;
- * GSoC 2026 final report on Medium; OpenPrinting PRs #224, #230, #236.
+ * GSoC 2026 final report on Medium; OpenPrinting PRs #224, #230, #236; the RepoInsight README and source.
  */
 export type Row = { claim: string; value: string; context: string; source: { label: string; href: string } };
 export type Block = { title: string; body: string };
@@ -19,6 +19,7 @@ export type CaseStudy = {
 };
 
 const CIDX = 'https://github.com/gativarshney/cidx';
+const RI = 'https://github.com/gativarshney/repoinsight';
 const OP = 'https://github.com/OpenPrinting/openprinting.github.io/pull/';
 const REPORT = 'https://medium.com/@gativarshney/gsoc-2026-final-report-ai-driven-printer-compatibility-recommendation-portal-9283d6fe2a5c';
 const STAGING = 'https://github.com/rudra-iitm/openprinting.github.io/pull/';
@@ -81,6 +82,65 @@ export const caseStudies: Record<string, CaseStudy> = {
       'Publishing a first benchmark run under the methodology already in the repository.',
     ],
     lastVerified: '2026-09-16',
+  },
+
+  repoinsight: {
+    slug: 'repoinsight',
+    problem: [
+      'Before a first pull request, a contributor has to guess what a project is like. Is anyone replying? Do pull requests from outside the team get merged? Is there something small to start on? Finding out usually means clicking through commits, contributors, releases, issues and pull requests and forming an impression.',
+      'RepoInsight reads the same public data and answers those questions directly. It is deliberately not a chatbot, and it does not produce a health score. Every number is calculated by a fixed rule, and every answer can be opened to show what was observed, the formula, why it matters, and what it does not prove.',
+    ],
+    pipeline: {
+      title: 'From a pasted URL to an answer with its evidence',
+      steps: [
+        'A small client talks to the GitHub REST API: an auth header when a server token exists, error mapping, pagination headers. Fetchers call eleven endpoints, in parallel where they are independent, and normalise the responses into typed records that carry their own coverage: complete, or covered since a date.',
+        'Analysis functions are pure. They take structured input plus an explicit “now”, with no React and no network, so the same dataset always produces the same numbers and every function can be tested on its own.',
+        'A checklist of ten questions, taken from GitHub’s Open Source Guide, is answered from those numbers. Each has a stated threshold, and where the data cannot decide, the answer is “unknown” rather than a guess.',
+        'A report runner orchestrates the requests, caches finished reports so a popular repository costs GitHub requests once, and emits progress events.',
+        'The analyze endpoint streams those events to the browser as newline-delimited JSON, so the loading screen shows one line per real request group instead of a spinner.',
+        'The report leads with the checklist, then starter issues, where outside pull requests ended up, the maintainers who reply, when they are usually around in the reader’s time zone, and a 3D skyline drawn from the repository’s real daily commit counts.',
+      ],
+      note: 'Calculated, not generated.',
+    },
+    evidence: [
+      { claim: 'Live, with no sign-in', value: 'repoinsight-app.vercel.app', context: 'paste any public GitHub repository; the visitor is never asked for an account or a token', source: { label: 'open the app', href: 'https://repoinsight-app.vercel.app' } },
+      { claim: 'Test suite', value: '74 tests', context: 'URL parsing, HTTP error mapping, pagination and coverage, and every analysis function including empty and truncated data; passing from a fresh clone on 2026-10-01', source: { label: 'src/lib', href: `${RI}/tree/main/src/lib` } },
+      { claim: 'Contributor checklist', value: '10 questions', context: 'after GitHub’s Open Source Guide; each answered yes, no or unknown against a threshold printed in the report', source: { label: 'checklist.ts', href: `${RI}/blob/main/src/lib/insights/checklist.ts` } },
+      { claim: 'Data read per report', value: '11 GitHub REST endpoints', context: 'about 12 requests for a small repository, up to about 45 for a large one', source: { label: 'README · data sources', href: `${RI}#github-data-sources` } },
+      { claim: 'Running cost', value: 'no database · no paid API · no AI', context: 'the only limit is GitHub’s free allowance: 60 requests an hour without a token, 5,000 with one', source: { label: 'README · cost and scaling', href: `${RI}#cost-and-scaling` } },
+      { claim: 'Grounded in research', value: '4 cited sources', context: 'newcomer barriers, abandoned pull requests, time to first response, and GitHub’s Open Source Survey, each mapped to something the report measures', source: { label: 'README · for contributors', href: `${RI}#for-contributors` } },
+      { claim: 'Stack', value: 'TypeScript · Next.js 16 · React 19 · three.js', context: '39 commits; deployed on Vercel’s free tier', source: { label: 'commit history', href: `${RI}/commits/main` } },
+    ],
+    decisions: [
+      { title: 'A count of checks, not a health score', body: 'The headline is the number of checks that pass, not a weighted score. A single number would hide which signal is missing; ten yes-or-no answers can each be opened and checked.' },
+      { title: 'Fixed rules, nothing generated', body: 'Every metric is a formula over public data. That makes a report reproducible, testable, and free to run, and it means two people looking at the same repository see the same answer.' },
+      { title: 'Evidence in four parts', body: 'Each metric separates what was observed, the calculation, why it matters, and its limitation, so a reader can tell a measurement from an interpretation.' },
+      { title: 'A bot is not a reply', body: 'Research on pull requests finds that bots often post the first response. Time to first response therefore counts only another person’s comment, an inline review comment, or the merge.' },
+      { title: 'A dash instead of a partial number', body: 'Lists carry coverage information. A window is reported only if the fetched data is known to be complete back to its start; otherwise the report shows a dash rather than a smaller, wrong total.' },
+      { title: 'Three ways to stretch a free API', body: 'A server token raises the allowance from 60 to 5,000 requests an hour. Finished reports are shared between visitors. And if the server’s allowance runs out, the visitor’s own browser reads GitHub directly, so that path grows with the audience instead of being divided among it.' },
+    ],
+    wentWrong: [
+      { title: 'Busy repositories produced partial numbers', body: 'Very active repositories exceed the page limit, so a 30 or 90 day window was only partly fetched and its total came out too small. Lists now record whether they are complete and how far back they reach, and a window the data does not cover is not reported.' },
+      { title: 'Answered pull requests looked unanswered', body: 'The first version read only conversation comments, so a pull request answered through inline review looked ignored. Inline review comments are now fetched too, and coverage is the shallower of the two lists. A review that only approves, without a comment, is still not seen.' },
+      { title: 'Every visitor shared one rate limit', body: 'Without a token, all visitors drew on the same 60 requests an hour. The fix came in three parts: a server token, a shared cache of finished reports, and the fallback to the visitor’s own allowance.' },
+      { title: 'The tests did not run on a fresh install', body: 'The lockfile was incomplete, so a clean install could not run the suite. It was regenerated, and the 74 tests pass from a fresh clone.' },
+    ],
+    limitations: [
+      'Public data only. Private forks, internal trackers and chat are invisible.',
+      'Very active repositories exceed the page limit; longer windows are then not reported.',
+      'A review that only approves, without a comment, is not read, so some answered pull requests look unanswered.',
+      'Only GitHub’s two default starter labels are checked. Projects with their own labels show no starter issues.',
+      'Tone is not measured. Nothing here tells you whether a community is welcoming.',
+      'Activity is not quality. Nothing here measures correctness, security or test coverage.',
+      'The source is published so it can be read and evaluated; it is not open source.',
+    ],
+    next: [
+      'Exact window totals for very large repositories.',
+      'Tag-based release detection when a project does not use GitHub Releases.',
+      'Side-by-side comparison of two repositories.',
+      'Shareable report snapshots.',
+    ],
+    lastVerified: '2026-10-01',
   },
 
   'printer-recommendations': {

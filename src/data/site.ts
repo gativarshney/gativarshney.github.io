@@ -23,6 +23,8 @@ export const site = {
     openprintingRepo: 'https://github.com/OpenPrinting/openprinting.github.io',
     cidxRepo: 'https://github.com/gativarshney/cidx',
     cidxPypi: 'https://pypi.org/project/cidx/',
+    repoinsightApp: 'https://repoinsight-app.vercel.app',
+    repoinsightRepo: 'https://github.com/gativarshney/repoinsight',
     wocVerify: 'https://verification.givemycertificate.com/v/74e4dfe9-cda1-4508-9b55-c815e35a3749',
   },
 };
@@ -36,7 +38,7 @@ export const nav = [
 
 export type Evidence = { value: string; label: string };
 export type Link = { label: string; href: string; external?: boolean };
-export type VisualKind = 'cidx' | 'printers' | 'openprinting' | 'gsoc' | 'quinque' | 'search';
+export type VisualKind = 'cidx' | 'printers' | 'openprinting' | 'gsoc' | 'quinque' | 'search' | 'repoinsight';
 export type Tone = 'ok' | 'warn' | 'accent' | 'plain';
 
 export type Entry = {
@@ -128,6 +130,29 @@ export const milestones: Entry[] = [
 /* Projects with case-study pages                                      */
 /* ------------------------------------------------------------------ */
 export const work: Entry[] = [
+  {
+    slug: 'repoinsight',
+    title: 'RepoInsight',
+    kicker: 'Personal project · web app for open source contributors',
+    period: 'Oct 2026',
+    status: { label: 'Live on Vercel', tone: 'ok' },
+    tags: ['TypeScript', 'Next.js 16', 'React 19', 'three.js', 'GitHub REST API'],
+    summary:
+      'Know a repository before your first pull request. Paste a public GitHub repository and it reports where to start, who maintains it, how fast people reply, and whether outside pull requests actually get merged. Every answer is calculated by a fixed rule and shows its evidence; there is no AI and no health score.',
+    evidence: [
+      { value: '10', label: 'checklist questions, each with its rule' },
+      { value: '74', label: 'tests' },
+      { value: '0', label: 'databases, paid APIs or AI services' },
+    ],
+    links: [
+      { label: 'Case study', href: '/work/repoinsight/' },
+      { label: 'Open the app', href: site.links.repoinsightApp, external: true },
+      { label: 'Example report', href: `${site.links.repoinsightApp}/sample`, external: true },
+      { label: 'Repository', href: site.links.repoinsightRepo, external: true },
+    ],
+    visual: 'repoinsight',
+    href: '/work/repoinsight/',
+  },
   {
     slug: 'cidx',
     title: 'cidx',

@@ -41,6 +41,33 @@ export const diagrams: Record<string, Diagram> = {
     ],
   },
 
+  // after the Architecture section of the RepoInsight README and src/lib
+  repoinsight: {
+    alt: 'RepoInsight architecture: a client and fetchers read the GitHub REST API into typed records; pure analysis functions calculate metrics; a checklist is answered from them; a report runner caches and emits progress; an endpoint streams events to the browser, which renders the report.',
+    rows: [
+      { source: { id: 'gh', label: 'GitHub REST API', sub: 'public data · eleven endpoints · no visitor token', subN: 'public data · 11 endpoints' } },
+      { full: { id: 'fetch', n: '01', label: 'Client and fetchers', sub: 'error mapping, pagination · typed records that carry their own coverage', subN: 'typed records, with coverage' } },
+      { full: { id: 'analysis', n: '02', label: 'Analysis', sub: 'pure functions with an explicit “now” · no React, no network', subN: 'pure functions · explicit now' } },
+      {
+        left: { id: 'metrics', n: '02', label: 'Metrics', sub: 'activity, people, issues, pull requests, releases', subN: 'six signal areas' },
+        right: { id: 'checklist', n: '03', label: 'Checklist', sub: 'ten questions · yes, no or unknown, each by a rule', subN: 'ten questions' },
+      },
+      { full: { id: 'run', n: '04', label: 'Report runner', sub: 'orchestration · shared cache of finished reports · progress events', subN: 'cache · progress events' } },
+      { full: { id: 'api', n: '05', label: '/api/analyze', sub: 'streams newline-delimited JSON, one event per real request group', subN: 'streams NDJSON events' } },
+      { full: { id: 'ui', n: '06', label: 'Report, in the browser', sub: 'checklist, people, timing, pull request journey, 3D commit skyline · evidence on every number', subN: 'answers with evidence', accent: true } },
+    ],
+    edges: [
+      { from: 'gh', to: 'fetch', label: '12 to ~45 requests', labelN: 'requests' },
+      { from: 'fetch', to: 'analysis', label: 'typed records', labelN: 'records' },
+      { from: 'analysis', to: 'metrics' },
+      { from: 'analysis', to: 'checklist' },
+      { from: 'metrics', to: 'run' },
+      { from: 'checklist', to: 'run' },
+      { from: 'run', to: 'api' },
+      { from: 'api', to: 'ui', label: 'live progress' },
+    ],
+  },
+
   // after the GSoC 2026 final report and PRs #224, #230, #236
   'printer-recommendations': {
     alt: 'Printer recommendation pipeline: foomatic-db XML is parsed into printer records and encoded as feature vectors; similarity and evidence corrections produce ranked, explained recommendations, written as one JSON shard per printer at build time; the printer page and the assistant read those shards in the browser.',
