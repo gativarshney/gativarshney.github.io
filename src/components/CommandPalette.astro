@@ -18,7 +18,10 @@ const groups: { label: string; items: Item[] }[] = [
   },
   {
     label: 'Case studies',
-    items: work.map((w) => ({ label: w.title, href: `/work/${w.slug}/`, hint: 'Case study', keys: `${w.tags.join(' ')} ${w.kicker}` })),
+    items: [
+      ...work.map((w) => ({ label: w.title, href: `/work/${w.slug}/`, hint: 'Case study', keys: `${w.tags.join(' ')} ${w.kicker}` })),
+      { label: 'Try cidx in the browser', href: '/work/cidx/#try', hint: 'Live demo', keys: 'cidx demo playground search index mcp tools' },
+    ],
   },
   {
     label: 'On the home page',
