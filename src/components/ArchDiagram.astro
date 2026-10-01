@@ -1,0 +1,91 @@
+---
+/**
+ * Renders a diagram from src/data/diagrams.ts twice (wide and narrow layout).
+ * Strokes carry pathLength="1" so motion.ts can draw them with the scroll.
+ * Without JS, or with reduced motion, the diagram is simply drawn.
+ */
+import type { Diagram, DNode } from '@/data/diagrams';
+interface Props { diagram: Diagram }
+const { diagram } = Astro.props;
+
+type Box = DNode & { x: number; y: number; w: number; row: number };
+const H = 62;
+function layout(narrow: boolean) {
+  const W = narrow ? 340 : 840;
+  const gap = narrow ? 16 : 40;
+  const half = (W - gap) / 2;
+  const pitch = narrow ? 98 : 108;
+  const boxes: Box[] = [];
+  diagram.rows.forEach((r, row) => {
+    const y = row * pitch;
+    if ('full' in r) boxes.push({ ...r.full, x: 0, y, w: W, row });
+    else if ('source' in r) boxes.push({ ...r.source, x: narrow ? 0 : 200, y, w: narrow ? W : 440, row });
+    else {
+      if (r.left) boxes.push({ ...r.left, x: 0, y, w: half, row });
+      if (r.right) boxes.push({ ...r.right, x: half + gap, y, w: half, row });
+    }
+  });
+  const byId = Object.fromEntries(boxes.map((b) => [b.id, b]));
+  const edges = diagram.edges.map((e) => {
+    const a = byId[e.from], b = byId[e.to];
+    // a straight vertical run through the narrower node's centre, kept inside both nodes
+    const narrower = a.w <= b.w ? a : b;
+    const lo = Math.max(a.x, b.x) + 40, hi = Math.min(a.x + a.w, b.x + b.w) - 40;
+    const x = Math.min(Math.max(narrower.x + narrower.w / 2, lo), hi);
+    return { x, y1: a.y + H, y2: b.y, step: a.row * 2 + 1, label: narrow ? (e.labelN ?? e.label) : e.label };
+  });
+  return { W, height: (diagram.rows.length - 1) * pitch + H, boxes, edges, narrow };
+}
+const variants = [{ cls: 'wide', ...layout(false) }, { cls: 'narrow', ...layout(true) }];
+---
+<figure class="arch" data-arch>
+  {variants.map((v) => (
+    <svg class:list={['draw', v.cls]} data-draw viewBox={`-2 -2 ${v.W + 4} ${v.height + 4}`} role="img" aria-label={diagram.alt}>
+      {v.edges.map((e) => (
+        <g data-step={e.step}>
+          <path class="d edge" pathLength="1" d={`M${e.x} ${e.y1}V${e.y2 - 1}`} />
+          <path class="flow" d={`M${e.x} ${e.y1}V${e.y2 - 1}`} />
+          <path class="t head" d={`M${e.x - 4.5} ${e.y2 - 7}L${e.x} ${e.y2 - 1}L${e.x + 4.5} ${e.y2 - 7}`} />
+          {e.label && <text class="t el" x={e.x + 12} y={(e.y1 + e.y2) / 2 + 3.5}>{e.label}</text>}
+        </g>
+      ))}
+      {v.boxes.map((n) => (
+        <g data-step={n.row * 2} class:list={['node', { accent: n.accent }]}>
+          <rect class="t fill" x={n.x} y={n.y} width={n.w} height={H} rx="10" />
+          <rect class="d box" pathLength="1" x={n.x} y={n.y} width={n.w} height={H} rx="10" />
+          <text class="t l" x={n.x + 16} y={n.y + 26}>{n.label}</text>
+          <text class="t s" x={n.x + 16} y={n.y + 45}>{v.narrow ? (n.subN ?? n.sub) : n.sub}</text>
+          {n.n && !(v.narrow && n.w < 200 && n.label.length > 13) && <text class="t n" x={n.x + n.w - 14} y={n.y + 25} text-anchor="end">{n.n}</text>}
+        </g>
+      ))}
+    </svg>
+  ))}
+  <figcaption class="mono">Drawn in the order the data moves. Numbers match the steps under “How it works”.</figcaption>
+</figure>
+
+<style>
+  .arch { margin: 0; }
+  svg { width: 100%; height: auto; overflow: visible; }
+  .narrow { display: none; max-width: 440px; }
+  .box, .edge, .head, .flow { fill: none; }
+  .box { stroke: var(--ink-3); stroke-width: 1; }
+  .fill { fill: var(--bg-2); }
+  .edge { stroke: var(--ink-3); stroke-width: 1; }
+  .head { stroke: var(--ink-3); stroke-width: 1; stroke-linecap: round; stroke-linejoin: round; }
+  .flow { stroke: var(--accent); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 0.1 16; opacity: 0; transition: opacity 0.6s var(--ease-out); }
+  .arch:global(.is-done) .flow { opacity: 1; animation: arch-flow 1.4s linear infinite; }
+  @keyframes arch-flow { to { stroke-dashoffset: -16.1; } }
+  .l { font-family: var(--font-sans); font-size: 15px; font-weight: 500; fill: var(--ink); }
+  .s { font-family: var(--font-mono); font-size: 10.5px; fill: var(--ink-2); }
+  .n { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; fill: var(--accent); }
+  .el { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; fill: var(--ink-3); }
+  .accent .box { stroke: var(--accent); stroke-width: 1.5; }
+  .accent .l { fill: var(--accent); }
+  figcaption { margin-top: 16px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+  @media (max-width: 760px) {
+    .wide { display: none; }
+    .narrow { display: block; }
+    .s { font-size: 10px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .arch:global(.is-done) .flow { animation: none; opacity: 0; } }
+</style>
