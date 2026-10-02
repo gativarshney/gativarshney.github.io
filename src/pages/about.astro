@@ -3,6 +3,12 @@ import Base from '@/layouts/Base.astro';
 import Portrait from '@/components/Portrait.astro';
 import Certificate from '@/components/Certificate.astro';
 import LeetCode from '@/components/LeetCode.astro';
+import Logo from '@/components/Logo.astro';
+import jssLogo from '@/assets/logos/jss.png';
+import qqLogo from '@/assets/logos/quinque.png';
+import gsocMark from '@/assets/logos/gsoc-mark.svg';
+import opLogo from '@/assets/logos/openprinting.png';
+import lfLogo from '@/assets/logos/linuxfoundation.png';
 import wocCert from '@/assets/certs/woc-5.jpg';
 import gsocCert from '@/assets/certs/gsoc-2026.jpg';
 import quinqueCert from '@/assets/certs/quinque-2026.jpg';
@@ -31,13 +37,13 @@ import { site } from '@/data/site';
     <div>
       <p class="eyebrow" data-reveal>Education</p>
       <ul class="rows" data-reveal-group="0.08">
-        <li><span class="mono when">2023 – 2027</span><div><h2>B.Tech, Computer Science &amp; Engineering (Data Science)</h2><p class="muted">JSS Academy of Technical Education, Noida · GPA 8.7 / 10</p></div></li>
+        <li><span class="mono when">2023 – 2027</span><span class="marks"><Logo src={jssLogo} alt="JSS Academy of Technical Education, Noida" tone="jss" size={60} scale={0.9} /></span><div><h2>B.Tech, Computer Science &amp; Engineering (Data Science)</h2><p class="muted">JSS Academy of Technical Education, Noida · GPA 8.7 / 10</p></div></li>
       </ul>
       <p class="eyebrow" style="margin-top:48px" data-reveal>Experience</p>
       <ul class="rows" data-reveal-group="0.08">
-        <li><span class="mono when">Sep 2026</span><div><h2>Software Engineer Intern · Quin Que, Kobe, Japan · Remote</h2><p class="muted">An international internship with a Japanese company: Rapilogi, a warehouse reception management system. Private company work; public outline only.</p></div></li>
-        <li><span class="mono when">May – Aug 2026</span><div><h2>Google Summer of Code contributor · The Linux Foundation (OpenPrinting)</h2><p class="muted">Explainable printer recommendations and a natural-language assistant over the Foomatic database. Mentors: Till Kamppeter, Rudra Pratap Singh.</p></div></li>
-        <li><span class="mono when">Nov 2025 – Aug 2026</span><div><h2>Open-source contributor · OpenPrinting website</h2><p class="muted">Author system, migration of 200+ posts, production search, homepage, trailing-slash fix. 14 pull requests merged through maintainer review; Hall of Fame.</p></div></li>
+        <li><span class="mono when">Sep 2026</span><span class="marks"><Logo src={qqLogo} alt="Quin Que" tone="qq" size={60} /></span><div><h2>Software Engineer Intern · Quin Que, Kobe, Japan · Remote</h2><p class="muted">An international internship with a Japanese company: Rapilogi, a warehouse reception management system. Private company work; public outline only.</p></div></li>
+        <li><span class="mono when">May – Aug 2026</span><span class="marks"><Logo src={gsocMark} alt="Google Summer of Code" tone="gsoc" size={60} /><Logo src={lfLogo} alt="The Linux Foundation" tone="lf" size={60} /></span><div><h2>Google Summer of Code contributor · The Linux Foundation (OpenPrinting)</h2><p class="muted">Explainable printer recommendations and a natural-language assistant over the Foomatic database. Mentors: Till Kamppeter, Rudra Pratap Singh.</p></div></li>
+        <li><span class="mono when">Nov 2025 – Aug 2026</span><span class="marks"><Logo src={opLogo} alt="OpenPrinting" tone="op" size={60} /><Logo src={lfLogo} alt="The Linux Foundation" tone="lf" size={60} /></span><div><h2>Open-source contributor · OpenPrinting website</h2><p class="muted">Author system, migration of 200+ posts, production search, homepage, trailing-slash fix. 14 pull requests merged through maintainer review; Hall of Fame.</p></div></li>
       </ul>
       <p class="eyebrow" style="margin-top:48px" data-reveal>Certificates</p>
       <div class="certs">
@@ -57,12 +63,15 @@ import { site } from '@/data/site';
   .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
   .lede.second { font-size: 16.5px; }
   .section:first-of-type { padding-top: clamp(72px, 9vw, 120px); }
-  .rows { border-top: 1px solid var(--hair); margin-top: 18px; max-width: 860px; }
-  .rows li { display: grid; grid-template-columns: 140px 1fr; gap: 28px; padding: 22px 0; border-bottom: 1px solid var(--hair); }
+  .rows { border-top: 1px solid var(--hair); margin-top: 18px; max-width: 980px; }
+  .rows li { display: grid; grid-template-columns: 140px 106px 1fr; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--hair); align-items: start; }
+  /* organisation marks: one badge per row, a pair overlaps when the work sat under two organisations */
+  .marks { display: flex; align-items: center; }
+  .marks > :global(* + *) { margin-left: -14px; }
   .when { font-size: 12px; color: var(--ink-2); padding-top: 4px; }
   .rows h2 { font-size: 18px; font-weight: 500; margin-bottom: 6px; }
   .rows .muted { font-size: 15px; }
   @media (max-width: 860px) {
-    .rows li { grid-template-columns: 1fr; gap: 6px; }
+    .rows li { grid-template-columns: 1fr; gap: 10px; }
   }
 </style>

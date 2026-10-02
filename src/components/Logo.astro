@@ -1,7 +1,7 @@
 ---
 /**
  * A logo in a soft circular "bubble", tinted per organisation.
- * tone: op (OpenPrinting) | lf (The Linux Foundation) | gsoc | qq (Quin Que) | plain
+ * tone: op (OpenPrinting) | lf (The Linux Foundation) | gsoc | qq (Quin Que) | jss | plain
  */
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
@@ -9,14 +9,15 @@ import type { ImageMetadata } from 'astro';
 interface Props {
   src: ImageMetadata;
   alt: string;
-  tone?: 'op' | 'lf' | 'gsoc' | 'qq' | 'plain';
+  tone?: 'op' | 'lf' | 'gsoc' | 'qq' | 'jss' | 'plain';
   size?: number;    // px, outer bubble
+  scale?: number;   // logo width as a share of the bubble; raise it for emblems that are already round
   title?: string;
 }
-const { src, alt, tone = 'plain', size = 56, title } = Astro.props;
-const inner = Math.round(size * 0.72);
+const { src, alt, tone = 'plain', size = 56, scale = 0.62, title } = Astro.props;
+const inner = Math.round(size * Math.max(0.72, scale));
 ---
-<span class:list={['bubble', tone]} style={`--sz:${size}px`} title={title ?? alt}>
+<span class:list={['bubble', tone]} style={`--sz:${size}px;--k:${scale}`} title={title ?? alt}>
   <Image src={src} alt={alt} width={inner * 2} height={inner * 2} />
 </span>
 
@@ -31,15 +32,17 @@ const inner = Math.round(size * 0.72);
     box-shadow: 0 1px 0 0 oklch(100% 0 0 / 0.6) inset, 0 8px 22px -14px oklch(0% 0 0 / 0.35);
     transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out), border-color 0.4s;
   }
-  .bubble :global(img) { width: calc(var(--sz) * 0.62); height: calc(var(--sz) * 0.62); object-fit: contain; border-radius: 50%; }
+  .bubble :global(img) { width: calc(var(--sz) * var(--k, 0.62)); height: calc(var(--sz) * var(--k, 0.62)); object-fit: contain; border-radius: 50%; }
   .bubble:hover { transform: translateY(-3px) scale(1.04); box-shadow: 0 1px 0 0 oklch(100% 0 0 / 0.6) inset, 0 16px 30px -16px oklch(0% 0 0 / 0.45), 0 0 0 6px color-mix(in oklch, var(--ring) 45%, transparent); }
   .op   { --tint: oklch(97% 0.01 80);  --ring: oklch(80% 0.06 40 / 0.6); }
   .lf   { --tint: oklch(94% 0.03 240); --ring: oklch(70% 0.12 240 / 0.6); }
   .gsoc { --tint: oklch(95% 0.05 75);  --ring: oklch(78% 0.14 70 / 0.65); }
   .qq   { --tint: oklch(93% 0.03 260); --ring: oklch(55% 0.08 260 / 0.55); }
+  .jss  { --tint: oklch(96% 0.05 95);  --ring: oklch(45% 0.14 268 / 0.55); }
   :global(:root[data-theme='dark']) .bubble { background: radial-gradient(circle at 35% 30%, oklch(100% 0 0 / 0.08), transparent 60%), var(--tint); }
   :global(:root[data-theme='dark']) .op   { --tint: oklch(96% 0.01 80); --ring: oklch(80% 0.06 40 / 0.4); }
   :global(:root[data-theme='dark']) .lf   { --tint: oklch(96% 0.01 240); --ring: oklch(70% 0.12 240 / 0.5); }
   :global(:root[data-theme='dark']) .gsoc { --tint: oklch(97% 0.02 75); --ring: oklch(78% 0.14 70 / 0.5); }
   :global(:root[data-theme='dark']) .qq   { --tint: oklch(96% 0.01 260); --ring: oklch(70% 0.08 260 / 0.5); }
+  :global(:root[data-theme='dark']) .jss  { --tint: oklch(96% 0.05 95); --ring: oklch(72% 0.12 268 / 0.5); }
 </style>
