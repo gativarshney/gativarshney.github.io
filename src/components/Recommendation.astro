@@ -17,11 +17,11 @@ const href = `${site.links.linkedin}details/recommendations/`;
 <section class="section wrap recs" id="recommendation">
   <div class="rhead">
     <p class="eyebrow" data-reveal>In their words · {recommendations.length} recommendations</p>
-    <a class="btn li" href={href} target="_blank" rel="noopener" data-magnetic="0.25" data-reveal="0.1">Recommendations on LinkedIn <span class="arr">↗</span></a>
   </div>
 
   {recommendations.map((r) => (
     <article class="rec">
+      <div class="side">
       <div class="who" data-reveal="0.05">
         <span class="ava">
           {photo(r.photo)
@@ -33,6 +33,8 @@ const href = `${site.links.linkedin}details/recommendations/`;
           <p class="role">{r.role}</p>
           <p class="rel mono">{r.relation} · {r.dateLabel}</p>
         </div>
+      </div>
+      <p class="src" data-reveal="0.1"><a class="btn li" href={href} target="_blank" rel="noopener" data-magnetic="0.25">Recommendation on LinkedIn <span class="arr">↗</span></a></p>
       </div>
 
       <figure class="quote">
@@ -51,8 +53,9 @@ const href = `${site.links.linkedin}details/recommendations/`;
 </section>
 
 <style>
-  .rhead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; padding-bottom: 22px; border-bottom: 1px solid var(--hair); }
-  /* outlined in the accent so it reads as the proof link, second to the filled buttons beside the quotes */
+  .rhead { padding-bottom: 22px; border-bottom: 1px solid var(--hair); }
+  .src { margin-top: 24px; }
+  /* under each name, outlined in the accent: the proof link, second to the filled button beside the quote */
   .li { --pad: 13px 20px; border-color: var(--accent); color: var(--accent); }
   .li::before { background: var(--accent); }
   .li:hover { color: var(--accent-ink); border-color: var(--accent); }
