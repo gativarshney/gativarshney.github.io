@@ -5,6 +5,7 @@ import Certificate from '@/components/Certificate.astro';
 import LeetCode from '@/components/LeetCode.astro';
 import wocCert from '@/assets/certs/woc-5.jpg';
 import gsocCert from '@/assets/certs/gsoc-2026.jpg';
+import quinqueCert from '@/assets/certs/quinque-2026.jpg';
 import { site } from '@/data/site';
 
 ---
@@ -42,6 +43,7 @@ import { site } from '@/data/site';
       <div class="certs">
         <Certificate src={wocCert} alt="Winter of Code 5.0 certificate: Gati Varshney, Top 20 Contributor, Google Developer Groups on Campus IIIT Kalyani" title="Winter of Code 5.0 · Top 20 Contributor" meta="GDG on Campus · IIIT Kalyani" verify={site.links.wocVerify} compact />
         <Certificate src={gsocCert} alt="Google Summer of Code 2026 completion certificate for Gati Varshney, The Linux Foundation, May 25 to August 24, 2026" title="Google Summer of Code 2026" meta="The Linux Foundation · May 25 – Aug 24, 2026" compact />
+        <Certificate src={quinqueCert} alt="Certificate of Digital Internship from Quin Que, presented to Gati Varshney, Web and Smartphone Application Engineer, September 1st to September 30th, 2026, signed and sealed" title="Quin Que · Digital Internship" meta="Quin Que Inc., Japan · Sep 1 – Sep 30, 2026" compact />
       </div>
       <p class="eyebrow" style="margin-top:48px" data-reveal>Competitive programming</p>
       <LeetCode />
@@ -50,7 +52,7 @@ import { site } from '@/data/site';
 </Base>
 
 <style>
-  .certs { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 18px; max-width: 860px; }
+  .certs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 18px; max-width: 980px; align-items: start; }
   @media (max-width: 860px) { .certs { grid-template-columns: 1fr; } }
   .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
   .lede.second { font-size: 16.5px; }
