@@ -35,7 +35,7 @@ const timeline: { when: string; title: string; body: string; tone: string; stamp
       </blockquote>
     </div>
     <div class="logo-card" data-reveal="0.2" data-tilt="3">
-      <div class="bubbles"><Logo src={opLogo} alt="OpenPrinting" tone="op" size={96} /><Logo src={lfLogo} alt="The Linux Foundation" tone="lf" size={72} /></div>
+      <div class="bubbles"><Logo src={opLogo} alt="OpenPrinting" tone="op" size={96} /></div>
       <p class="mono">OpenPrinting · The Linux Foundation</p>
       <p class="mono sub">openprinting.github.io</p>
     </div>
@@ -138,8 +138,8 @@ const timeline: { when: string; title: string; body: string; tone: string; stamp
       <p data-reveal="0.15">Click either certificate to view it at full size.</p>
     </div>
     <div class="certs">
-      <Certificate src={wocCert} alt="Winter of Code 5.0 certificate: Gati Varshney, Top 20 Contributor, Google Developer Groups on Campus IIIT Kalyani" title="Winter of Code 5.0 · Top 20 Contributor" meta="GDG on Campus · IIIT Kalyani" verify={site.links.wocVerify} />
       <Certificate src={gsocCert} alt="Google Summer of Code 2026 completion certificate for Gati Varshney, The Linux Foundation, May 25 to August 24, 2026" title="Google Summer of Code 2026" meta="The Linux Foundation · May 25 – Aug 24, 2026" />
+      <Certificate src={wocCert} alt="Winter of Code 5.0 certificate: Gati Varshney, Top 20 Contributor, Google Developer Groups on Campus IIIT Kalyani" title="Winter of Code 5.0 · Top 20 Contributor" meta="GDG on Campus · IIIT Kalyani" verify={site.links.wocVerify} />
     </div>
   </section>
 </Base>
@@ -153,7 +153,6 @@ const timeline: { when: string; title: string; body: string; tone: string; stamp
   cite { display: block; margin-top: 12px; font-style: normal; font-size: 12px; color: var(--ink-2); letter-spacing: 0.06em; }
   .logo-card { margin-top: 60px; border: 1px solid var(--hair); border-radius: 16px; background: var(--bg-2); padding: 32px 28px 26px; display: grid; gap: 14px; justify-items: center; transform: perspective(1000px); }
   .bubbles { display: flex; align-items: center; }
-  .bubbles > :global(*:last-child) { margin-left: -14px; }
   .logo-card p { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); text-align: center; }
   .logo-card .sub { color: var(--ink-3); margin-top: -8px; }
 
