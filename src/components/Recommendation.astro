@@ -1,58 +1,79 @@
 ---
 /**
- * A LinkedIn recommendation, quoted verbatim. The pull line is one sentence of
+ * LinkedIn recommendations, quoted verbatim. Each pull line is one sentence of
  * the full text; the rest sits behind a disclosure so the page stays short.
+ * Photos are the authors' LinkedIn profile pictures (src/assets/people/<photo>.jpg);
+ * without one, the initials are shown.
  */
-import { site, recommendation as r } from '@/data/site';
-const initials = r.author.split(' ').map((p) => p[0]).slice(0, 2).join('');
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { site, recommendations } from '@/data/site';
+
+const photos = import.meta.glob<{ default: ImageMetadata }>('/src/assets/people/*.jpg', { eager: true });
+const photo = (key?: string) => (key ? photos[`/src/assets/people/${key}.jpg`]?.default : undefined);
+const initials = (name: string) => name.split(' ').map((p) => p[0]).slice(0, 2).join('');
+const href = `${site.links.linkedin}details/recommendations/`;
 ---
-<section class="section wrap rec" id="recommendation">
-  <div class="side">
-    <p class="eyebrow" data-reveal>In a mentor’s words</p>
-    <div class="who" data-reveal="0.1">
-      <span class="gram display" aria-hidden="true">{initials}</span>
-      <div>
-        <p class="name">{r.author}</p>
-        <p class="role">{r.role}</p>
-        <p class="rel mono">{r.relation} · {r.dateLabel}</p>
-      </div>
-    </div>
-    <p class="src" data-reveal="0.15"><a class="btn li" href={r.href} target="_blank" rel="noopener" data-magnetic="0.25">Recommendation on LinkedIn <span class="arr">↗</span></a></p>
+<section class="section wrap recs" id="recommendation">
+  <div class="rhead">
+    <p class="eyebrow" data-reveal>In their words · {recommendations.length} recommendations</p>
+    <a class="btn li" href={href} target="_blank" rel="noopener" data-magnetic="0.25" data-reveal="0.1">Recommendations on LinkedIn <span class="arr">↗</span></a>
   </div>
 
-  <figure class="quote">
-    <span class="mark display" aria-hidden="true">“</span>
-    <blockquote cite={site.links.linkedin}>
-      <p class="pull display" data-read>{r.pull[0]}<em>{r.pull[1]}</em></p>
-      <details data-reveal="0.1">
-        <summary class="mono"><span class="open">Read the full recommendation</span><span class="shut">Hide the full recommendation</span><span class="plus" aria-hidden="true"></span></summary>
-        <div class="full">{r.body.map((p) => <p>{p}</p>)}</div>
-      </details>
-    </blockquote>
-    <figcaption class="sr">{r.author}, {r.role}. {r.relation}, {r.dateLabel}.</figcaption>
-  </figure>
+  {recommendations.map((r) => (
+    <article class="rec">
+      <div class="who" data-reveal="0.05">
+        <span class="ava">
+          {photo(r.photo)
+            ? <Image src={photo(r.photo)!} alt={`${r.author}, from LinkedIn`} width={72} height={72} densities={[1, 1.39]} loading="lazy" />
+            : <span class="gram display" aria-hidden="true">{initials(r.author)}</span>}
+        </span>
+        <div>
+          <p class="name">{r.author}</p>
+          <p class="role">{r.role}</p>
+          <p class="rel mono">{r.relation} · {r.dateLabel}</p>
+        </div>
+      </div>
+
+      <figure class="quote">
+        <span class="mark display" aria-hidden="true">“</span>
+        <blockquote cite={href}>
+          <p class="pull display" data-read>{r.pull[0]}<em>{r.pull[1]}</em>{r.pull[2]}</p>
+          <details data-reveal="0.1">
+            <summary class="mono"><span class="open">Read the full recommendation</span><span class="shut">Hide the full recommendation</span><span class="plus" aria-hidden="true"></span></summary>
+            <div class="full">{r.body.map((p) => <p>{p}</p>)}</div>
+          </details>
+        </blockquote>
+        <figcaption class="sr">{r.author}, {r.role}. {r.relation}, {r.dateLabel}.</figcaption>
+      </figure>
+    </article>
+  ))}
 </section>
 
 <style>
-  .rec { display: grid; grid-template-columns: 0.32fr 0.68fr; gap: 40px; align-items: start; }
-  .rec > :global(*) { min-width: 0; }
-  .who { display: flex; align-items: center; gap: 16px; margin-top: 28px; }
-  .gram { flex: none; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; font-size: 21px; font-style: italic; letter-spacing: 0; color: var(--accent); background: radial-gradient(circle at 35% 30%, oklch(100% 0 0 / 0.55), transparent 60%), var(--accent-soft); border: 1px solid color-mix(in oklch, var(--accent) 35%, transparent); }
-  .name { font-weight: 500; font-size: 17px; line-height: 1.3; }
-  .role { font-size: 15px; color: var(--ink-2); }
-  .rel { margin-top: 6px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
-  .src { margin-top: 24px; }
-  /* outlined in the accent so it reads as the proof link, second to the filled button beside the quote */
+  .rhead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; padding-bottom: 22px; border-bottom: 1px solid var(--hair); }
+  /* outlined in the accent so it reads as the proof link, second to the filled buttons beside the quotes */
   .li { --pad: 13px 20px; border-color: var(--accent); color: var(--accent); }
   .li::before { background: var(--accent); }
   .li:hover { color: var(--accent-ink); border-color: var(--accent); }
 
+  .rec { display: grid; grid-template-columns: 0.32fr 0.68fr; gap: 40px; align-items: start; padding: clamp(44px, 5.5vw, 76px) 0; border-bottom: 1px solid var(--hair); }
+  .rec:last-child { border-bottom: 0; padding-bottom: 0; }
+  .rec > :global(*) { min-width: 0; }
+  .who { display: flex; align-items: center; gap: 16px; padding-top: 10px; }
+  .ava { flex: none; width: 72px; height: 72px; border-radius: 50%; overflow: hidden; display: grid; place-items: center; background: var(--accent-soft); border: 1px solid var(--hair-strong); box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px color-mix(in oklch, var(--accent) 45%, transparent); }
+  .ava :global(img) { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gram { font-size: 24px; font-style: italic; letter-spacing: 0; color: var(--accent); }
+  .name { font-weight: 500; font-size: 17px; line-height: 1.3; }
+  .role { font-size: 15px; color: var(--ink-2); }
+  .rel { margin-top: 6px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+
   .quote { margin: 0; position: relative; }
-  .mark { display: block; height: 0.42em; font-size: clamp(96px, 11vw, 168px); line-height: 0.82; font-style: italic; font-weight: 300; color: var(--accent); user-select: none; }
+  .mark { display: block; height: 0.42em; font-size: clamp(88px, 9.5vw, 144px); line-height: 0.82; font-style: italic; font-weight: 300; color: var(--accent); user-select: none; }
   blockquote { margin: 0; }
-  .pull { font-size: clamp(28px, 3.7vw, 54px); line-height: 1.14; font-weight: 300; letter-spacing: -0.02em; text-wrap: pretty; }
-  details { margin-top: clamp(28px, 3.4vw, 44px); }
-  /* the disclosure is the section's one call to action: a filled accent pill that steps back once opened */
+  .pull { font-size: clamp(27px, 3.3vw, 48px); line-height: 1.15; font-weight: 300; letter-spacing: -0.02em; text-wrap: pretty; }
+  details { margin-top: clamp(26px, 3vw, 38px); }
+  /* the disclosure is each quote's one call to action: a filled accent pill that steps back once opened */
   summary { display: inline-flex; align-items: center; gap: 14px; padding: 9px 10px 9px 24px; border-radius: 999px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); list-style: none; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; box-shadow: 0 16px 34px -16px var(--accent-glow); transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out), background-color 0.35s var(--ease-out), color 0.35s var(--ease-out); }
   summary::-webkit-details-marker { display: none; }
   summary:hover { transform: translateY(-2px); box-shadow: 0 22px 40px -16px var(--accent-glow); }
@@ -69,12 +90,11 @@ const initials = r.author.split(' ').map((p) => p[0]).slice(0, 2).join('');
   .full p { font-size: 17px; color: var(--ink-2); margin-bottom: 16px; }
   .full p:last-child { margin-bottom: 0; }
   @keyframes rec-in { from { opacity: 0; transform: translateY(8px); } }
-  details[open] { padding-bottom: 26px; border-bottom: 1px solid var(--hair); }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   @media (max-width: 860px) {
-    .rec { grid-template-columns: 1fr; gap: 28px; }
-    .who { margin-top: 20px; }
-    .mark { font-size: 96px; }
+    .rec { grid-template-columns: 1fr; gap: 26px; }
+    .who { padding-top: 0; }
+    .mark { font-size: 88px; }
   }
   @media (prefers-reduced-motion: reduce) { .full { animation: none; } }
 </style>

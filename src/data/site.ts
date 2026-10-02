@@ -328,23 +328,49 @@ export const featuredArticle = {
 export const writing: { slug: string; title: string; subtitle: string; date: string; tag: string; minutes: number }[] = [];
 
 /* ------------------------------------------------------------------ */
-/* Recommendation: quoted verbatim from LinkedIn                       */
+/* Recommendations: quoted verbatim from LinkedIn, newest first        */
 /* ------------------------------------------------------------------ */
-export const recommendation = {
-  author: 'Rudra Pratap Singh',
-  role: 'Software Engineer at Google',
-  relation: 'GSoC mentor · OpenPrinting',
-  date: '2026-07-16',
-  dateLabel: '16 Jul 2026',
-  href: 'https://www.linkedin.com/in/gativarshney/details/recommendations/',
-  // one sentence of the third paragraph, split where the emphasis starts
-  pull: ['Gati has the qualities that make a strong software engineer: ', 'a growth mindset, technical aptitude, and the determination to continuously improve.'],
-  body: [
-    'I had the pleasure of mentoring Gati during Google Summer of Code, where she contributed to the OpenPrinting website. From the outset, she impressed me with her curiosity, focus, and eagerness to learn. She consistently approached challenges with a thoughtful mindset, quickly grasped new concepts, and steadily improved through feedback.',
-    'What I appreciated most was her ability to translate guidance into action. She was proactive in asking the right questions, receptive to suggestions, and committed to delivering high-quality contributions. Her discipline and persistence allowed her to navigate the complexities of open source development while maintaining a collaborative and professional attitude.',
-    'Gati has the qualities that make a strong software engineer: a growth mindset, technical aptitude, and the determination to continuously improve. I’m confident she will continue to thrive in her career and make valuable contributions to any team she joins. I wholeheartedly recommend her and look forward to following her future accomplishments.',
-  ],
+export type Recommendation = {
+  author: string;
+  role: string;
+  relation: string;
+  date: string;
+  dateLabel: string;
+  photo?: string; // file name in src/assets/people, without extension
+  pull: [before: string, emphasis: string, after: string]; // one sentence of the body
+  body: string[];
 };
+
+export const recommendations: Recommendation[] = [
+  {
+    author: 'Takumi Yabe',
+    role: 'CEO, Quin Que Inc.',
+    relation: 'Managed Gati directly',
+    date: '2026-10-02',
+    dateLabel: '2 Oct 2026',
+    photo: 'takumi-yabe',
+    pull: ['Gati-san is ', 'an exceptionally talented engineer', ', and we look forward to seeing what she accomplishes in the future.'],
+    body: [
+      'Gati-san participated in our internship program for one month in September 2026.',
+      'Demonstrated strong full-stack development skills by independently implementing six administrative console screens with API integration across frontend and backend. Quickly adapted to the unfamiliar task of building a new admin console and delivered the implementation efficiently. Showed a solid understanding of cross-cutting design concerns, including consistent error responses and Row-Level Security (RLS) to prevent unauthorized cross-tenant access. Accurately diagnosed complex issues, including side-effect-related bugs in DoneScreen and crashes in the React Native environment, and resolved them effectively. Responded carefully to pull request review feedback and maintained comprehensive tests to ensure implementation quality. Took ownership of a broad range of responsibilities, including console development, onboarding a second tenant, and preparing demo procedures and materials. Improved usability through thoughtful input validation and proactively fixed numerous minor bugs alongside feature development. Although less active in posting issues, consistently provided clear pull request descriptions and commit messages that communicated implementation details effectively. Worked reliably under Shruti\'s guidance and demonstrated initiative by identifying and fixing issues beyond assigned tasks, including SSE reconnection problems and status-name persistence. Also handled final polishing tasks with care, contributing to a stable, maintainable, and user-friendly application. Overall, demonstrated technical adaptability, strong problem-solving skills, accountability, and a consistent commitment to quality.',
+      'Gati-san is an exceptionally talented engineer, and we look forward to seeing what she accomplishes in the future.',
+    ],
+  },
+  {
+    author: 'Rudra Pratap Singh',
+    role: 'Software Engineer at Google',
+    relation: 'GSoC mentor · OpenPrinting',
+    date: '2026-07-16',
+    dateLabel: '16 Jul 2026',
+    photo: 'rudra-pratap-singh',
+    pull: ['Gati has the qualities that make a strong software engineer: ', 'a growth mindset, technical aptitude, and the determination to continuously improve.', ''],
+    body: [
+      'I had the pleasure of mentoring Gati during Google Summer of Code, where she contributed to the OpenPrinting website. From the outset, she impressed me with her curiosity, focus, and eagerness to learn. She consistently approached challenges with a thoughtful mindset, quickly grasped new concepts, and steadily improved through feedback.',
+      'What I appreciated most was her ability to translate guidance into action. She was proactive in asking the right questions, receptive to suggestions, and committed to delivering high-quality contributions. Her discipline and persistence allowed her to navigate the complexities of open source development while maintaining a collaborative and professional attitude.',
+      'Gati has the qualities that make a strong software engineer: a growth mindset, technical aptitude, and the determination to continuously improve. I’m confident she will continue to thrive in her career and make valuable contributions to any team she joins. I wholeheartedly recommend her and look forward to following her future accomplishments.',
+    ],
+  },
+];
 
 /* ------------------------------------------------------------------ */
 /* Hero strip                                                          */
