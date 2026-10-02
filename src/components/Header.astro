@@ -29,7 +29,7 @@ const path = Astro.url.pathname;
   <div class="mobile" id="mobile-menu" data-mobile-menu>
     <nav aria-label="Mobile" class="wrap">
       {nav.map((n, i) => <a href={n.href} class="display" style={`--i:${i}`} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a>)}
-      <a href="/#contact" class="display" style="--i:4">Contact</a>
+      <a href="/#contact" class="display" style={`--i:${nav.length}`}>Contact</a>
       <div class="mrow">
         <a class="btn fill" href={site.links.resume} target="_blank" rel="noopener">Résumé <span class="arr">↗</span></a>
         <a class="btn" href={site.links.github} target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
@@ -58,8 +58,10 @@ const path = Astro.url.pathname;
   .bar > nav a.cur, .bar > nav a.cur:hover { background: var(--ink); color: var(--bg); }
   .bar { column-gap: 16px; }
   .kbtn span { white-space: nowrap; }
+  @media (max-width: 1240px) { .bar > nav a { padding: 9px 14px; } }
+  @media (max-width: 940px) { .resume { display: none; } }
   @media (max-width: 1100px) {
-    .bar > nav a { padding: 9px 13px; }
+    .bar > nav a { padding: 9px 11px; font-size: 14px; }
     .kbtn { width: 38px; padding: 0; justify-content: center; }
     .kbtn span { display: none; }
   }

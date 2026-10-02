@@ -1,0 +1,10 @@
+---
+import CaseStudyPage from '@/components/CaseStudyPage.astro';
+import { projects } from '@/data/site';
+
+export function getStaticPaths() {
+  return projects.map((w) => ({ params: { slug: w.slug }, props: { w } }));
+}
+const { w } = Astro.props;
+---
+<CaseStudyPage w={w} list={projects} section={{ label: 'Projects', href: '/projects/' }} />

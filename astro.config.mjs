@@ -7,6 +7,11 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://gativarshney.github.io',
   trailingSlash: 'always',
+  // personal projects moved out of /work/ when Work became the page for roles
+  redirects: {
+    '/work/cidx/': '/projects/cidx/',
+    '/work/repoinsight/': '/projects/repoinsight/',
+  },
   build: { format: 'directory' },
   integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/og/') })],
   image: { responsiveStyles: true },

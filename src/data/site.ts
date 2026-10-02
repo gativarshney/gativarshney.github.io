@@ -32,6 +32,7 @@ export const site = {
 
 export const nav = [
   { label: 'Work', href: '/work/' },
+  { label: 'Projects', href: '/projects/' },
   { label: 'Open Source', href: '/open-source/' },
   { label: 'Writing', href: '/writing/' },
   { label: 'About', href: '/about/' },
@@ -122,15 +123,18 @@ export const milestones: Entry[] = [
     summary:
       'A first industry role, and an international one: Software Engineer Intern at Quin Que, a Japanese company based in Kobe, working remotely on Rapilogi, a warehouse reception management system. This is private company work, so only the public outline is shown here.',
     evidence: [],
-    links: [],
+    links: [
+      { label: 'CEO’s recommendation', href: '/#recommendation' },
+      { label: 'Certificate', href: '/about/' },
+    ],
     visual: 'quinque',
   },
 ];
 
 /* ------------------------------------------------------------------ */
-/* Projects with case-study pages                                      */
+/* Projects: built on my own time, each with a case-study page         */
 /* ------------------------------------------------------------------ */
-export const work: Entry[] = [
+export const projects: Entry[] = [
   {
     slug: 'cidx',
     title: 'cidx',
@@ -146,14 +150,14 @@ export const work: Entry[] = [
       { value: '22.6 ms', label: 'p95 exact lookup' },
     ],
     links: [
-      { label: 'Case study', href: '/work/cidx/' },
-      { label: 'Try it in the browser', href: '/work/cidx/#try' },
+      { label: 'Case study', href: '/projects/cidx/' },
+      { label: 'Try it in the browser', href: '/projects/cidx/#try' },
       { label: 'Website', href: site.links.cidxSite, external: true },
       { label: 'Repository', href: site.links.cidxRepo, external: true },
       { label: 'PyPI', href: site.links.cidxPypi, external: true },
     ],
     visual: 'cidx',
-    href: '/work/cidx/',
+    href: '/projects/cidx/',
   },
   {
     slug: 'repoinsight',
@@ -170,14 +174,20 @@ export const work: Entry[] = [
       { value: '0', label: 'databases, paid APIs or AI services' },
     ],
     links: [
-      { label: 'Case study', href: '/work/repoinsight/' },
+      { label: 'Case study', href: '/projects/repoinsight/' },
       { label: 'Open the app', href: site.links.repoinsightApp, external: true },
       { label: 'Example report', href: `${site.links.repoinsightApp}/sample`, external: true },
       { label: 'Repository', href: site.links.repoinsightRepo, external: true },
     ],
     visual: 'repoinsight',
-    href: '/work/repoinsight/',
+    href: '/projects/repoinsight/',
   },
+];
+
+/* ------------------------------------------------------------------ */
+/* Case studies of work done in a role (GSoC, OpenPrinting)            */
+/* ------------------------------------------------------------------ */
+export const workStudies: Entry[] = [
   {
     slug: 'printer-recommendations',
     title: 'Printer recommendations & assistant',
@@ -226,6 +236,9 @@ export const work: Entry[] = [
     href: '/work/openprinting-search/',
   },
 ];
+
+/* every case study, for the palette and the page-transition labels */
+export const studies: Entry[] = [...projects, ...workStudies];
 
 /* ------------------------------------------------------------------ */
 /* OpenPrinting pull requests, grouped by what they built              */

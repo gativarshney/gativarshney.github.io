@@ -1,9 +1,9 @@
 ---
-import { nav, work } from '@/data/site';
+import { nav, studies } from '@/data/site';
 // destination names shown on the panel while it covers the page
 const names: Record<string, string> = { '/': 'Home' };
 nav.forEach((n) => (names[n.href] = n.label));
-work.forEach((w) => (names[`/work/${w.slug}/`] = w.title));
+studies.forEach((w) => (names[w.href!] = w.title));
 ---
 <div class="wipe" data-wipe data-names={JSON.stringify(names)} aria-hidden="true" transition:persist="wipe">
   <span class="display" data-wipe-label></span>

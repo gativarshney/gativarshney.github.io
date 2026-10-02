@@ -1,5 +1,5 @@
 ---
-import { site, work } from '@/data/site';
+import { site, studies } from '@/data/site';
 
 type Item = { label: string; hint: string; href?: string; action?: 'theme' | 'copy-email'; keys?: string; external?: boolean };
 const host = (u: string) => new URL(u).hostname.replace(/^www\./, '');
@@ -10,7 +10,8 @@ const groups: { label: string; items: Item[] }[] = [
     label: 'Pages',
     items: [
       { label: 'Home', href: '/', hint: 'Page', keys: 'start index' },
-      { label: 'Work', href: '/work/', hint: 'Page', keys: 'projects case studies' },
+      { label: 'Work', href: '/work/', hint: 'Page', keys: 'experience roles internship quin que gsoc openprinting case studies' },
+      { label: 'Projects', href: '/projects/', hint: 'Page', keys: 'cidx repoinsight personal builds case studies' },
       { label: 'Open Source', href: '/open-source/', hint: 'Page', keys: 'openprinting linux foundation pull requests hall of fame gsoc' },
       { label: 'Writing', href: '/writing/', hint: 'Page', keys: 'articles blog medium report' },
       { label: 'About', href: '/about/', hint: 'Page', keys: 'education experience certificates bio' },
@@ -19,8 +20,8 @@ const groups: { label: string; items: Item[] }[] = [
   {
     label: 'Case studies',
     items: [
-      ...work.map((w) => ({ label: w.title, href: `/work/${w.slug}/`, hint: 'Case study', keys: `${w.tags.join(' ')} ${w.kicker}` })),
-      { label: 'Try cidx in the browser', href: '/work/cidx/#try', hint: 'Live demo', keys: 'cidx demo playground search index mcp tools' },
+      ...studies.map((w) => ({ label: w.title, href: w.href!, hint: 'Case study', keys: `${w.tags.join(' ')} ${w.kicker}` })),
+      { label: 'Try cidx in the browser', href: '/projects/cidx/#try', hint: 'Live demo', keys: 'cidx demo playground search index mcp tools' },
     ],
   },
   {

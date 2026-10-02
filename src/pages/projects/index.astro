@@ -1,0 +1,27 @@
+---
+import Base from '@/layouts/Base.astro';
+import Milestone from '@/components/Milestone.astro';
+import { projects } from '@/data/site';
+---
+<Base title="Projects" image="/og/projects.png" description="Projects built by Gati Varshney, each with its evidence: cidx, a zero-config code index for AI coding agents, and RepoInsight, which tells contributors what to expect from a repository.">
+  <section class="wrap head">
+    <p class="eyebrow" data-reveal>Index · Projects</p>
+    <h1 class="display" data-split-words data-anim>Built to be<br /><em>checked.</em></h1>
+    <p class="lede" data-reveal="0.1">Things I built on my own time. Each says what it proves, what went wrong, and where the evidence lives. Work done inside a team is on the <a class="u" href="/work/">Work</a> page.</p>
+  </section>
+
+  <section class="wrap">
+    <p class="eyebrow" data-reveal>Projects</p>
+    <div class="entries">
+      {projects.map((w, i) => <Milestone entry={w} num={`0${i + 1}`} />)}
+      <hr class="hr" data-line />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .head { padding-top: clamp(130px, 18vh, 200px); padding-bottom: clamp(40px, 6vw, 72px); }
+  .head h1 { font-size: clamp(48px, 7.6vw, 112px); margin: 20px 0 28px; }
+  .head .lede { max-width: 680px; }
+  .entries { margin-top: 8px; }
+</style>
