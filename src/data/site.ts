@@ -125,7 +125,7 @@ export const milestones: Entry[] = [
     evidence: [],
     links: [
       { label: 'CEO’s recommendation', href: '/#recommendation' },
-      { label: 'Certificate', href: '/about/' },
+      { label: 'Certificate', href: '/about/#certificates' },
     ],
     visual: 'quinque',
   },
