@@ -24,8 +24,8 @@ export const site = {
     cidxRepo: 'https://github.com/gativarshney/cidx',
     cidxPypi: 'https://pypi.org/project/cidx/',
     cidxSite: 'https://cidx.vercel.app',
-    repoinsightApp: 'https://repoinsight-app.vercel.app',
-    repoinsightRepo: 'https://github.com/gativarshney/repoinsight',
+    contributableApp: 'https://contributable.vercel.app',
+    contributableRepo: 'https://github.com/gativarshney/contributable',
     wocVerify: 'https://verification.givemycertificate.com/v/74e4dfe9-cda1-4508-9b55-c815e35a3749',
   },
 };
@@ -40,7 +40,7 @@ export const nav = [
 
 export type Evidence = { value: string; label: string };
 export type Link = { label: string; href: string; external?: boolean };
-export type VisualKind = 'cidx' | 'printers' | 'openprinting' | 'gsoc' | 'quinque' | 'search' | 'repoinsight';
+export type VisualKind = 'cidx' | 'printers' | 'openprinting' | 'gsoc' | 'quinque' | 'search' | 'contributable';
 export type Tone = 'ok' | 'warn' | 'accent' | 'plain';
 
 export type Entry = {
@@ -136,6 +136,29 @@ export const milestones: Entry[] = [
 /* ------------------------------------------------------------------ */
 export const projects: Entry[] = [
   {
+    slug: 'contributable',
+    title: 'Contributable',
+    kicker: 'Personal project · web app for open source contributors',
+    period: 'Oct 2026',
+    status: { label: 'Live on Vercel', tone: 'ok' },
+    tags: ['TypeScript', 'Next.js 16', 'React 19', 'three.js', 'GitHub REST API', 'MIT'],
+    summary:
+      'Know a repository before your first pull request. Paste a public GitHub repository and it reports where to start, who maintains it, how fast people reply, and whether outside pull requests actually get merged. Every answer is calculated by a fixed rule from public data and shows how it was worked out; there is no AI and no health score.',
+    evidence: [
+      { value: '10', label: 'checklist questions, each with its rule' },
+      { value: '118', label: 'tests' },
+      { value: '0', label: 'databases, paid APIs or AI services' },
+    ],
+    links: [
+      { label: 'Case study', href: '/projects/contributable/' },
+      { label: 'Open the app', href: site.links.contributableApp, external: true },
+      { label: 'Example report', href: `${site.links.contributableApp}/sample`, external: true },
+      { label: 'Repository', href: site.links.contributableRepo, external: true },
+    ],
+    visual: 'contributable',
+    href: '/projects/contributable/',
+  },
+  {
     slug: 'cidx',
     title: 'cidx',
     kicker: 'Personal project · developer tool',
@@ -158,29 +181,6 @@ export const projects: Entry[] = [
     ],
     visual: 'cidx',
     href: '/projects/cidx/',
-  },
-  {
-    slug: 'repoinsight',
-    title: 'RepoInsight',
-    kicker: 'Personal project · web app for open source contributors',
-    period: 'Oct 2026',
-    status: { label: 'Live on Vercel', tone: 'ok' },
-    tags: ['TypeScript', 'Next.js 16', 'React 19', 'three.js', 'GitHub REST API'],
-    summary:
-      'Know a repository before your first pull request. Paste a public GitHub repository and it reports where to start, who maintains it, how fast people reply, and whether outside pull requests actually get merged. Every answer is calculated by a fixed rule and shows its evidence; there is no AI and no health score.',
-    evidence: [
-      { value: '10', label: 'checklist questions, each with its rule' },
-      { value: '74', label: 'tests' },
-      { value: '0', label: 'databases, paid APIs or AI services' },
-    ],
-    links: [
-      { label: 'Case study', href: '/projects/repoinsight/' },
-      { label: 'Open the app', href: site.links.repoinsightApp, external: true },
-      { label: 'Example report', href: `${site.links.repoinsightApp}/sample`, external: true },
-      { label: 'Repository', href: site.links.repoinsightRepo, external: true },
-    ],
-    visual: 'repoinsight',
-    href: '/projects/repoinsight/',
   },
 ];
 

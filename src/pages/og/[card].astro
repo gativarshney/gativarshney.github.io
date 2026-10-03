@@ -9,9 +9,9 @@ import portrait from '@/assets/gati-cutout.png';
 const cards: Record<string, [title: string, sub: string]> = {
   default: ['Software that|proves itself.', 'Final-year CS student · GSoC 2026 contributor at OpenPrinting, The Linux Foundation'],
   work: ['Built with|other people.', 'A remote internship with Quin Que, a Japanese company · Google Summer of Code 2026 · open source at OpenPrinting'],
-  projects: ['Built to be|checked.', 'cidx and RepoInsight: what each proves, what went wrong, and where the evidence lives'],
+  projects: ['Built to be|checked.', 'Contributable and cidx: what each proves, what went wrong, and where the evidence lives'],
+  contributable: ['Know a repo|before your first PR.', 'Contributable · ten questions about any public GitHub repository, answered from its public data'],
   cidx: ['A code index|for AI agents.', 'cidx · zero-config and local · five read-only MCP tools · try it in the browser'],
-  repoinsight: ['Know a repo|before your first PR.', 'RepoInsight · ten questions about any public GitHub repository, answered with evidence'],
   'printer-recommendations': ['What else|will work?', 'Explainable recommendations across 6,657 printers · Google Summer of Code 2026 at OpenPrinting'],
   'openprinting-search': ['Search with|no server.', 'A build-time index and in-browser ranking, live on openprinting.github.io'],
   'open-source': ['Ten months in|one codebase.', 'OpenPrinting, The Linux Foundation · 14 pull requests merged · Hall of Fame'],
@@ -19,7 +19,7 @@ const cards: Record<string, [title: string, sub: string]> = {
   about: ['A short file|on the author.', 'Final-year CS (Data Science) · JSS Academy of Technical Education · class of 2027'],
 };
 export function getStaticPaths() {
-  return ['default', 'work', 'projects', 'cidx', 'repoinsight', 'printer-recommendations', 'openprinting-search', 'open-source', 'writing', 'about'].map((card) => ({ params: { card } }));
+  return ['default', 'work', 'projects', 'contributable', 'cidx', 'printer-recommendations', 'openprinting-search', 'open-source', 'writing', 'about'].map((card) => ({ params: { card } }));
 }
 const [title, sub] = cards[Astro.params.card!];
 const [line1, line2] = title.split('|');

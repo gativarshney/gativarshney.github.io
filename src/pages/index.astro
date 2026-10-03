@@ -16,7 +16,7 @@ const previews = { work: pvWork, projects: pvProjects, 'open-source': pvOpen, wr
 import { site, milestones, projects, record } from '@/data/site';
 
 const cidx = projects.find((w) => w.slug === 'cidx')!;
-const repoinsight = projects.find((w) => w.slug === 'repoinsight')!;
+const contributable = projects.find((w) => w.slug === 'contributable')!;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -102,11 +102,11 @@ const jsonLd = {
         <p class="eyebrow" data-reveal>03 — Selected projects</p>
         <h2 class="display" data-split-words data-anim>Built, measured,<br /><em>documented.</em></h2>
       </div>
-      <p data-reveal="0.15">Two tools built on my own time: a code index for AI coding agents, published on PyPI, and a web app that tells contributors what to expect from a repository. Both show the evidence behind every number.</p>
+      <p data-reveal="0.15">Two tools built on my own time: a web app that tells contributors what to expect from a repository, and a code index for AI coding agents, published on PyPI. Both show the evidence behind every number.</p>
     </div>
     <div class="entries">
-      <Milestone entry={cidx} num="04" />
-      <Milestone entry={repoinsight} num="05" />
+      <Milestone entry={contributable} num="04" />
+      <Milestone entry={cidx} num="05" />
       <hr class="hr" data-line />
     </div>
     <p class="all"><a class="btn fill" href="/projects/" data-magnetic="0.3" data-reveal>All projects <span class="arr">→</span></a></p>
@@ -148,7 +148,7 @@ const jsonLd = {
     </div>
     <ul class="explore" data-reveal-group="0.08">
       <li><a href="/work/" data-cursor="Open" data-preview="work"><span class="mono n">01</span><span class="t display">Work</span><span class="d">Roles with their evidence: the Quin Que internship, Google Summer of Code, and OpenPrinting, plus two case studies taken apart in full.</span><span class="arr display">→</span></a></li>
-      <li><a href="/projects/" data-cursor="Open" data-preview="projects"><span class="mono n">02</span><span class="t display">Projects</span><span class="d">What I built on my own: cidx and RepoInsight. Claims, decisions, and what went wrong.</span><span class="arr display">→</span></a></li>
+      <li><a href="/projects/" data-cursor="Open" data-preview="projects"><span class="mono n">02</span><span class="t display">Projects</span><span class="d">What I built on my own: Contributable and cidx. Claims, decisions, and what went wrong.</span><span class="arr display">→</span></a></li>
       <li><a href="/open-source/" data-cursor="Open" data-preview="open-source"><span class="mono n">03</span><span class="t display">Open Source</span><span class="d">The live OpenPrinting Hall of Fame, every pull request grouped by what it built, and both certificates.</span><span class="arr display">→</span></a></li>
       <li><a href="/writing/" data-cursor="Open" data-preview="writing"><span class="mono n">04</span><span class="t display">Writing</span><span class="d">Long-form write-ups, starting with the GSoC 2026 final report.</span><span class="arr display">→</span></a></li>
       <li><a href="/about/" data-cursor="Open" data-preview="about"><span class="mono n">05</span><span class="t display">About</span><span class="d">Education, experience, competitive programming, certificates, and the résumé.</span><span class="arr display">→</span></a></li>

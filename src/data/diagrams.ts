@@ -41,23 +41,23 @@ export const diagrams: Record<string, Diagram> = {
     ],
   },
 
-  // after the Architecture section of the RepoInsight README and src/lib
-  repoinsight: {
-    alt: 'RepoInsight architecture: a client and fetchers read the GitHub REST API into typed records; pure analysis functions calculate metrics; a checklist is answered from them; a report runner caches and emits progress; an endpoint streams events to the browser, which renders the report.',
+  // after the Architecture section of the Contributable README and src/lib
+  contributable: {
+    alt: 'Contributable architecture: a client and fetchers read the GitHub REST API into typed records; pure analysis functions calculate metrics; a checklist is answered from them; a report runner emits progress; an endpoint caches, throttles and streams events to the browser, which renders the report.',
     rows: [
-      { source: { id: 'gh', label: 'GitHub REST API', sub: 'public data · eleven endpoints · no visitor token', subN: 'public data · 11 endpoints' } },
+      { source: { id: 'gh', label: 'GitHub REST API', sub: 'public data · twelve endpoints · no visitor token', subN: 'public data · 12 endpoints' } },
       { full: { id: 'fetch', n: '01', label: 'Client and fetchers', sub: 'error mapping, pagination · typed records that carry their own coverage', subN: 'typed records, with coverage' } },
       { full: { id: 'analysis', n: '02', label: 'Analysis', sub: 'pure functions with an explicit “now” · no React, no network', subN: 'pure functions · explicit now' } },
       {
-        left: { id: 'metrics', n: '02', label: 'Metrics', sub: 'activity, people, issues, pull requests, releases', subN: 'six signal areas' },
-        right: { id: 'checklist', n: '03', label: 'Checklist', sub: 'ten questions · yes, no or unknown, each by a rule', subN: 'ten questions' },
+        left: { id: 'metrics', n: '02', label: 'Metrics', sub: 'replies, pull request outcomes, people, timing', subN: 'the figures' },
+        right: { id: 'checklist', n: '03', label: 'Checklist', sub: 'ten questions · yes, no or not enough data', subN: 'ten questions' },
       },
-      { full: { id: 'run', n: '04', label: 'Report runner', sub: 'orchestration · shared cache of finished reports · progress events', subN: 'cache · progress events' } },
-      { full: { id: 'api', n: '05', label: '/api/analyze', sub: 'streams newline-delimited JSON, one event per real request group', subN: 'streams NDJSON events' } },
-      { full: { id: 'ui', n: '06', label: 'Report, in the browser', sub: 'checklist, people, timing, pull request journey, 3D commit skyline · evidence on every number', subN: 'answers with evidence', accent: true } },
+      { full: { id: 'run', n: '04', label: 'Report runner', sub: 'orchestration · progress events · runs on the server or in the browser', subN: 'orchestration · progress' } },
+      { full: { id: 'api', n: '05', label: '/api/analyze', sub: 'hour-long shared cache · per-address throttle · NDJSON stream', subN: 'cache · throttle · stream' } },
+      { full: { id: 'ui', n: '06', label: 'Report, in the browser', sub: 'seven sections, one question and one chart each · 3D commit skyline', subN: 'seven sections, one chart each', accent: true } },
     ],
     edges: [
-      { from: 'gh', to: 'fetch', label: '12 to ~45 requests', labelN: 'requests' },
+      { from: 'gh', to: 'fetch', label: 'in parallel', labelN: 'requests' },
       { from: 'fetch', to: 'analysis', label: 'typed records', labelN: 'records' },
       { from: 'analysis', to: 'metrics' },
       { from: 'analysis', to: 'checklist' },

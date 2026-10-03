@@ -10,7 +10,9 @@ export default defineConfig({
   // personal projects moved out of /work/ when Work became the page for roles
   redirects: {
     '/work/cidx/': '/projects/cidx/',
-    '/work/repoinsight/': '/projects/repoinsight/',
+    '/work/repoinsight/': '/projects/contributable/',
+    // RepoInsight was renamed Contributable
+    '/projects/repoinsight/': '/projects/contributable/',
   },
   build: { format: 'directory' },
   integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/og/') })],
