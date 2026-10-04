@@ -41,30 +41,33 @@ export const diagrams: Record<string, Diagram> = {
     ],
   },
 
-  // after the Architecture section of the Contributable README and src/lib
+  // after the Architecture section of the Contributable README
   contributable: {
-    alt: 'Contributable architecture: a client and fetchers read the GitHub REST API into typed records; pure analysis functions calculate metrics; a checklist is answered from them; a report runner emits progress; an endpoint caches, throttles and streams events to the browser, which renders the report.',
+    alt: 'Contributable architecture: the GSoC organisation list is mapped to GitHub repositories; a scheduled job in GitHub Actions reads the GitHub GraphQL API and computes the figures; the result is committed to a data branch; the Next.js site on Vercel reads those files and serves pages, an API, badges and feeds without calling GitHub.',
     rows: [
-      { source: { id: 'gh', label: 'GitHub REST API', sub: 'public data · twelve endpoints · no visitor token', subN: 'public data · 12 endpoints' } },
-      { full: { id: 'fetch', n: '01', label: 'Client and fetchers', sub: 'error mapping, pagination · typed records that carry their own coverage', subN: 'typed records, with coverage' } },
-      { full: { id: 'analysis', n: '02', label: 'Analysis', sub: 'pure functions with an explicit “now” · no React, no network', subN: 'pure functions · explicit now' } },
+      { source: { id: 'gsoc', label: 'GSoC organisations, 2024–2026', sub: '253 organisations · umbrella ones mapped by hand', subN: '253 organisations' } },
+      { full: { id: 'disc', n: '02', label: 'Discovery', sub: 'up to 12 active repositories each · no forks, archives or mirrors', subN: 'up to 12 repos each' } },
       {
-        left: { id: 'metrics', n: '02', label: 'Metrics', sub: 'replies, pull request outcomes, people, timing', subN: 'the figures' },
-        right: { id: 'checklist', n: '03', label: 'Checklist', sub: 'ten questions · yes, no or not enough data', subN: 'ten questions' },
+        left: { id: 'gql', label: 'GitHub GraphQL', sub: 'public data only', subN: 'public data' },
+        right: { id: 'sweep', n: '03', label: 'Sweep job', sub: 'GitHub Actions · 4× an hour', subN: 'Actions · 4× an hour' },
       },
-      { full: { id: 'run', n: '04', label: 'Report runner', sub: 'orchestration · progress events · runs on the server or in the browser', subN: 'orchestration · progress' } },
-      { full: { id: 'api', n: '05', label: '/api/analyze', sub: 'hour-long shared cache · per-address throttle · NDJSON stream', subN: 'cache · throttle · stream' } },
-      { full: { id: 'ui', n: '06', label: 'Report, in the browser', sub: 'seven sections, one question and one chart each · 3D commit skyline', subN: 'seven sections, one chart each', accent: true } },
+      { full: { id: 'metrics', n: '04', label: 'Metrics, as pure functions', sub: 'merge rate · Kaplan-Meier reply time · bots removed · starter states · trends', subN: 'merge rate · reply time · trends' } },
+      { full: { id: 'data', n: '05', label: 'data branch', sub: 'one snapshot commit · CC BY 4.0 · author names hashed', subN: 'snapshot · CC BY 4.0' } },
+      { full: { id: 'site', n: '06', label: 'Next.js on Vercel', sub: 'reads the files through the fetch cache · a page view never calls GitHub', subN: 'never calls GitHub' } },
+      {
+        left: { id: 'pages', label: 'Fifteen pages', sub: 'Explore · GSoC · issues · match', subN: 'Explore · GSoC · issues', accent: true },
+        right: { id: 'api', label: 'API · badges · feeds', sub: '/api/v1 · README badges · Atom', subN: 'API · badges · Atom', accent: true },
+      },
     ],
     edges: [
-      { from: 'gh', to: 'fetch', label: 'in parallel', labelN: 'requests' },
-      { from: 'fetch', to: 'analysis', label: 'typed records', labelN: 'records' },
-      { from: 'analysis', to: 'metrics' },
-      { from: 'analysis', to: 'checklist' },
-      { from: 'metrics', to: 'run' },
-      { from: 'checklist', to: 'run' },
-      { from: 'run', to: 'api' },
-      { from: 'api', to: 'ui', label: 'live progress' },
+      { from: 'gsoc', to: 'disc', label: 'organisations' },
+      { from: 'disc', to: 'sweep', label: 'repositories', labelN: 'repos' },
+      { from: 'gql', to: 'metrics', label: 'pull requests, issues', labelN: 'PRs, issues' },
+      { from: 'sweep', to: 'metrics', label: 'stalest first', labelN: 'stalest first' },
+      { from: 'metrics', to: 'data' },
+      { from: 'data', to: 'site', label: 'files' },
+      { from: 'site', to: 'pages' },
+      { from: 'site', to: 'api' },
     ],
   },
 
