@@ -12,7 +12,7 @@ export const site = {
     linkedin: 'https://www.linkedin.com/in/gativarshney/',
     leetcode: 'https://leetcode.com/u/GatiVarshney/',
     medium: 'https://medium.com/@gativarshney',
-    resume: '/resume.pdf',
+    resume: `/resume.pdf?v=${__RESUME_VERSION__}`,
     source: 'https://github.com/gativarshney/gativarshney.github.io',
     gsocReport:
       'https://medium.com/@gativarshney/gsoc-2026-final-report-ai-driven-printer-compatibility-recommendation-portal-9283d6fe2a5c',
