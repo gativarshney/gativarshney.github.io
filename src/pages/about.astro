@@ -4,6 +4,7 @@ import Portrait from '@/components/Portrait.astro';
 import Certificate from '@/components/Certificate.astro';
 import LeetCode from '@/components/LeetCode.astro';
 import Logo from '@/components/Logo.astro';
+import BrandIcon from '@/components/BrandIcon.astro';
 import jssLogo from '@/assets/logos/jss.png';
 import qqLogo from '@/assets/logos/quinque.png';
 import gsocMark from '@/assets/logos/gsoc-mark.svg';
@@ -26,7 +27,7 @@ import { site } from '@/data/site';
         <div class="ctas" data-hero-cta>
           <a class="btn fill" href={site.links.resume} target="_blank" rel="noopener" data-magnetic="0.3" data-anim>Résumé (PDF) <span class="arr">↗</span></a>
           <a class="btn" href={`mailto:${site.email}`} data-magnetic="0.3" data-anim>Email</a>
-          <a class="btn ghost" href={site.links.linkedin} target="_blank" rel="noopener" data-magnetic="0.3" data-anim>LinkedIn <span class="arr">↗</span></a>
+          <a class="btn ghost" href={site.links.linkedin} target="_blank" rel="noopener" data-magnetic="0.3" data-anim><BrandIcon name="linkedin" />LinkedIn <span class="arr">↗</span></a>
         </div>
       </div>
       <Portrait badge="Final-year CS · Class of 2027" />

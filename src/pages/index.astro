@@ -6,6 +6,7 @@ import Timeline from '@/components/Timeline.astro';
 import Portrait from '@/components/Portrait.astro';
 import LeetCode from '@/components/LeetCode.astro';
 import Recommendation from '@/components/Recommendation.astro';
+import BrandIcon from '@/components/BrandIcon.astro';
 import { Image } from 'astro:assets';
 import pvWork from '@/assets/previews/page-work.jpg';
 import pvProjects from '@/assets/previews/page-projects.jpg';
@@ -48,8 +49,10 @@ const jsonLd = {
         <p class="lede" data-hero-lede data-anim>I’m Gati Varshney, a final-year CS student and <b>Google Summer of Code 2026</b> contributor with <b>The Linux Foundation</b>.</p>
         <div class="ctas" data-hero-cta>
           <a class="btn fill" href="#journey" data-magnetic="0.3" data-anim>The journey <span class="arr">↓</span></a>
-          <a class="btn ghost" href={site.links.github} target="_blank" rel="noopener" data-magnetic="0.3" data-anim>GitHub <span class="arr">↗</span></a>
-          <a class="btn ghost" href={site.links.linkedin} target="_blank" rel="noopener" data-magnetic="0.3" data-anim>LinkedIn <span class="arr">↗</span></a>
+          <span class="social" data-anim>
+            <a class="btn ghost" href={site.links.github} target="_blank" rel="noopener" data-magnetic="0.3"><BrandIcon name="github" />GitHub <span class="arr">↗</span></a>
+            <a class="btn ghost" href={site.links.linkedin} target="_blank" rel="noopener" data-magnetic="0.3"><BrandIcon name="linkedin" />LinkedIn <span class="arr">↗</span></a>
+          </span>
         </div>
       </div>
 
@@ -168,7 +171,7 @@ const jsonLd = {
       <p class="lede" data-reveal="0.1">Have an opportunity, an interesting idea, or want to talk about engineering? I’d love to hear from you.</p>
       <p class="ctas contact-ctas" data-reveal="0.15">
         <a class="btn fill" href={`mailto:${site.email}?subject=Hello%20Gati`} data-magnetic="0.3">Get in touch via email <span class="arr">↗</span></a>
-        <a class="btn" href={site.links.linkedin} target="_blank" rel="noopener" data-magnetic="0.3">LinkedIn <span class="arr">↗</span></a>
+        <a class="btn" href={site.links.linkedin} target="_blank" rel="noopener" data-magnetic="0.3"><BrandIcon name="linkedin" />LinkedIn <span class="arr">↗</span></a>
       </p>
       <p class="email-line" data-reveal="0.2">
         <a class="email display" href={`mailto:${site.email}`} data-copy={site.email} data-cursor="Copy" data-magnetic="0.15">{site.email}</a>
