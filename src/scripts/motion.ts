@@ -559,6 +559,28 @@ function initFrames() {
 }
 
 /* ------------------------------------------------------------------ */
+/* Button rows: a ghost button that starts a wrapped line lines up     */
+/* with the text column instead of sitting in by its hover padding     */
+/* ------------------------------------------------------------------ */
+function initCtaRows() {
+  document.querySelectorAll<HTMLElement>('.ctas').forEach((row) => {
+    if (row.dataset.boundRow) return;
+    row.dataset.boundRow = '1';
+    const set = () => {
+      const items = Array.from(row.children) as HTMLElement[];
+      items.forEach((el) => el.classList.remove('lead-in'));
+      const left = items[0]?.offsetLeft ?? 0;
+      items.forEach((el, i) => {
+        const ghost = el.matches('.btn.ghost') || !!el.firstElementChild?.matches('.btn.ghost');
+        if (i > 0 && ghost && el.offsetLeft <= left + 1) el.classList.add('lead-in');
+      });
+    };
+    set();
+    new ResizeObserver(set).observe(row);
+  });
+}
+
+/* ------------------------------------------------------------------ */
 /* Boot                                                                */
 /* ------------------------------------------------------------------ */
 /* ------------------------------------------------------------------ */
@@ -825,6 +847,7 @@ function boot() {
   initCopy();
   initLightbox();
   initFrames();
+  initCtaRows();
   initPage();
 }
 

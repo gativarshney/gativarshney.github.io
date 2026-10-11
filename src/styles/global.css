@@ -301,6 +301,8 @@ html.cursor-down .cursor-ring { transform: scale(0.85); }
 .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
 /* GitHub and LinkedIn wrap as a pair, never one of them alone on a row */
 .ctas .social { display: flex; align-items: center; gap: 12px; }
+/* A ghost button that wraps to start a new line is pulled back by its side padding (set in motion.ts) */
+.ctas > .lead-in { position: relative; left: -12px; }
 .hero .ctas { align-items: center; }
 
 .hero-visual { position: relative; justify-self: end; width: min(100%, 440px, calc((100svh - 190px) * 0.72)); aspect-ratio: 4 / 5; transform-style: preserve-3d; perspective: 1200px; }
