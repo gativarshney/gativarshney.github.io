@@ -30,8 +30,8 @@ const isHome = Astro.url.pathname === '/';
       </nav>
     </div>
     <div class="bottom">
-      <span>© {year} Gati Varshney · India · open to relocation</span>
-      <span>Built with Astro · set in Fraunces &amp; Geist · hosted on GitHub Pages · <a class="u" href={site.links.source} target="_blank" rel="noopener">source</a> · updated {site.updated}</span>
+      <span>© {year} Gati Varshney</span>
+      <a class="u" href="#main">Back to top ↑</a>
     </div>
   </div>
 </footer>
@@ -52,6 +52,6 @@ const isHome = Astro.url.pathname === '/';
   @media (max-width: 860px) {
     .top { grid-template-columns: 1fr; }
     .cols { grid-template-columns: 1fr 1fr; }
-    .bottom { flex-direction: column; gap: 10px; }
+    .bottom { gap: 16px; }
   }
 </style>
