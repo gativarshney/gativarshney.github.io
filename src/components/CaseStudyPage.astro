@@ -150,6 +150,7 @@ const jsonLd = {
   .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
   .links { display: flex; flex-wrap: wrap; gap: 10px; }
   .grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: center; margin-top: clamp(56px, 7vw, 96px); }
+  .grid > * { min-width: 0; }
   .ev { display: grid; gap: 28px; }
   .ev .stat { font-size: clamp(40px, 4.4vw, 64px); }
   .ev .lab { display: block; margin-top: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }

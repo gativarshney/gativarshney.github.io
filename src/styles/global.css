@@ -366,7 +366,7 @@ html.cursor-down .cursor-ring { transform: scale(0.85); }
   .hero-visual .orb { inset: -8% -8% -6% -8%; filter: blur(36px); }
 }
 @media (pointer: coarse) {
-  .site-footer .cols a, .links a, .cert .v, .popen, .say a, .pn a, .evtable td.l a, .prs .pr, .tl .muted a { padding-block: 8px; display: inline-block; }
+  .site-footer .cols a, .site-footer .bottom a, .links a, .cert .v, .popen, .say a, .pn a, .evtable td.l a, .prs .pr, .tl .muted a, .eyebrow a, .meta dd a { padding-block: 8px; display: inline-block; }
   .links { gap: 4px 22px; }
   .u::after { bottom: 6px; }
 }
