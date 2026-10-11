@@ -163,7 +163,7 @@ async function initPage() {
       const tl = gsap.timeline({ defaults: { ease: EASE }, paused: late });
       if (late) tl.progress(1);
 
-      if (eyebrow) { show(eyebrow); tl.from(eyebrow, { y: 12, autoAlpha: 0, duration: 0.6 }, 0); }
+      if (eyebrow) { show(eyebrow); tl.fromTo(eyebrow, { y: 12, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6 }, 0); }
       if (title) {
         const chars = splitToChars(title);
         show(title);
@@ -176,8 +176,8 @@ async function initPage() {
         gsap.set(words, { y: '0.5em', autoAlpha: 0 });
         tl.to(words, { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.007 }, 0.3);
       }
-      if (ctas.length) { show(ctas); tl.from(ctas, { y: 14, autoAlpha: 0, duration: 0.6, stagger: 0.06 }, 0.55); }
-      if (orb) { show(orb); tl.from(orb, { autoAlpha: 0, scale: 0.85, duration: 1.6, ease: 'power2.out' }, 0.1); }
+      if (ctas.length) { show(ctas); tl.fromTo(ctas, { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.06 }, 0.55); }
+      if (orb) { show(orb); tl.fromTo(orb, { autoAlpha: 0, scale: 0.85 }, { autoAlpha: 0.9, scale: 1, duration: 1.6, ease: 'power2.out' }, 0.1); }
       if (portrait) {
         show(portrait);
         tl.fromTo(portrait,
@@ -188,8 +188,9 @@ async function initPage() {
           scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
         });
       }
-      if (strip.length) { show(strip); tl.from(strip, { y: 14, autoAlpha: 0, duration: 0.6, stagger: 0.06 }, 0.65); }
+      if (strip.length) { show(strip); tl.fromTo(strip, { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.06 }, 0.65); }
 
+      // explicit end states (fromTo) so a skipped entrance always lands every element exactly in place
       if (late) { tl.progress(1).pause(); }
 
       // cursor parallax on the portrait stage
@@ -298,12 +299,13 @@ async function initPage() {
     if (finePointer) {
       document.querySelectorAll<HTMLElement>('[data-magnetic]').forEach((el) => {
         const strength = Number(el.dataset.magnetic || 0.3);
-        const x = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3.out' });
-        const y = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3.out' });
+        // created on first hover: made earlier, it can latch onto a button mid-entrance and hold it off its line
+        let x: ((v: number) => void) | null = null, y: ((v: number) => void) | null = null;
         el.addEventListener('mousemove', (e) => {
+          if (!x) { x = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3.out' }); y = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3.out' }); }
           const r = el.getBoundingClientRect();
           x((e.clientX - (r.left + r.width / 2)) * strength);
-          y((e.clientY - (r.top + r.height / 2)) * strength);
+          y!((e.clientY - (r.top + r.height / 2)) * strength);
         });
         el.addEventListener('mouseleave', () => {
           gsap.to(el, { x: 0, y: 0, duration: 0.9, ease: 'elastic.out(1, 0.4)' });
