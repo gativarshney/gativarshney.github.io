@@ -3,7 +3,7 @@ export const site = {
   url: 'https://gativarshney.github.io',
   title: 'Gati Varshney',
   description:
-    'Gati Varshney is a final-year CS student and Google Summer of Code 2026 contributor at OpenPrinting (The Linux Foundation). Developer tools and data systems, measured honestly.',
+    'Gati Varshney is a final-year CS student and Google Summer of Code 2026 contributor with The Linux Foundation. Developer tools and data systems, measured honestly.',
   email: 'gativarshney01@gmail.com',
   location: 'India · IST · open to relocation',
   updated: '2026-09-30',
@@ -91,7 +91,7 @@ export const milestones: Entry[] = [
   {
     slug: 'gsoc-2026',
     title: 'Google Summer of Code 2026',
-    kicker: 'Contributor · OpenPrinting · sponsored by The Linux Foundation',
+    kicker: 'Contributor · The Linux Foundation',
     period: 'May 25 – Aug 24, 2026',
     status: { label: 'Completed · under upstream review', tone: 'warn' },
     tags: ['engineered similarity pipeline', 'not a trained model', 'build-time', 'natural language'],
@@ -191,7 +191,7 @@ export const workStudies: Entry[] = [
   {
     slug: 'printer-recommendations',
     title: 'Printer recommendations & assistant',
-    kicker: 'Google Summer of Code 2026 · OpenPrinting',
+    kicker: 'Google Summer of Code 2026 · The Linux Foundation',
     period: 'May – Aug 2026',
     status: { label: 'Under upstream review', tone: 'warn' },
     tags: ['TypeScript', 'Next.js static', 'build-time pipeline'],
@@ -372,7 +372,7 @@ export const recommendations: Recommendation[] = [
   {
     author: 'Rudra Pratap Singh',
     role: 'Software Engineer at Google',
-    relation: 'GSoC mentor · OpenPrinting',
+    relation: 'GSoC mentor · The Linux Foundation',
     date: '2026-07-16',
     dateLabel: '16 Jul 2026',
     photo: 'rudra-pratap-singh',
@@ -390,6 +390,6 @@ export const recommendations: Recommendation[] = [
 /* ------------------------------------------------------------------ */
 export const record = [
   { k: 'Sep 2026 · International · Remote', v: 'Software Engineer Intern · Quin Que', m: 'Rapilogi · warehouse reception management' },
-  { k: 'Summer 2026', v: 'Google Summer of Code · OpenPrinting', m: 'printer recommendations + NL assistant · completed' },
+  { k: 'Summer 2026', v: 'Google Summer of Code · The Linux Foundation', m: 'printer recommendations + NL assistant · completed' },
   { k: 'Nov 2025 – Aug 2026', v: 'OpenPrinting website contributor', m: '14 pull requests merged · Hall of Fame' },
 ];
