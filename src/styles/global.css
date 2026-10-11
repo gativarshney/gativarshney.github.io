@@ -299,6 +299,9 @@ html.cursor-down .cursor-ring { transform: scale(0.85); }
 .hero-copy h1 em { white-space: nowrap; text-wrap: nowrap; }
 .hero-copy .lede { max-width: 620px; margin-bottom: 32px; }
 .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+/* GitHub and LinkedIn wrap as a pair, never one of them alone on a row */
+.ctas .social { display: flex; align-items: center; gap: 12px; }
+.hero .ctas { align-items: center; }
 
 .hero-visual { position: relative; justify-self: end; width: min(100%, 440px, calc((100svh - 190px) * 0.72)); aspect-ratio: 4 / 5; transform-style: preserve-3d; perspective: 1200px; }
 .hero-visual > * { will-change: transform; }
@@ -352,6 +355,10 @@ html.cursor-down .cursor-ring { transform: scale(0.85); }
   .hero-copy h1 em { white-space: normal; }
   .hero-visual { width: min(100%, 360px); }
   .hero-visual { justify-self: start; width: min(100%, 360px); }
+}
+@media (min-width: 700px) and (max-width: 860px) {
+  .hero-grid { grid-template-columns: 1.3fr 0.7fr; gap: 32px; }
+  .hero-visual { justify-self: end; width: min(100%, 300px); }
   .halo, .ring { display: none; }
 }
 
@@ -361,11 +368,16 @@ html.cursor-down .cursor-ring { transform: scale(0.85); }
 @media (max-width: 860px) {
   .eyebrow, .kicker, .lab, .purl, .pfall, .foot, .lsub, .qq-sub, .verified, .note, .cap,
   .strip .m, .strip .k, .bd, .cert .m, .cert .v, .repo, .pill, .popen, .r, .stamp, .say,
-  .site-footer .bottom { font-size: 12.5px !important; }
+  .site-footer .bottom, .pypi-meta, .logo-card p { font-size: 12.5px !important; }
   .tag { font-size: 11.5px !important; padding: 7px 12px; }
   .hero-visual .orb { inset: -8% -8% -6% -8%; filter: blur(36px); }
 }
+/* touch screens wide enough for the desktop layout (a tablet in landscape) get the same floor on small labels */
+@media (pointer: coarse) and (min-width: 861px) {
+  .tag, .pill, .bd, .popen, .cert .v, .repo, .pypi-meta, .logo-card p, .zoom, .demo .foot { font-size: 11.5px !important; }
+}
 @media (pointer: coarse) {
+  .chips button { padding: 8px 12px !important; }
   .site-footer .cols a, .site-footer .bottom a, .links a, .cert .v, .popen, .say a, .pn a, .evtable td.l a, .prs .pr, .tl .muted a, .eyebrow a, .meta dd a { padding-block: 8px; display: inline-block; }
   .links { gap: 4px 22px; }
   .u::after { bottom: 6px; }
