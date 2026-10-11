@@ -116,10 +116,10 @@ export const milestones: Entry[] = [
   {
     slug: 'quin-que',
     title: 'Quin Que',
-    kicker: 'Software Engineer Intern · Remote · Quin Que, a Japanese company',
+    kicker: 'Software Engineer Intern · Quin Que · Remote',
     period: 'Sep 2026',
     status: { label: 'International internship', tone: 'accent' },
-    tags: ['Remote', 'Japanese company', 'Rapilogi', 'warehouse reception management'],
+    tags: ['Remote', 'International', 'Rapilogi', 'warehouse reception management'],
     summary:
       'A first industry role, and an international one: Software Engineer Intern at Quin Que, a Japanese company based in Kobe, working remotely on Rapilogi, a warehouse reception management system. This is private company work, so only the public outline is shown here.',
     evidence: [],
@@ -320,7 +320,7 @@ export const journey = [
   {
     year: 'Sep 2026',
     title: 'Quin Que, and what’s next',
-    body: 'Software Engineer Intern at Quin Que, a Japanese company in Kobe, working remotely. Building new projects worth putting on this page. Graduating 2027, open to relocation.',
+    body: 'Software Engineer Intern at Quin Que, working remotely. Building new projects worth putting on this page. Graduating 2027, open to relocation.',
     lesson: 'Publish the losses too.',
   },
 ];
@@ -389,7 +389,7 @@ export const recommendations: Recommendation[] = [
 /* Hero strip                                                          */
 /* ------------------------------------------------------------------ */
 export const record = [
-  { k: 'Sep 2026 · International · Remote', v: 'Software Engineer Intern · Quin Que, a Japanese company', m: 'Rapilogi · warehouse reception management' },
+  { k: 'Sep 2026 · International · Remote', v: 'Software Engineer Intern · Quin Que', m: 'Rapilogi · warehouse reception management' },
   { k: 'Summer 2026', v: 'Google Summer of Code · OpenPrinting', m: 'printer recommendations + NL assistant · completed' },
   { k: 'Nov 2025 – Aug 2026', v: 'OpenPrinting website contributor', m: '14 pull requests merged · Hall of Fame' },
 ];
