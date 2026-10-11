@@ -105,6 +105,8 @@ export const caseStudies: Record<string, CaseStudy> = {
       note: 'No blended score. Every ranking states its rule on the page.',
     },
     evidence: [
+      { claim: 'Launch week', value: '1,422 visitors · 5,960 page views', context: 'first seven days on Vercel Web Analytics, 4–11 Oct 2026; peak of 536 visitors on 8 Oct, the day after the launch post', source: { label: 'launch post', href: 'https://www.linkedin.com/posts/gativarshney_contributable-ugcPost-7513287005661855744-y1lu/' } },
+      { claim: 'Launch post', value: '84,406 impressions', context: '326 reactions, 34 comments and 9 reposts on LinkedIn, as of 11 Oct 2026', source: { label: 'LinkedIn', href: 'https://www.linkedin.com/posts/gativarshney_contributable-ugcPost-7513287005661855744-y1lu/' } },
       { claim: 'Index size', value: '1,575 repositories', context: '253 GSoC organisations from 2024 to 2026, 111 languages; live status on 2026-10-04', source: { label: 'live status API', href: `${APP}/api/v1/status` } },
       { claim: 'Freshness', value: 'sweep 4× an hour', context: 'every indexed repository was refreshed within two days on 2026-10-04; each run spends one hour’s allowance, stalest first', source: { label: 'status page', href: `${APP}/status` } },
       { claim: 'Test suite', value: '210 tests · 12 files', context: 'survival estimate, merge and reply metrics, starter issue states, trends, the explore query, the GSoC ranking rule, matching and discovery; passing from a fresh clone on 2026-10-04', source: { label: 'README · testing', href: `${RI}#testing` } },

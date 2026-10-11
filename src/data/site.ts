@@ -146,14 +146,15 @@ export const projects: Entry[] = [
       'Find an open source project that answers newcomers. Contributable indexes the repositories of every Google Summer of Code organisation from 2024 to 2026 and measures how each treats people outside its core team: how fast a person replies to a first pull request, and how often it gets merged. A scheduled job keeps the index fresh; every figure shows its sample and links to the pull requests behind it. No blended score, no AI, no cost to run.',
     evidence: [
       { value: '1,575', label: 'repositories measured' },
-      { value: '253', label: 'GSoC organisations, 2024–2026' },
-      { value: '210', label: 'tests' },
+      { value: '1,400+', label: 'visitors in its first week' },
+      { value: '84K+', label: 'impressions on the launch post' },
     ],
     links: [
       { label: 'Case study', href: '/projects/contributable/' },
       { label: 'Open the app', href: site.links.contributableApp, external: true },
       { label: 'GSoC ranking', href: `${site.links.contributableApp}/gsoc`, external: true },
       { label: 'Repository', href: site.links.contributableRepo, external: true },
+      { label: 'Launch post', href: 'https://www.linkedin.com/posts/gativarshney_contributable-ugcPost-7513287005661855744-y1lu/', external: true },
     ],
     visual: 'contributable',
     href: '/projects/contributable/',
