@@ -147,7 +147,7 @@ export const projects: Entry[] = [
     evidence: [
       { value: '1,575', label: 'repositories measured' },
       { value: '1,400+', label: 'visitors in its first week' },
-      { value: '84K+', label: 'impressions on the launch post' },
+      { value: '85K+', label: 'impressions on the launch post' },
     ],
     links: [
       { label: 'Case study', href: '/projects/contributable/' },
