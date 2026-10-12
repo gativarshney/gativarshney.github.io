@@ -2,13 +2,14 @@
 import Preview from '@/components/Preview.astro';
 import { featuredArticle as a } from '@/data/site';
 import snap from '@/assets/writing/gsoc-report-cover.png';
+import BrandIcon from '@/components/BrandIcon.astro';
 ---
 <article class="feat" data-reveal>
   <div class="fcopy">
     <p class="eyebrow"><span class="dot"></span>Featured · {a.source} · <time datetime={a.date}>{a.dateLabel}</time></p>
     <h3 class="display"><a href={a.href} target="_blank" rel="noopener" data-cursor="Read">{a.title}</a></h3>
     <p class="fdesc">{a.description}</p>
-    <p><a class="btn" href={a.href} target="_blank" rel="noopener" data-magnetic="0.25">Read on Medium <span class="arr">↗</span></a></p>
+    <p><a class="btn" href={a.href} target="_blank" rel="noopener" data-magnetic="0.25"><BrandIcon name="medium" />Read on Medium <span class="arr">↗</span></a></p>
   </div>
   <Preview url={a.href} title={a.title} image={snap} alt="The GSoC 2026 final report as published on Medium" ratio="16 / 10" label="medium.com/@gativarshney" />
 </article>
