@@ -39,7 +39,7 @@ export const nav = [
 ];
 
 export type Evidence = { value: string; label: string };
-export type Link = { label: string; href: string; external?: boolean };
+export type Link = { label: string; href: string; external?: boolean; icon?: 'github' | 'linkedin' | 'medium' | 'pypi' };
 export type VisualKind = 'cidx' | 'printers' | 'openprinting' | 'gsoc' | 'quinque' | 'search' | 'contributable';
 export type Tone = 'ok' | 'warn' | 'accent' | 'plain';
 
@@ -104,7 +104,7 @@ export const milestones: Entry[] = [
     ],
     links: [
       { label: 'Case study', href: '/work/printer-recommendations/' },
-      { label: 'Final report', href: site.links.gsocReport, external: true },
+      { label: 'Final report', href: site.links.gsocReport, external: true, icon: 'medium' },
       { label: 'Project page', href: site.links.gsocProject, external: true },
       { label: 'PR #224 · recommendations', href: `${OP}224`, external: true },
       { label: 'PR #230 · assistant', href: `${OP}230`, external: true },
@@ -153,8 +153,8 @@ export const projects: Entry[] = [
       { label: 'Case study', href: '/projects/contributable/' },
       { label: 'Open the app', href: site.links.contributableApp, external: true },
       { label: 'GSoC ranking', href: `${site.links.contributableApp}/gsoc`, external: true },
-      { label: 'Repository', href: site.links.contributableRepo, external: true },
-      { label: 'Launch post', href: 'https://www.linkedin.com/posts/gativarshney_contributable-ugcPost-7513287005661855744-y1lu/', external: true },
+      { label: 'Repository', href: site.links.contributableRepo, external: true, icon: 'github' },
+      { label: 'Launch post', href: 'https://www.linkedin.com/posts/gativarshney_contributable-ugcPost-7513287005661855744-y1lu/', external: true, icon: 'linkedin' },
     ],
     visual: 'contributable',
     href: '/projects/contributable/',
@@ -177,8 +177,8 @@ export const projects: Entry[] = [
       { label: 'Case study', href: '/projects/cidx/' },
       { label: 'Try it in the browser', href: '/projects/cidx/#try' },
       { label: 'Website', href: site.links.cidxSite, external: true },
-      { label: 'Repository', href: site.links.cidxRepo, external: true },
-      { label: 'PyPI', href: site.links.cidxPypi, external: true },
+      { label: 'Repository', href: site.links.cidxRepo, external: true, icon: 'github' },
+      { label: 'PyPI', href: site.links.cidxPypi, external: true, icon: 'pypi' },
     ],
     visual: 'cidx',
     href: '/projects/cidx/',
@@ -205,7 +205,7 @@ export const workStudies: Entry[] = [
     ],
     links: [
       { label: 'Case study', href: '/work/printer-recommendations/' },
-      { label: 'Final report', href: site.links.gsocReport, external: true },
+      { label: 'Final report', href: site.links.gsocReport, external: true, icon: 'medium' },
       { label: 'PR #224 · recommendations', href: `${OP}224`, external: true },
       { label: 'PR #230 · assistant', href: `${OP}230`, external: true },
       { label: 'PR #236 · documentation', href: `${OP}236`, external: true },

@@ -1,6 +1,7 @@
 ---
 import type { Entry } from '@/data/site';
 import Visual from '@/components/Visual.astro';
+import BrandIcon from '@/components/BrandIcon.astro';
 
 interface Props { entry: Entry; num: string; }
 const { entry: w, num } = Astro.props;
@@ -25,7 +26,7 @@ const { entry: w, num } = Astro.props;
       {w.links.length > 0 && (
         <p class="links" data-reveal="0.2">
           {w.links.map((l) => (
-            <a class="u" href={l.href} target={l.external ? '_blank' : undefined} rel={l.external ? 'noopener' : undefined}>{l.label}{l.external ? ' ↗' : ' →'}</a>
+            <a class:list={['u', l.icon && 'ico']} href={l.href} target={l.external ? '_blank' : undefined} rel={l.external ? 'noopener' : undefined}>{l.icon && <BrandIcon name={l.icon} />}{l.label}{l.external ? ' ↗' : ' →'}</a>
           ))}
         </p>
       )}
