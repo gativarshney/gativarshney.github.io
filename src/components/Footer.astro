@@ -1,5 +1,6 @@
 ---
 import { site, nav } from '@/data/site';
+import BrandIcon from '@/components/BrandIcon.astro';
 const year = new Date().getFullYear();
 const isHome = Astro.url.pathname === '/';
 ---
@@ -17,10 +18,10 @@ const isHome = Astro.url.pathname === '/';
         </div>
         <div>
           <p class="eyebrow">Elsewhere</p>
-          <a class="u" href={site.links.github} target="_blank" rel="noopener me">GitHub</a>
-          <a class="u" href={site.links.linkedin} target="_blank" rel="noopener me">LinkedIn</a>
-          <a class="u" href={site.links.leetcode} target="_blank" rel="noopener me">LeetCode</a>
-          <a class="u" href={site.links.medium} target="_blank" rel="noopener me">Medium</a>
+          <a class="u ico" href={site.links.github} target="_blank" rel="noopener me"><BrandIcon name="github" />GitHub</a>
+          <a class="u ico" href={site.links.linkedin} target="_blank" rel="noopener me"><BrandIcon name="linkedin" />LinkedIn</a>
+          <a class="u ico" href={site.links.leetcode} target="_blank" rel="noopener me"><BrandIcon name="leetcode" />LeetCode</a>
+          <a class="u ico" href={site.links.medium} target="_blank" rel="noopener me"><BrandIcon name="medium" />Medium</a>
         </div>
         <div>
           <p class="eyebrow">Contact</p>
