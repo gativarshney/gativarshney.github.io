@@ -68,12 +68,12 @@ export const milestones: Entry[] = [
   {
     slug: 'openprinting',
     title: 'OpenPrinting',
-    kicker: 'Open Source Contributor · The Linux Foundation',
+    kicker: 'Open Source Developer · The Linux Foundation',
     period: 'Nov 2025 – Aug 2026',
     status: { label: 'Hall of Fame', tone: 'accent' },
     tags: ['Next.js', 'TypeScript', 'static generation', 'CI'],
     summary:
-      'Where the journey starts. OpenPrinting maintains the printing stack behind every Linux desktop, and its website was being rebuilt from Jekyll into a statically exported Next.js site. I built the author system, migrated 200+ posts, shipped the site’s build-time search with no search server, rebuilt the homepage, and traced a production 404 to a config generated at deploy time.',
+      'Where the journey starts. OpenPrinting maintains the printing stack behind every Linux desktop, and its website was being rebuilt from Jekyll into a statically exported Next.js site. I built the author system, migrated 200+ posts, shipped the site’s build-time search with no search server, rebuilt the homepage, and traced a production 404 to a config generated at deploy time. Over time the project lead began bringing me in for site work and technical review.',
     evidence: [
       { value: '14', label: 'pull requests merged' },
       { value: '200+', label: 'posts migrated' },
@@ -392,5 +392,5 @@ export const recommendations: Recommendation[] = [
 export const record = [
   { k: 'Sep 2026 · International · Remote', v: 'Software Engineer Intern · Quin Que', m: 'Rapilogi · warehouse reception management' },
   { k: 'Summer 2026', v: 'Google Summer of Code · The Linux Foundation', m: 'printer recommendations + NL assistant · completed' },
-  { k: 'Nov 2025 – Aug 2026', v: 'OpenPrinting website contributor', m: '14 pull requests merged · Hall of Fame' },
+  { k: 'Nov 2025 – Aug 2026', v: 'Open Source Developer · OpenPrinting', m: '14 pull requests merged · Hall of Fame' },
 ];
