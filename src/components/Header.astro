@@ -1,5 +1,6 @@
 ---
 import { nav, site } from '@/data/site';
+import BrandIcon from '@/components/BrandIcon.astro';
 const path = Astro.url.pathname;
 ---
 <header class="site-header" data-header transition:persist="header">
@@ -32,7 +33,7 @@ const path = Astro.url.pathname;
       <a href="/#contact" class="display" style={`--i:${nav.length}`}>Contact</a>
       <div class="mrow">
         <a class="btn fill" href={site.links.resume} target="_blank" rel="noopener">Résumé <span class="arr">↗</span></a>
-        <a class="btn" href={site.links.github} target="_blank" rel="noopener">GitHub <span class="arr">↗</span></a>
+        <a class="btn" href={site.links.github} target="_blank" rel="noopener"><BrandIcon name="github" />GitHub <span class="arr">↗</span></a>
       </div>
     </nav>
   </div>
