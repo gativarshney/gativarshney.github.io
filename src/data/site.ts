@@ -146,8 +146,8 @@ export const projects: Entry[] = [
       'Find an open source project that answers newcomers. Contributable indexes the repositories of every Google Summer of Code organisation from 2024 to 2026 and measures how each treats people outside its core team: how fast a person replies to a first pull request, and how often it gets merged. A scheduled job keeps the index fresh; every figure shows its sample and links to the pull requests behind it. No blended score, no AI, no cost to run.',
     evidence: [
       { value: '1,575', label: 'repositories measured' },
-      { value: '1,400+', label: 'visitors in its first week' },
-      { value: '85K+', label: 'impressions on the launch post' },
+      { value: '1,700+', label: 'visitors since launch' },
+      { value: '87K+', label: 'impressions on the launch post' },
     ],
     links: [
       { label: 'Case study', href: '/projects/contributable/' },
