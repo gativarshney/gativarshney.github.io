@@ -620,10 +620,11 @@ function initMenu() {
     btn.setAttribute('aria-expanded', String(open));
     btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     html.classList.toggle('menu-open', open);
-    if (open) lenis?.stop(); else lenis?.start();
+    // the palette may have just opened from inside the menu; it releases Lenis itself when it closes
+    if (open) lenis?.stop(); else if (!html.classList.contains('cmdk-open')) lenis?.start();
   };
   btn.addEventListener('click', () => set(!header.classList.contains('menu-open')));
-  panel.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('a')) set(false); });
+  panel.addEventListener('click', (e) => { const t = e.target as HTMLElement; if (t.closest('a') || t.closest('[data-cmdk-open]')) set(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
   document.addEventListener('astro:before-swap', () => set(false));
   matchMedia('(min-width: 861px)').addEventListener('change', (e) => { if (e.matches) set(false); });

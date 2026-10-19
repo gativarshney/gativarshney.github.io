@@ -196,6 +196,10 @@ html.js [data-anim] { visibility: hidden; animation: anim-fallback 0s 1s forward
 .btn.fill { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 .btn.fill::before { background: var(--accent); }
 .btn.fill:hover { color: var(--accent-ink); border-color: var(--accent); }
+/* the one accent-filled button on the page: the résumé in the header */
+.btn.accent { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.accent::before { background: var(--ink); }
+.btn.accent:hover { color: var(--bg); border-color: var(--ink); }
 .btn.ghost { border-color: transparent; color: var(--ink-2); padding-inline: 12px; }
 .btn.ghost:hover { color: var(--bg); }
 .btn .arr { transition: transform 0.4s var(--ease-out); }
