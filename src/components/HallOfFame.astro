@@ -4,10 +4,12 @@ import { site } from '@/data/site';
 import hof from '@/assets/previews/hall-of-fame.jpg';
 ---
 <div class="hof" data-reveal>
-  <Preview url={site.links.hallOfFame} title="OpenPrinting Hall of Fame, live" live base={1280} ratio="16 / 11" image={hof} alt="The OpenPrinting Hall of Fame page, with the entry for Gati Varshney" />
+  <Preview url={site.links.hallOfFame} title="OpenPrinting Hall of Fame, live" live base={1280} ratio="16 / 10" image={hof} alt="The OpenPrinting Hall of Fame page, with the entry for Gati Varshney" />
 </div>
 
 <style>
+  /* a medium, centred block: a preview of the page, not the page itself */
+  .hof { max-width: 880px; margin: 0 auto; }
   .hof :global(.pbody) { min-height: 420px; }
-  @media (max-width: 860px) { .hof :global(.pbody) { aspect-ratio: 3 / 4 !important; } }
+  @media (max-width: 860px) { .hof { max-width: none; } .hof :global(.pbody) { aspect-ratio: 3 / 4 !important; } }
 </style>
