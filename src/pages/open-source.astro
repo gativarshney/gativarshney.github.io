@@ -128,7 +128,7 @@ import gsocCert from '@/assets/certs/gsoc-2026.jpg';
   .prg > * { min-width: 0; } /* a screenshot in a group must not widen the column on phones */
   .gshot { margin-top: 20px; max-width: 440px; }
   .head .links { margin-top: 22px; }
-  .prs { display: grid; gap: 8px; }
+  .prs { display: grid; gap: 8px; align-content: start; } /* never spread the list to match a taller left column */
   .pr { display: grid; grid-template-columns: auto auto 1fr; gap: 6px 14px; align-items: center; padding: 12px 14px; border: 1px solid var(--hair); border-radius: 10px; background: var(--bg); transition: border-color 0.4s, background-color 0.4s, transform 0.5s var(--ease-out); }
   .pr:hover { border-color: var(--hair-strong); background: var(--bg-2); transform: translateX(4px); }
   .pill { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; border: 1px solid var(--hair); color: var(--ink-2); }
