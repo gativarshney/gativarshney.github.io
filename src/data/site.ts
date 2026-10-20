@@ -247,9 +247,10 @@ export const studies: Entry[] = [...projects, ...workStudies];
 /* OpenPrinting pull requests, grouped by what they built              */
 /* ------------------------------------------------------------------ */
 export type PR = { n: number; title: string; href: string; state: 'merged' | 'open'; repo: 'production' | 'staging' };
-export const prGroups: { area: string; note: string; prs: PR[] }[] = [
+export const prGroups: { area: string; when: string; note: string; prs: PR[]; gsoc?: boolean; link?: { l: string; h: string } }[] = [
   {
     area: 'Author system',
+    when: 'Nov 2025',
     note: 'A reusable AuthorCard component and its integration into every post.',
     prs: [
       { n: 5, title: 'Introduce reusable AuthorCard component', href: `${STAGING}5`, state: 'merged', repo: 'staging' },
@@ -259,6 +260,7 @@ export const prGroups: { area: string; note: string; prs: PR[] }[] = [
   },
   {
     area: 'Content migration',
+    when: 'Dec 2025 – Mar 2026',
     note: '200+ Jekyll posts moved into Next.js with frontmatter, media and legacy URLs preserved.',
     prs: [
       { n: 11, title: 'Migrate all posts from old Jekyll site into Next.js setup', href: `${STAGING}11`, state: 'merged', repo: 'staging' },
@@ -268,6 +270,7 @@ export const prGroups: { area: string; note: string; prs: PR[] }[] = [
   },
   {
     area: 'Site search',
+    when: 'Mar 2026',
     note: 'A build-time AST index queried in-browser by MiniSearch. Live in production, no search server.',
     prs: [
       { n: 18, title: 'Implement build-time indexed client-side search system', href: `${STAGING}18`, state: 'merged', repo: 'staging' },
@@ -276,6 +279,7 @@ export const prGroups: { area: string; note: string; prs: PR[] }[] = [
   },
   {
     area: 'Homepage and theme',
+    when: 'Mar 2026',
     note: 'The rebuilt homepage, author avatars on the front page, light-theme fixes, and the GSoD page.',
     prs: [
       { n: 13, title: 'Make homepage fully functional and align with current OpenPrinting site', href: `${STAGING}13`, state: 'merged', repo: 'staging' },
@@ -287,12 +291,16 @@ export const prGroups: { area: string; note: string; prs: PR[] }[] = [
   },
   {
     area: 'Trailing-slash root cause',
+    when: 'Aug 2026',
     note: 'Production 404s, including RSS links consumed by LWN, traced to a deploy-time action generating a config that overrode the repository’s. Fixed, with a CI check that blocks broken internal URLs.',
     prs: [{ n: 231, title: 'Support trailing-slash URLs (fixes #207)', href: `${OP}231`, state: 'merged', repo: 'production' }],
   },
   {
     area: 'Google Summer of Code 2026',
+    when: 'Aug – Oct 2026',
     note: 'The recommendation pipeline, the natural-language assistant, and their documentation. All four merged by the maintainer on 20 Oct 2026.',
+    gsoc: true,
+    link: { l: 'Case study →', h: '/work/printer-recommendations/' },
     prs: [
       { n: 224, title: 'Printer compatibility recommendations for the Foomatic directory', href: `${OP}224`, state: 'merged', repo: 'production' },
       { n: 230, title: 'Add a site-wide natural-language printer assistant', href: `${OP}230`, state: 'merged', repo: 'production' },
