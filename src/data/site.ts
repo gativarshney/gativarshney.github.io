@@ -247,7 +247,7 @@ export const studies: Entry[] = [...projects, ...workStudies];
 /* OpenPrinting pull requests, grouped by what they built              */
 /* ------------------------------------------------------------------ */
 export type PR = { n: number; title: string; href: string; state: 'merged' | 'open'; repo: 'production' | 'staging' };
-export const prGroups: { area: string; when: string; note: string; prs: PR[]; gsoc?: boolean; link?: { l: string; h: string } }[] = [
+export const prGroups: { area: string; when: string; note: string; prs: PR[]; gsoc?: boolean; link?: { l: string; h: string }; shot?: 'search' | 'home' }[] = [
   {
     area: 'Author system',
     when: 'Nov 2025',
@@ -271,6 +271,7 @@ export const prGroups: { area: string; when: string; note: string; prs: PR[]; gs
   {
     area: 'Site search',
     when: 'Mar 2026',
+    shot: 'search',
     note: 'A build-time AST index queried in-browser by MiniSearch. Live in production, no search server.',
     prs: [
       { n: 18, title: 'Implement build-time indexed client-side search system', href: `${STAGING}18`, state: 'merged', repo: 'staging' },
@@ -280,6 +281,7 @@ export const prGroups: { area: string; when: string; note: string; prs: PR[]; gs
   {
     area: 'Homepage and theme',
     when: 'Mar 2026',
+    shot: 'home',
     note: 'The rebuilt homepage, author avatars on the front page, light-theme fixes, and the GSoD page.',
     prs: [
       { n: 13, title: 'Make homepage fully functional and align with current OpenPrinting site', href: `${STAGING}13`, state: 'merged', repo: 'staging' },

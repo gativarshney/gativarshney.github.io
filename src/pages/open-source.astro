@@ -26,6 +26,7 @@ import gsocCert from '@/assets/certs/gsoc-2026.jpg';
         <p class="display q">“Author system, content migration, site search, and the homepage.”</p>
         <cite class="mono">— <a class="u" href={site.links.hallOfFame} target="_blank" rel="noopener">OpenPrinting Hall of Fame</a></cite>
       </blockquote>
+      <p class="links" data-reveal="0.15"><a class="u" href={site.links.openprintingSite} target="_blank" rel="noopener">openprinting.github.io ↗</a><a class="u" href={site.links.openprintingRepo} target="_blank" rel="noopener">repository ↗</a><a class="u" href={site.links.commits} target="_blank" rel="noopener">my commits ↗</a></p>
     </div>
     <div class="logo-card" data-reveal="0.2" data-tilt="3">
       <div class="bubbles"><Logo src={opLogo} alt="OpenPrinting" tone="op" size={96} /></div>
@@ -34,41 +35,11 @@ import gsocCert from '@/assets/certs/gsoc-2026.jpg';
     </div>
   </section>
 
-  <!-- HALL OF FAME (live embed) --------------------------------------- -->
-  <section class="wrap section">
-    <div class="shead">
-      <div>
-        <p class="eyebrow" data-reveal>01 — Hall of Fame</p>
-        <h2 class="display" data-split-words data-anim>Credited on the<br /><em>site itself.</em></h2>
-      </div>
-      <p data-reveal="0.15">This is the real OpenPrinting Hall of Fame page, embedded live. Scroll inside it to find the entry, or open it in a new tab.</p>
-    </div>
-    <HallOfFame />
-  </section>
-
-  <!-- LIVE SITE ------------------------------------------------------- -->
-  <section class="wrap section two">
-    <div>
-      <p class="eyebrow" data-reveal>02 — Live in production</p>
-      <h2 class="display" data-split-words data-anim>The search, the homepage,<br /><em>the posts.</em></h2>
-      <p class="lede" data-reveal="0.1">All of it is live on the OpenPrinting website. The search in its header runs a build-time index in the browser with no search server. The homepage layout and the author cards on every post are also mine.</p>
-      <p class="links" data-reveal="0.15"><a class="u" href={site.links.openprintingSite} target="_blank" rel="noopener">openprinting.github.io ↗</a><a class="u" href={site.links.openprintingRepo} target="_blank" rel="noopener">repository ↗</a><a class="u" href={site.links.commits} target="_blank" rel="noopener">my commits ↗</a></p>
-      <div class="search-shot" data-reveal="0.2">
-        <Preview url={site.links.openprintingSite} title="The search overlay on openprinting.github.io" image={searchSnap} alt="OpenPrinting search overlay open over the homepage, with OpenPrinting and Foomatic Lookup Site scopes and a Cmd/Ctrl+K shortcut" ratio="16 / 8" label="openprinting.github.io · Cmd/Ctrl + K" />
-        <p class="mono cap">The search overlay: two scopes, keyboard-first, served from a build-time index.</p>
-      </div>
-    </div>
-    <div data-reveal="0.1">
-      <Preview url={site.links.openprintingSite} title="The OpenPrinting homepage" image={homeSnap} alt="The OpenPrinting homepage in its light theme: the OpenPrinting wordmark over a colour-swatch fan, with Learn More and Find a Printer buttons and the Latest News section below" ratio="16 / 9" label="openprinting.github.io · light theme" />
-      <p class="mono cap">The homepage I rebuilt, in its light theme.</p>
-    </div>
-  </section>
-
   <!-- PULL REQUESTS --------------------------------------------------- -->
   <section class="wrap section">
     <div class="shead">
       <div>
-        <p class="eyebrow" data-reveal>03 — Pull requests</p>
+        <p class="eyebrow" data-reveal>01 — Pull requests</p>
         <h2 class="display" data-split-words data-anim>Reviewed, merged,<br /><em>all of it.</em></h2>
       </div>
       <p data-reveal="0.15">18 pull requests merged through maintainer review. The site was rebuilt in a staging repository and promoted to production, so 13 of them were reviewed and merged there and now appear in the production repository’s history under my name; the trailing-slash fix and the four Google Summer of Code pull requests went straight to production.</p>
@@ -86,6 +57,8 @@ import gsocCert from '@/assets/certs/gsoc-2026.jpg';
               </p>
             )}
             <p class="muted">{g.note} {g.link && <a class="u" href={g.link.h}>{g.link.l}</a>}</p>
+            {g.shot === 'search' && (<div class="gshot"><Preview url={site.links.openprintingSite} title="The search overlay on openprinting.github.io" image={searchSnap} alt="OpenPrinting search overlay open over the homepage, with OpenPrinting and Foomatic Lookup Site scopes and a Cmd/Ctrl+K shortcut" ratio="16 / 8" label="openprinting.github.io · Cmd/Ctrl + K" /><p class="mono cap">The search overlay: two scopes, keyboard-first, served from a build-time index.</p></div>)}
+            {g.shot === 'home' && (<div class="gshot"><Preview url={site.links.openprintingSite} title="The OpenPrinting homepage" image={homeSnap} alt="The OpenPrinting homepage in its light theme: the OpenPrinting wordmark over a colour-swatch fan, with Learn More and Find a Printer buttons and the Latest News section below" ratio="16 / 9" label="openprinting.github.io · light theme" /><p class="mono cap">The homepage I rebuilt, in its light theme.</p></div>)}
           </div>
           <ul class="prs">
             {g.prs.map((p) => (
@@ -109,7 +82,7 @@ import gsocCert from '@/assets/certs/gsoc-2026.jpg';
   <section class="wrap section">
     <div class="shead">
       <div>
-        <p class="eyebrow" data-reveal>04 — Certificates</p>
+        <p class="eyebrow" data-reveal>02 — Certificates</p>
         <h2 class="display" data-split-words data-anim>On paper,<br /><em>too.</em></h2>
       </div>
       <p data-reveal="0.15">Click either certificate to view it at full size.</p>
@@ -119,6 +92,18 @@ import gsocCert from '@/assets/certs/gsoc-2026.jpg';
       <Certificate src={wocCert} alt="Winter of Code 5.0 certificate: Gati Varshney, Top 20 Contributor, Google Developer Groups on Campus IIIT Kalyani" title="Winter of Code 5.0 · Top 20 Contributor" meta="GDG on Campus · IIIT Kalyani" verify={site.links.wocVerify} />
     </div>
   </section>
+  <!-- HALL OF FAME (live embed) --------------------------------------- -->
+  <section class="wrap section">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-reveal>03 — Hall of Fame</p>
+        <h2 class="display" data-split-words data-anim>Credited on the<br /><em>site itself.</em></h2>
+      </div>
+      <p data-reveal="0.15">This is the real OpenPrinting Hall of Fame page, embedded live. Scroll inside it to find the entry, or open it in a new tab.</p>
+    </div>
+    <HallOfFame />
+  </section>
+
 </Base>
 
 <style>
@@ -133,18 +118,16 @@ import gsocCert from '@/assets/certs/gsoc-2026.jpg';
   .logo-card p { font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); text-align: center; }
   .logo-card .sub { color: var(--ink-3); margin-top: -8px; }
 
-  .two { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; }
-  .two > * { min-width: 0; }
-  .two h2 { font-size: clamp(36px, 4.4vw, 64px); margin: 18px 0 20px; }
-  .two .lede { max-width: 520px; margin-bottom: 20px; }
   .links { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14.5px; color: var(--ink-2); }
-  .search-shot { margin-top: 28px; }
   .cap { margin-top: 10px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
 
   .prgroups { display: grid; gap: 0; border-top: 1px solid var(--hair); }
   .prg { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 40px; padding: 32px 0; border-bottom: 1px solid var(--hair); }
   .prg h3 { font-size: 20px; font-weight: 500; margin-bottom: 8px; }
   .prg .muted { font-size: 15px; max-width: 420px; }
+  .prg > * { min-width: 0; } /* a screenshot in a group must not widen the column on phones */
+  .gshot { margin-top: 20px; max-width: 440px; }
+  .head .links { margin-top: 22px; }
   .prs { display: grid; gap: 8px; }
   .pr { display: grid; grid-template-columns: auto auto 1fr; gap: 6px 14px; align-items: center; padding: 12px 14px; border: 1px solid var(--hair); border-radius: 10px; background: var(--bg); transition: border-color 0.4s, background-color 0.4s, transform 0.5s var(--ease-out); }
   .pr:hover { border-color: var(--hair-strong); background: var(--bg-2); transform: translateX(4px); }
@@ -163,7 +146,6 @@ import gsocCert from '@/assets/certs/gsoc-2026.jpg';
   .certs { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
   @media (max-width: 1024px) { .head { grid-template-columns: 1fr; } .logo-card { margin-top: 0; width: 240px; } }
   @media (max-width: 860px) {
-    .two { grid-template-columns: 1fr; gap: 28px; }
     .prg { grid-template-columns: 1fr; gap: 16px; }
     .pr { grid-template-columns: auto 1fr; }
     .pr .pt { grid-column: 1 / -1; }
