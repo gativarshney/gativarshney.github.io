@@ -347,7 +347,10 @@ html.cursor-down .cursor-ring { transform: scale(0.85); }
   box-shadow: 0 10px 30px -10px oklch(0% 0 0 / 0.4);
 }
 .strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: clamp(48px, 7vh, 88px); border-top: 1px solid var(--hair); }
-.strip li { padding: 22px 24px 22px 0; border-right: 1px solid var(--hair); display: grid; gap: 4px; }
+.strip li { padding: 22px 24px 22px 0; border-right: 1px solid var(--hair); display: grid; grid-template-columns: auto 1fr; column-gap: 14px; row-gap: 4px; align-items: start; }
+.strip .marks { grid-row: 1 / span 3; display: flex; align-items: center; padding-top: 2px; }
+.strip .marks > * + * { margin-left: -10px; }
+.strip .k, .strip .v, .strip .m { grid-column: 2; }
 .strip li:not(:first-child) { padding-left: 24px; }
 .strip li:last-child { border-right: 0; }
 .strip .k { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }

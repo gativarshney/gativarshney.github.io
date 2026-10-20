@@ -390,7 +390,7 @@ export const recommendations: Recommendation[] = [
 /* Hero strip                                                          */
 /* ------------------------------------------------------------------ */
 export const record = [
-  { k: 'Summer 2026', v: 'Google Summer of Code · The Linux Foundation', m: 'printer recommendations + NL assistant · completed' },
-  { k: 'Sep 2026 · International · Remote', v: 'Software Engineer Intern · Quin Que', m: 'Rapilogi · warehouse reception management' },
-  { k: 'Nov 2025 – Aug 2026', v: 'Open Source Developer · OpenPrinting', m: '14 pull requests merged · Hall of Fame' },
+  { k: 'Summer 2026', v: 'Google Summer of Code · The Linux Foundation', m: 'printer recommendations + NL assistant · completed', logos: ['gsoc', 'lf'] },
+  { k: 'Sep 2026 · International · Remote', v: 'Software Engineer Intern · Quin Que', m: 'Rapilogi · warehouse reception management', logos: ['qq'] },
+  { k: 'Nov 2025 – Aug 2026', v: 'Open Source Developer · OpenPrinting', m: '14 pull requests merged · Hall of Fame', logos: ['op'] },
 ];

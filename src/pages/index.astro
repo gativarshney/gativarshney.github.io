@@ -15,6 +15,13 @@ import pvWriting from '@/assets/previews/page-writing.jpg';
 import pvAbout from '@/assets/previews/page-about.jpg';
 const previews = { work: pvWork, projects: pvProjects, 'open-source': pvOpen, writing: pvWriting, about: pvAbout };
 import { site, milestones, projects, record } from '@/data/site';
+import Logo from '@/components/Logo.astro';
+import gsocMark from '@/assets/logos/gsoc-mark.svg';
+import lfLogo from '@/assets/logos/linuxfoundation.png';
+import qqLogo from '@/assets/logos/quinque.png';
+import opLogo from '@/assets/logos/openprinting.png';
+// organisation marks for the strip under the hero
+const marks = { gsoc: { src: gsocMark, alt: 'Google Summer of Code', tone: 'gsoc' }, lf: { src: lfLogo, alt: 'The Linux Foundation', tone: 'lf' }, qq: { src: qqLogo, alt: 'Quin Que', tone: 'qq' }, op: { src: opLogo, alt: 'OpenPrinting', tone: 'op' } } as const;
 
 const cidx = projects.find((w) => w.slug === 'cidx')!;
 const contributable = projects.find((w) => w.slug === 'contributable')!;
@@ -63,6 +70,7 @@ const jsonLd = {
       <ul class="strip" data-hero-strip>
         {record.map((r) => (
           <li data-anim>
+            <span class="marks">{r.logos.map((id) => <Logo src={marks[id].src} alt={marks[id].alt} tone={marks[id].tone} size={38} />)}</span>
             <span class="k">{r.k}</span>
             <span class="v">{r.v}</span>
             <span class="m">{r.m}</span>
