@@ -245,6 +245,7 @@ const jsonLd = {
   @media (max-width: 860px) {
     .strip { grid-template-columns: 1fr; }
     .strip li { border-right: 0; border-bottom: 1px solid var(--hair); padding-left: 0 !important; }
+    .strip .marks { min-width: 66px; } /* rows are stacked here, so the text should start at the same x whether the row has one logo or two */
     .wrow { grid-template-columns: 1fr; gap: 8px; }
     .wrow .r { text-align: left; }
     .explore a { grid-template-columns: 1fr auto; gap: 6px 16px; padding: 22px 0; }
