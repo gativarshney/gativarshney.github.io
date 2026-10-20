@@ -82,7 +82,7 @@ export const milestones: Entry[] = [
     links: [
       { label: 'Open source', href: '/open-source/' },
       { label: 'Search case study', href: '/work/openprinting-search/' },
-      { label: 'All 14 in production', href: site.links.commits, external: true },
+      { label: 'My commits in production', href: site.links.commits, external: true },
       { label: 'Hall of Fame', href: site.links.hallOfFame, external: true },
     ],
     visual: 'openprinting',
@@ -93,7 +93,7 @@ export const milestones: Entry[] = [
     title: 'Google Summer of Code 2026',
     kicker: 'Contributor · The Linux Foundation',
     period: 'May 25 – Aug 24, 2026',
-    status: { label: 'Completed · under upstream review', tone: 'warn' },
+    status: { label: 'Completed · merged upstream', tone: 'ok' },
     tags: ['engineered similarity pipeline', 'not a trained model', 'build-time', 'natural language'],
     summary:
       'AI-Driven Printer Compatibility & Recommendation Portal. Explainable “what else will work” recommendations across 6,657 printers in the Foomatic database, computed entirely at build time for a static site, plus a deterministic natural-language assistant that reports data gaps instead of inventing capabilities.',
@@ -108,7 +108,8 @@ export const milestones: Entry[] = [
       { label: 'Project page', href: site.links.gsocProject, external: true },
       { label: 'PR #224 · recommendations', href: `${OP}224`, external: true },
       { label: 'PR #230 · assistant', href: `${OP}230`, external: true },
-      { label: 'PR #236 · documentation', href: `${OP}236`, external: true },
+      { label: 'PR #236 · recommendations docs', href: `${OP}236`, external: true },
+      { label: 'PR #249 · assistant docs', href: `${OP}249`, external: true },
     ],
     visual: 'gsoc',
     href: '/work/printer-recommendations/',
@@ -194,7 +195,7 @@ export const workStudies: Entry[] = [
     title: 'Printer recommendations & assistant',
     kicker: 'Google Summer of Code 2026 · The Linux Foundation',
     period: 'May – Aug 2026',
-    status: { label: 'Under upstream review', tone: 'warn' },
+    status: { label: 'Merged upstream · live', tone: 'ok' },
     tags: ['TypeScript', 'Next.js static', 'build-time pipeline'],
     summary:
       'Explainable “what else will work” recommendations across 6,657 printers in OpenPrinting’s Foomatic database, plus a deterministic natural-language assistant. Everything runs at build time; the browser loads a 6 KB shard, not a 24 MB dataset.',
@@ -208,7 +209,8 @@ export const workStudies: Entry[] = [
       { label: 'Final report', href: site.links.gsocReport, external: true, icon: 'medium' },
       { label: 'PR #224 · recommendations', href: `${OP}224`, external: true },
       { label: 'PR #230 · assistant', href: `${OP}230`, external: true },
-      { label: 'PR #236 · documentation', href: `${OP}236`, external: true },
+      { label: 'PR #236 · recommendations docs', href: `${OP}236`, external: true },
+      { label: 'PR #249 · assistant docs', href: `${OP}249`, external: true },
     ],
     visual: 'printers',
     href: '/work/printer-recommendations/',
@@ -290,11 +292,12 @@ export const prGroups: { area: string; note: string; prs: PR[] }[] = [
   },
   {
     area: 'Google Summer of Code 2026',
-    note: 'The recommendation pipeline, the natural-language assistant, and their documentation. Open for upstream review.',
+    note: 'The recommendation pipeline, the natural-language assistant, and their documentation. All four merged by the maintainer on 20 Oct 2026.',
     prs: [
-      { n: 224, title: 'Printer compatibility recommendations for the Foomatic directory', href: `${OP}224`, state: 'open', repo: 'production' },
-      { n: 230, title: 'Add a site-wide natural-language printer assistant', href: `${OP}230`, state: 'open', repo: 'production' },
-      { n: 236, title: 'Document printer compatibility recommendations for the Foomatic directory', href: `${OP}236`, state: 'open', repo: 'production' },
+      { n: 224, title: 'Printer compatibility recommendations for the Foomatic directory', href: `${OP}224`, state: 'merged', repo: 'production' },
+      { n: 230, title: 'Add a site-wide natural-language printer assistant', href: `${OP}230`, state: 'merged', repo: 'production' },
+      { n: 236, title: 'Document printer compatibility recommendations for the Foomatic directory', href: `${OP}236`, state: 'merged', repo: 'production' },
+      { n: 249, title: 'Document the site-wide printer assistant', href: `${OP}249`, state: 'merged', repo: 'production' },
     ],
   },
 ];
@@ -390,7 +393,7 @@ export const recommendations: Recommendation[] = [
 /* Hero strip                                                          */
 /* ------------------------------------------------------------------ */
 export const record = [
-  { k: 'Summer 2026', v: 'Google Summer of Code · The Linux Foundation', m: 'printer recommendations + NL assistant · completed', logos: ['gsoc', 'lf'] },
+  { k: 'Summer 2026', v: 'Google Summer of Code · The Linux Foundation', m: 'printer recommendations + NL assistant · merged upstream', logos: ['gsoc', 'lf'] },
   { k: 'Sep 2026 · International · Remote', v: 'Software Engineer Intern · Quin Que', m: 'Rapilogi · warehouse reception management', logos: ['qq'] },
   { k: 'Nov 2025 – Aug 2026', v: 'Open Source Developer · OpenPrinting', m: '14 pull requests merged · Hall of Fame', logos: ['op'] },
 ];

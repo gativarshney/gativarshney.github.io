@@ -1,7 +1,7 @@
 /**
  * Long-form case-study content. Every number here traces to a linked source.
  * Sources: cidx README, ARCHITECTURE.md, DECISIONS.md, CHANGELOG.md, docs/verification.md;
- * GSoC 2026 final report on Medium; OpenPrinting PRs #224, #230, #236; the Contributable README and source.
+ * GSoC 2026 final report on Medium; OpenPrinting PRs #224, #230, #236, #249; the Contributable README and source.
  */
 export type Row = { claim: string; value: string; context: string; source: { label: string; href: string } };
 export type Block = { title: string; body: string };
@@ -172,9 +172,9 @@ export const caseStudies: Record<string, CaseStudy> = {
       { claim: 'Scores now track evidence', value: '0.078 → 0.851', context: 'correlation between supporting evidence and score', source: { label: 'final report', href: REPORT } },
       { claim: 'Misleading explanation claims', value: '1,470 → 0', context: 'final validation reaches zero false claims', source: { label: 'final report', href: REPORT } },
       { claim: 'Scale', value: '6,657 printers · 463 dimensions', context: 'the full Foomatic printer set and the engineered feature space; 415 dimensions stay active once obsolete drivers are excluded. One shard each, median 3.2 KB', source: { label: 'PR #236 · quality doc', href: `${OP}236` } },
-      { claim: 'Recommendations pull request', value: '+4,013 lines · 34 files', context: '36 commits; open for upstream review', source: { label: 'PR #224', href: `${OP}224` } },
-      { claim: 'Assistant pull request', value: '+11,200 lines · 70 files', context: '50 commits; screen recording in the PR; open for upstream review', source: { label: 'PR #230', href: `${OP}230` } },
-      { claim: 'Documentation', value: '+1,091 lines', context: 'data formats, pipeline architecture, evaluation, regeneration, UI contract', source: { label: 'PR #236', href: `${OP}236` } },
+      { claim: 'Recommendations pull request', value: '+4,013 lines · 34 files', context: '37 commits; merged by the maintainer on 20 Oct 2026', source: { label: 'PR #224', href: `${OP}224` } },
+      { claim: 'Assistant pull request', value: '+5,952 lines · 32 files', context: '58 commits; screen recording in the PR; merged by the maintainer on 20 Oct 2026; live on openprinting.github.io', source: { label: 'PR #230', href: `${OP}230` } },
+      { claim: 'Documentation', value: '+1,091 lines · +177 lines', context: 'recommendations: data formats, pipeline architecture, evaluation, regeneration, UI contract (PR #236); the site-wide assistant (PR #249); both merged on 20 Oct 2026', source: { label: 'PR #236 · PR #249', href: `${OP}236` } },
     ],
     decisions: [
       { title: 'Build time, not request time', body: 'Everything is generated during the site build. No backend, no external API, and no data leaves the static site. This is what makes the feature deployable on GitHub Pages at all, and it is why every printer page loads a few kilobytes instead of the whole dataset.' },
@@ -190,13 +190,11 @@ export const caseStudies: Record<string, CaseStudy> = {
     limitations: [
       'The metrics measure internal consistency and scoring behaviour, not human-labelled recommendation accuracy. Foomatic has no ground-truth replacement dataset to measure against.',
       'Capabilities that Foomatic does not record (duplex, for example) cannot be recommended on; the assistant says so rather than guessing.',
-      'All three pull requests are open for upstream review as of this page’s last verification; the final report and the PRs are the primary sources until they merge.',
     ],
     next: [
-      'Land the upstream review on #224, #230 and #236.',
       'A small hand-labelled set of known replacement pairs, to put a human-judged number next to the internal-consistency ones.',
     ],
-    lastVerified: '2026-09-29',
+    lastVerified: '2026-10-20',
   },
   'openprinting-search': {
     slug: 'openprinting-search',
